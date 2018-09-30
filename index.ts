@@ -1,4 +1,4 @@
-const require = require || () => {return {}}
+const require = require || (() => {return {}});
 /**
  * 
  * Name: @sheetbase/core-server
