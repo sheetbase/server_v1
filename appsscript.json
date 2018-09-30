@@ -1,0 +1,23 @@
+{
+  "timeZone": "Asia/Bangkok",
+  "dependencies": {
+	"libraries": [
+		{
+		  "userSymbol": "Polyfill",
+		  "libraryId": "1YGFR9Mv-chy7B419d-PrTX8a_Cwg2QWJM1g2qpgVzUNXJM1L5-0D77dC",
+		  "version": "1"
+		},
+		{
+		  "userSymbol": "Ejs",
+		  "libraryId": "1_mTEblCaR8CC6epwaMoz8rk-wep3k8TDfWFLBtefvOwke2tH7pZlr4YT",
+		  "version": "1"
+		},
+		{
+		  "userSymbol": "Handlebars",
+		  "libraryId": "1onxq7LQFPM7BgErdOCogyc6_BIqCpnoINv6BqoYrYpNsj7U0ayRulVB2",
+		  "version": "1"
+		}
+	]
+  },
+  "exceptionLogging": "STACKDRIVER"
+}
