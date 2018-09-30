@@ -166,7 +166,7 @@ export function sheetbaseExports(): ISheetbaseModule {
         }
         
         render(file: any, data: any = {}) {
-            const views: string = this.config.get('views') || 'src/views';
+            const views: string = this.config.get('views') || 'views';
             let fileExt: string = (<string[]> file.split('.')).pop();
             fileExt = (this.allowedExtensions.indexOf(fileExt) > -1) ? fileExt: null;
             const viewEngine = fileExt || this.config.get('view engine') || 'gs';
