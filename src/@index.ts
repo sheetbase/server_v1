@@ -2,7 +2,7 @@
  * 
  * Name: @sheetbase/core-server
  * Description: Sheetbase core module for backend app.
- * Version: 0.0.1
+ * Version: 0.0.2
  * Author: Sheetbase
  * Homepage: https://sheetbase.net
  * License: MIT
@@ -12,8 +12,8 @@
  
 import { ISheetbaseModule } from './types/module';
 
-declare const sheetbaseExports: {(): ISheetbaseModule};
-const sheetbase = sheetbaseExports();
+declare const sheetbaseModuleExports: {(): ISheetbaseModule};
+const sheetbase = sheetbaseModuleExports();
 const Sheetbase = sheetbase;
 
 for (const key of Object.keys(sheetbase)) {

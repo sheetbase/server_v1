@@ -19,5 +19,8 @@
 		}
 	]
   },
-  "exceptionLogging": "STACKDRIVER"
+  "exceptionLogging": "STACKDRIVER",
+  "oauthScopes": [
+	"https://www.googleapis.com/auth/script.scriptapp"
+  ]
 }

@@ -1,7 +1,7 @@
 import { ISheetbaseModule } from './types/module';
 
-declare const sheetbaseExports: {(): ISheetbaseModule};
-const sheetbase = sheetbaseExports();
+declare const sheetbaseModuleExports: {(): ISheetbaseModule};
+const sheetbase = sheetbaseModuleExports();
 const Sheetbase = sheetbase;
 
 export { sheetbase, Sheetbase };

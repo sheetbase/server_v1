@@ -1,8 +1,8 @@
 import { IResponse } from './module';
 
 export interface IHttpRequest {
-    queries?: any,
-    params?: any;
+    queries?: IHttpQueries,
+    params?: IHttpQueries;
     body?: any;
     data?: any;
 }
@@ -40,4 +40,14 @@ export interface IHttpNext {
 
 export interface IHttpHandler {
     (req: IHttpRequest, res: IResponse, next?: IHttpNext);
+}
+
+export interface IHttpQueries {
+    // system
+    e?: string;
+    method?: string;
+    body?: string;
+    // ...
+    // custom
+    [key: string]: string;
 }

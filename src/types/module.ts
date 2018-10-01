@@ -1,4 +1,5 @@
-import { IHttpEvent } from './http';
+import { IHttpEvent, IHttpHandler } from './http';
+import { IAppConfigs } from './data';
 
 export interface ISheetbaseModule {
     app: {(configs?: IAppConfigs): IApp};
@@ -37,28 +38,23 @@ export interface IResponse {
 }
 
 export interface IRouter {
-    use: {(...handlers: any[])};
-    all: {(routeName: string, ...handlers: any[])};
-    get: {(routeName: string, ...handlers: any[])};
-    post: {(routeName: string, ...handlers: any[])};
-    put: {(routeName: string, ...handlers: any[])};
-    patch: {(routeName: string, ...handlers: any[])};
-    delete: {(routeName: string, ...handlers: any[])};
-    route?: {(routeName: string, ...handlers: any[])};
+    use: {(...handlers: (string | IHttpHandler)[])};
+    all: {(routeName: string, ...handlers: IHttpHandler[])};
+    get: {(routeName: string, ...handlers: IHttpHandler[])};
+    post: {(routeName: string, ...handlers: IHttpHandler[])};
+    put: {(routeName: string, ...handlers: IHttpHandler[])};
+    patch: {(routeName: string, ...handlers: IHttpHandler[])};
+    delete: {(routeName: string, ...handlers: IHttpHandler[])};
+    route?: {(method: string, routeName: string)};
 }
 
 export interface IApp {
-    use: {(...handlers: any[])};
-    all: {(routeName: string, ...handlers: any[])};
-    get: {(routeName: string, ...handlers: any[])};
-    post: {(routeName: string, ...handlers: any[])};
-    put: {(routeName: string, ...handlers: any[])};
-    patch: {(routeName: string, ...handlers: any[])};
-    delete: {(routeName: string, ...handlers: any[])};
-    set: {(key: string, value: any)};
-}
-
-export interface IAppConfigs {
-    allowMethodsWhenDoGet?: boolean;
-    [key: string]: any;
+    use: {(...handlers: (string | IHttpHandler)[])};
+    all: {(routeName: string, ...handlers: IHttpHandler[])};
+    get: {(routeName: string, ...handlers: IHttpHandler[])};
+    post: {(routeName: string, ...handlers: IHttpHandler[])};
+    put: {(routeName: string, ...handlers: IHttpHandler[])};
+    patch: {(routeName: string, ...handlers: IHttpHandler[])};
+    delete: {(routeName: string, ...handlers: IHttpHandler[])};
+    set: {(dataOrKey: IAppConfigs | string, value?: any)};
 }

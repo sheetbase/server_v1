@@ -3,11 +3,12 @@
 declare const Handlebars/*: IHandlebarsModule*/;
 declare const Ejs/*: IEjsModule*/;
 
-import { ISheetbaseModule, IApp, IResponse, IRouter, IConfig, IAppConfigs } from './types/module';
+import { ISheetbaseModule, IApp, IResponse, IRouter, IConfig } from './types/module';
 import { IHttpRequest, IHttpEvent, IHttpHandler, IHttpError } from './types/http';
+import { IAppConfigs } from './types/data';
 
 
-export function sheetbaseExports(): ISheetbaseModule {
+export function sheetbaseModuleExports(): ISheetbaseModule {
 
     class Config {
         private configs: any = {};
