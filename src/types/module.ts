@@ -1,5 +1,5 @@
 import { IHttpEvent, IHttpHandler } from './http';
-import { IAppConfigs } from './data';
+import { IAppConfigs } from './misc';
 
 export interface ISheetbaseModule {
     app: {(configs?: IAppConfigs): IApp};

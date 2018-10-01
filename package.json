@@ -1,7 +1,7 @@
 {
 	"name": "@sheetbase/core-server",
 	"type": "module",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Sheetbase core module for backend app.",
 	"author": "Sheetbase",
 	"homepage": "https://sheetbase.net",

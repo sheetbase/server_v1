@@ -5,7 +5,7 @@ declare const Ejs/*: IEjsModule*/;
 
 import { ISheetbaseModule, IApp, IResponse, IRouter, IConfig } from './types/module';
 import { IHttpRequest, IHttpEvent, IHttpHandler, IHttpError } from './types/http';
-import { IAppConfigs } from './types/data';
+import { IAppConfigs } from './types/misc';
 
 
 export function sheetbaseModuleExports(): ISheetbaseModule {

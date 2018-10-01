@@ -2,7 +2,7 @@
  * 
  * Name: @sheetbase/core-server
  * Description: Sheetbase core module for backend app.
- * Version: 0.0.2
+ * Version: 0.0.3
  * Author: Sheetbase
  * Homepage: https://sheetbase.net
  * License: MIT

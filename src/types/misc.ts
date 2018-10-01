@@ -1,3 +1,5 @@
+import { IHttpHandler } from './http';
+
 export interface IAppConfigs {
     // system
     allowMethodsWhenDoGet?: boolean;
@@ -10,4 +12,9 @@ export interface IRoutingErrors {
         status?: number;
         message?: string;
     }
+}
+
+export interface IAddonRoutesOptions {
+    customName?: string;
+    middlewares?: IHttpHandler[];
 }
