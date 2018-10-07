@@ -38,9 +38,12 @@ export class Router {
     route(method: string, routeName: string) {
         var notFoundHandler: IHttpHandler = (req, res) => {
             try {                    
-                return res.render('404');
+                return res.render('errors/404');
             } catch (error) {
-                return res.html('<h1>404! Not found.</h1>');
+                return res.html(`
+					<h1>404!</h1>
+					<p>Not found.</p>
+				`);
             }
         };
         let handler = this._routes[method + ':' + routeName] || notFoundHandler;
