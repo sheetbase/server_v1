@@ -35,7 +35,7 @@ export interface IHttpEvent {
 }
 
 export interface IHttpNext {
-    (data?: any): IHttpHandler;
+    <Data> (data?: Data): IHttpHandler;
 }
 
 export interface IHttpHandler {
@@ -43,11 +43,19 @@ export interface IHttpHandler {
 }
 
 export interface IHttpQueries {
-    // system
     e?: string;
     method?: string;
     body?: string;
-    // ...
-    // custom
-    [key: string]: string;
+}
+
+export interface IRoutingErrors {
+    [code: string]: {
+        status?: number;
+        message?: string;
+    }
+}
+
+export interface IAddonRoutesOptions {
+    customName?: string;
+    middlewares?: IHttpHandler[];
 }

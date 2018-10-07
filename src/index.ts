@@ -1,18 +1,36 @@
-import { ISheetbaseModule } from './types/module';
+import { IModule, IApp, IConfigs } from './types/module';
+import { Config } from './config';
+import { Http } from './http';
+import { Request } from './request';
+import { Response } from './response';
+import { Router } from './router';
 
-declare const sheetbaseModuleExports: {(): ISheetbaseModule};
-const sheetbase = sheetbaseModuleExports();
-const Sheetbase = sheetbase;
-
-export { sheetbase, Sheetbase };
-
-export function sheetbase_core_example1() {
-    let configs = Sheetbase.Config.get();
-    Logger.log(configs);
+const config = new Config();
+const router = new Router();
+const request = new Request();
+const response = new Response(config);
+const http = new Http(config, router, response);
+const app = (configs: IConfigs = {}): IApp => {
+    config.set(configs);
+    return {
+        // router
+        use: router.use,
+        all: router.all,
+        get: router.get,
+        post: router.post,
+        put: router.put,
+        patch: router.patch,
+        delete: router.delete,
+        // config
+        set: config.set
+    };
 }
 
-export function sheetbase_core_example2() {
-    Sheetbase.Config.set('a', 456);
-    let configs = Sheetbase.Config.get();
-    Logger.log(configs);
-}
+export const moduleExports: IModule = {
+    app,
+    Config: config,
+    Router: router,
+    Request: request,
+    Response: response,
+    HTTP: http
+};

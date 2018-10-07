@@ -1,15 +1,18 @@
 {
 	"name": "@sheetbase/core-server",
-	"type": "module",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "Sheetbase core module for backend app.",
 	"author": "Sheetbase",
 	"homepage": "https://sheetbase.net",
 	"license": "MIT",
+	"scripts": {
+		"build": "sheetbase-app-scripts build \"Sheetbase\"",
+		"push": "sheetbase-app-scripts push"
+	},
 	"keywords": [
 		"google-apps-script",
-		"sheetbase"
-,		"webapp",
+		"sheetbase",
+		"webapp",
 		"api",
 		"expressjs"
 	],
@@ -21,11 +24,11 @@
 		"url": "https://github.com/sheetbase/module-core-server/issues"
 	},
 	"dependencies": {
-		"@sheetbase/ejs-server": "^2.6.0",
-		"@sheetbase/handlebars-server": "^4.0.11",
-		"@sheetbase/polyfill-server": "^0.35.3"
+		"@sheetbase/ejs-server": "^2.6.0-3",
+		"@sheetbase/handlebars-server": "^4.0.11-3"
 	},
 	"devDependencies": {
+		"@sheetbase/app-scripts": "0.0.5",
 		"@types/google-apps-script": "0.0.28"
 	}
 }
