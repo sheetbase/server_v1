@@ -46,6 +46,7 @@ export interface IHttpQueries {
     e?: string;
     method?: string;
     body?: string;
+	[key: string]: any;
 }
 
 export interface IRoutingErrors {

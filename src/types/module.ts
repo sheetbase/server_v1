@@ -58,12 +58,10 @@ export interface IApp {
     set<Value>(dataOrKey: IConfigs | string, value?: Value);
 }
 
-
-
 export interface IConfigs {
     // system
     allowMethodsWhenDoGet?: boolean;
-    // app (shared)
+    // shared
     apiKey?: string;
     backendUrl?: string;
     databaseId?: string;

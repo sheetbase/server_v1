@@ -329,10 +329,10 @@ function SheetbaseModule() {
         Router.prototype.route = function (method, routeName) {
             var notFoundHandler = function (req, res) {
                 try {
-                    return res.render('404');
+                    return res.render('errors/404');
                 }
                 catch (error) {
-                    return res.html('<h1>404! Not found.</h1>');
+                    return res.html("\n\t\t\t\t\t<h1>404!</h1>\n\t\t\t\t\t<p>Not found.</p>\n\t\t\t\t");
                 }
             };
             var handler = this._routes[method + ':' + routeName] || notFoundHandler;
