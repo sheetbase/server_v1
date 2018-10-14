@@ -1,18 +1,13 @@
-import { IConfig, IRouter, IResponse } from './types/module';
-import { IHttpEvent, IHttpRequest, IHttpHandler } from './types/http';
+import { IModule, IHttpEvent, IRouteRequest, IRouteResponse, IRouteHandler } from '../index';
 
 export class Http {
-    private _Config: IConfig;
-    private _Router: IRouter;
-    private _Response: IResponse;
+    private _Sheetbase: IModule;
     private _allowedMethods: string[] = [
         'GET', 'POST', 'PUT', 'PATCH', 'DELETE'
     ];
 
-    constructor (Config: IConfig, Router: IRouter, Response: IResponse) {
-        this._Config = Config;
-        this._Router = Router;
-        this._Response = Response;
+    constructor (Sheetbase: IModule) {
+        this._Sheetbase = Sheetbase;
     }
 
     get(e: IHttpEvent) {
@@ -27,15 +22,14 @@ export class Http {
         let endpoint: string = (e.parameter || {}).e || '';
         if (endpoint.substr(0,1) !== '/') { endpoint = '/'+ endpoint; }
         // methods
-        const allowMethodsWhenDoGet: boolean = this._Config.get('allowMethodsWhenDoGet');
+        const allowMethodsWhenDoGet: boolean = this._Sheetbase.Option.get('allowMethodsWhenDoGet');
         if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
             method = (<string> (e.parameter || {}).method || 'GET').toUpperCase();
             method = (this._allowedMethods.indexOf(method) > -1) ? method: 'GET';
         }
         // request object
-        let req: IHttpRequest = {
-            queries: e.parameter || {},
-            params: e.parameter || {},
+        let req: IRouteRequest = {
+            query: e.parameter || {},
             body: {},
             data: {}
         };
@@ -49,14 +43,14 @@ export class Http {
             req.body = JSON.parse(e.postData ? e.postData.contents : '{}');
         }
         // response object
-        let res: IResponse = this._Response;
+        let res: IRouteResponse = this._Sheetbase.Response;
         // run handlers
-        let handlers: IHttpHandler[] = this._Router.route(method, endpoint);
+        let handlers: IRouteHandler[] = this._Sheetbase.Router.route(method, endpoint);
         return this._run(handlers, req, res);
     }
 
-    private _run(handlers: IHttpHandler[], req: IHttpRequest, res: IResponse) {
-        let handler: IHttpHandler = handlers.shift();
+    private _run(handlers: IRouteHandler[], req: IRouteRequest, res: IRouteResponse) {
+        let handler: IRouteHandler = handlers.shift();
         if (!handler) {
             throw new Error('Invalid router handler!');
         }

@@ -5,56 +5,47 @@ var module = module || { exports: exports };
  * Name: @sheetbase/core-server
  * Export name: Sheetbase
  * Description: Sheetbase core module for backend app.
- * Version: 0.0.4
+ * Version: 0.0.5
  * Author: Sheetbase
  * Homepage: https://sheetbase.net
  * License: MIT
  * Repo: https://github.com/sheetbase/module-core-server.git
  */
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 
-function SheetbaseModule() {
-    // import { IConfigs } from './types/module';
-    var Config = /** @class */ (function () {
-        function Config() {
-            this._configs = {};
+function SheetbaseModule(options) {
+    // import { IModule, IOptions } from '../index';
+    var App = /** @class */ (function () {
+        function App(Sheetbase, options) {
+            this._Sheetbase = Sheetbase;
+            this._Sheetbase.Option.set(options);
+            // Router
+            this.use = this._Sheetbase.Router.use;
+            this.all = this._Sheetbase.Router.all;
+            this.get = this._Sheetbase.Router.get;
+            this.post = this._Sheetbase.Router.post;
+            this.put = this._Sheetbase.Router.put;
+            this.patch = this._Sheetbase.Router.patch;
+            this["delete"] = this._Sheetbase.Router["delete"];
+            // Option
+            this.set = this._Sheetbase.Option.set;
         }
-        Config.prototype.get = function (key) {
-            if (key === void 0) { key = null; }
-            if (key)
-                return this._configs[key];
-            return this._configs;
-        };
-        Config.prototype.set = function (dataOrKey, value) {
-            if (value === void 0) { value = null; }
-            if (dataOrKey instanceof Object) {
-                var data = dataOrKey;
-                for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
-                    var key = _a[_i];
-                    this._configs[key] = data[key];
-                }
-            }
-            else {
-                var key = dataOrKey;
-                this._configs[key] = value;
-            }
-            // auto generated
-            if (!this._configs['backendUrl']) {
-                this._configs['backendUrl'] = ScriptApp.getService().getUrl();
-            }
-            return this._configs;
-        };
-        return Config;
+        return App;
     }());
-    // import { IConfig, IRouter, IResponse } from './types/module';
-    // import { IHttpEvent, IHttpRequest, IHttpHandler } from './types/http';
+    // import { IModule, IHttpEvent, IRouteRequest, IRouteResponse, IRouteHandler } from '../index';
     var Http = /** @class */ (function () {
-        function Http(Config, Router, Response) {
+        function Http(Sheetbase) {
             this._allowedMethods = [
                 'GET', 'POST', 'PUT', 'PATCH', 'DELETE'
             ];
-            this._Config = Config;
-            this._Router = Router;
-            this._Response = Response;
+            this._Sheetbase = Sheetbase;
         }
         Http.prototype.get = function (e) {
             return this._http(e, 'GET');
@@ -68,15 +59,14 @@ function SheetbaseModule() {
                 endpoint = '/' + endpoint;
             }
             // methods
-            var allowMethodsWhenDoGet = this._Config.get('allowMethodsWhenDoGet');
+            var allowMethodsWhenDoGet = this._Sheetbase.Option.get('allowMethodsWhenDoGet');
             if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
                 method = ((e.parameter || {}).method || 'GET').toUpperCase();
                 method = (this._allowedMethods.indexOf(method) > -1) ? method : 'GET';
             }
             // request object
             var req = {
-                queries: e.parameter || {},
-                params: e.parameter || {},
+                query: e.parameter || {},
                 body: {},
                 data: {}
             };
@@ -92,9 +82,9 @@ function SheetbaseModule() {
                 req.body = JSON.parse(e.postData ? e.postData.contents : '{}');
             }
             // response object
-            var res = this._Response;
+            var res = this._Sheetbase.Response;
             // run handlers
-            var handlers = this._Router.route(method, endpoint);
+            var handlers = this._Sheetbase.Router.route(method, endpoint);
             return this._run(handlers, req, res);
         };
         Http.prototype._run = function (handlers, req, res) {
@@ -121,50 +111,63 @@ function SheetbaseModule() {
         };
         return Http;
     }());
-    // import { IHttpEvent } from './types/http';
+    // import { IOptions } from '../index';
+    var Option = /** @class */ (function () {
+        function Option() {
+            this._options = {};
+        }
+        Option.prototype.get = function (key) {
+            if (key === void 0) { key = null; }
+            if (key) {
+                return this._options[key];
+            }
+            return this._options;
+        };
+        Option.prototype.set = function (dataOrKey, value) {
+            if (value === void 0) { value = null; }
+            if (dataOrKey instanceof Object) {
+                var data = dataOrKey;
+                for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
+                    var key = _a[_i];
+                    this._options[key] = data[key];
+                }
+            }
+            else {
+                var key = dataOrKey;
+                this._options[key] = value;
+            }
+            return this._options;
+        };
+        return Option;
+    }());
+    // import { IHttpEvent } from '../index';
     var Request = /** @class */ (function () {
         function Request() {
         }
-        Request.prototype.queries = function (e) {
+        Request.prototype.query = function (e) {
             if (!e) {
                 throw new Error('No Http event.');
             }
             return (e.parameter || {});
         };
-        Request.prototype.query = function (e, key) {
-            if (key === void 0) { key = null; }
-            var queries = this.queries(e);
-            if (key)
-                return queries[key];
-            return queries;
-        };
-        Request.prototype.params = function (e) {
-            return this.queries(e);
-        };
-        Request.prototype.param = function (e, key) {
-            if (key === void 0) { key = null; }
-            return this.query(e, key);
-        };
-        Request.prototype.body = function (e, key) {
-            if (key === void 0) { key = null; }
+        Request.prototype.body = function (e) {
             if (!e) {
                 throw new Error('No Http event.');
             }
             var body = JSON.parse(e.postData ? e.postData.contents : '{}');
-            if (key)
-                return body[key];
             return body;
         };
         return Request;
     }());
-    var Handlebars = Handlebars || HandlebarsModule();
-    var Ejs = Ejs || EjsModule();
+    // import { Handlebars, HandlebarsModule } from '@sheetbase/handlebars-server';
+    // import { Ejs, EjsModule } from '@sheetbase/ejs-server';
+    // import { IModule, IResponseError } from '../index';
     var Response = /** @class */ (function () {
-        function Response(Config) {
+        function Response(Sheetbase) {
             this._allowedExtensions = [
                 'gs', 'hbs', 'ejs'
             ];
-            this._Config = Config;
+            this._Sheetbase = Sheetbase;
         }
         Response.prototype.send = function (content) {
             if (content instanceof Object)
@@ -177,10 +180,10 @@ function SheetbaseModule() {
         Response.prototype.render = function (template, data, viewEngine) {
             if (data === void 0) { data = {}; }
             if (viewEngine === void 0) { viewEngine = null; }
-            viewEngine = viewEngine || this._Config.get('view engine') || 'gs';
+            viewEngine = (viewEngine || this._Sheetbase.Option.get('view engine') || 'gs');
             if (typeof template === 'string') {
                 var fileName = template;
-                var views = this._Config.get('views');
+                var views = this._Sheetbase.Option.get('views');
                 var fileExt = template.split('.').pop();
                 fileExt = (this._allowedExtensions.indexOf(fileExt) > -1) ? fileExt : null;
                 if (fileExt) {
@@ -205,11 +208,31 @@ function SheetbaseModule() {
                 }
             }
             else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-                var handlebars = Handlebars.compile(templateText);
-                outputHtml = handlebars(data);
+                var handlebars = void 0;
+                if (typeof Handlebars !== 'undefined') {
+                    handlebars = Handlebars;
+                }
+                else if (typeof HandlebarsModule !== 'undefined') {
+                    handlebars = HandlebarsModule();
+                }
+                else {
+                    throw new Error('No Handlebars module, please install @sheetbase/handlebars-server.');
+                }
+                var render = handlebars.compile(templateText);
+                outputHtml = render(data);
             }
             else if (viewEngine === 'ejs') {
-                outputHtml = Ejs.render(templateText, data);
+                var ejs = void 0;
+                if (typeof Ejs !== 'undefined') {
+                    ejs = Ejs;
+                }
+                else if (typeof EjsModule !== 'undefined') {
+                    ejs = EjsModule();
+                }
+                else {
+                    throw new Error('No Ejs module, please install @sheetbase/ejs-server.');
+                }
+                outputHtml = ejs.render(templateText, data);
             }
             else {
                 outputHtml = templateText;
@@ -223,48 +246,37 @@ function SheetbaseModule() {
             return JSONOutput;
         };
         Response.prototype.success = function (data, meta) {
-            if (meta === void 0) { meta = null; }
-            var responseData = data;
-            if (!responseData) {
-                throw new Error('No response data.');
+            if (meta === void 0) { meta = {}; }
+            if (!(data instanceof Object)) {
+                data = { value: data };
             }
-            if (!(responseData instanceof Object)) {
-                responseData = { value: responseData };
-            }
-            if (!responseData.error) {
-                responseData = {
+            else {
+                data = {
                     success: true,
                     status: 200,
-                    data: responseData
+                    data: data,
+                    meta: __assign({ at: (new Date()).getTime() }, meta)
                 };
-                meta = meta || {};
-                if (!(meta instanceof Object))
-                    meta = { value: meta };
-                meta.at = (new Date()).getTime();
-                responseData.meta = meta;
             }
-            return this.json(responseData);
+            return this.json(data);
         };
-        Response.prototype.error = function (code, message, httpCode, data) {
+        Response.prototype.error = function (code, message, httpCode, meta) {
             if (code === void 0) { code = 'app/unknown'; }
             if (message === void 0) { message = 'Something wrong!'; }
             if (httpCode === void 0) { httpCode = 500; }
-            if (data === void 0) { data = {}; }
-            var theError = {
+            if (meta === void 0) { meta = {}; }
+            var error = {
                 error: true,
                 status: httpCode,
-                data: data,
-                meta: {
-                    at: (new Date()).getTime(),
-                    code: code,
-                    message: message
-                }
+                code: code,
+                message: message,
+                meta: __assign({ at: (new Date()).getTime() }, meta)
             };
-            return this.json(theError);
+            return this.json(error);
         };
         return Response;
     }());
-    // import { IHttpHandler } from './types/http';
+    // import { IRouteHandler } from '../index';
     var Router = /** @class */ (function () {
         function Router() {
             this._routes = {};
@@ -386,44 +398,42 @@ function SheetbaseModule() {
         };
         return Router;
     }());
-    // import { IModule, IApp, IConfigs } from './types/module';
-    // import { Config } from './config';
+    // import { IModule, IApp, IOptions } from '../index';
+    // import { App } from './app';
+    // import { Option } from './option';
     // import { Http } from './http';
     // import { Request } from './request';
     // import { Response } from './response';
     // import { Router } from './router';
-    var config = new Config();
-    var router = new Router();
-    var request = new Request();
-    var response = new Response(config);
-    var http = new Http(config, router, response);
-    var app = function (configs) {
-        if (configs === void 0) { configs = {}; }
-        config.set(configs);
-        return {
-            // router
-            use: router.use,
-            all: router.all,
-            get: router.get,
-            post: router.post,
-            put: router.put,
-            patch: router.patch,
-            "delete": router["delete"],
-            // config
-            set: config.set
+    var Sheetbase = /** @class */ (function () {
+        function Sheetbase(options) {
+            this.Option = new Option();
+            this.HTTP = new Http(this);
+            this.Request = new Request();
+            this.Response = new Response(this);
+            this.Router = new Router();
+            this.init(options);
+        }
+        Sheetbase.prototype.init = function (options) {
+            this.Option.set(options);
+            return this;
         };
-    };
-    var moduleExports = {
-        app: app,
-        Config: config,
-        Router: router,
-        Request: request,
-        Response: response,
-        HTTP: http
-    };
+        Sheetbase.prototype.app = function (options) {
+            return new App(this, options);
+        };
+        return Sheetbase;
+    }());
+    var moduleExports = new Sheetbase(options);
     return moduleExports || {};
 }
 exports.SheetbaseModule = SheetbaseModule;
-// add to the global namespace
-var proccess = proccess || this;
-proccess['Sheetbase'] = SheetbaseModule();
+// add 'Sheetbase' to the global namespace
+(function (process) {
+    process['Sheetbase'] = SheetbaseModule();
+})(this);
+// code from global.ts
+(function (process) {
+    // proxy of Sheetbase.app
+    var Sheetbase = process['Sheetbase'];
+    process['sheetbase'] = Sheetbase.app;
+})(this);

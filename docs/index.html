@@ -62,9 +62,9 @@
 			<div class="tsd-panel tsd-typography">
 				<h1 id="sheetbase-module-sheetbase-core-server">Sheetbase Module: @sheetbase/core-server</h1>
 				<p>Sheetbase core module for backend app.</p>
-				<!-- <content> -->
+				<!-- <block:header> -->
 				<p><a href="https://github.com/sheetbase/module-core-server/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="License"></a> <a href="https://github.com/google/clasp"><img src="https://img.shields.io/badge/built%20with-clasp-4285f4.svg" alt="clasp"></a> <a href="https://www.patreon.com/lamnhan"><img src="https://ionicabizau.github.io/badges/patreon.svg" alt="Support me on Patreon"></a> <a href="https://www.paypal.me/lamnhan"><img src="https://ionicabizau.github.io/badges/paypal_donate.svg" alt="PayPal"></a> <a href="https://m.me/sheetbase"><img src="https://img.shields.io/badge/ask/me-anything-1abc9c.svg" alt="Ask me anything"></a></p>
-				<!-- </content> -->
+				<!-- </block:header> -->
 				<h2 id="install">Install</h2>
 				<ul>
 					<li><p>Using npm: <code>npm install --save @sheetbase/core-server</code></p>
@@ -77,32 +77,27 @@
 				<p><code>https://www.googleapis.com/auth/script.scriptapp</code></p>
 				<h2 id="examples">Examples</h2>
 				<pre><code class="language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example1</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">let</span> configs = Sheetbase.Config.get();
-  Logger.log(configs);
-}
-
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">example2</span>(<span class="hljs-params"></span>) </span>{
-  Sheetbase.Config.set(<span class="hljs-string">"a"</span>, <span class="hljs-number">456</span>);
-  <span class="hljs-keyword">let</span> configs = Sheetbase.Config.get();
-  Logger.log(configs);
+  <span class="hljs-keyword">let</span> views = Sheetbase.Option.get(<span class="hljs-string">"views"</span>);
+  Logger.log(views);
 }</code></pre>
 				<h2 id="documentation">Documentation</h2>
 				<p>See the docs: <a href="https://sheetbase.github.io/module-core-server">https://sheetbase.github.io/module-core-server</a></p>
 				<h2 id="api">API</h2>
-				<p>An overview of the API, for detail please refer <a href="https://sheetbase.github.io/module-core-server">the documentation</a></p>
+				<p>An overview of the API, for detail please refer <a href="https://sheetbase.github.io/module-core-server">the documentation</a>.</p>
 				<h3 id="sheetbase">Sheetbase</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IModule {
-  app(configs?: IConfigs): IApp;
-  Config: IConfig;
+  Option: IOption;
   HTTP: IHttp;
   Request: IRequest;
   Response: IResponse;
   Router: IRouter;
+  init(options?: IOptions): IModule;
+  app(options?: IOptions): IApp;
 }</code></pre>
-				<h3 id="sheetbase-config">Sheetbase.Config</h3>
-				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IConfig {
-  <span class="hljs-keyword">get</span>(key?: <span class="hljs-built_in">string</span>);
-  <span class="hljs-keyword">set</span>&lt;Value&gt;(dataOrKey: IConfigs | <span class="hljs-built_in">string</span>, value?: Value);
+				<h3 id="sheetbase-option">Sheetbase.Option</h3>
+				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IOption {
+  <span class="hljs-keyword">get</span>(key?: <span class="hljs-built_in">string</span>): IOptions | <span class="hljs-built_in">any</span>;
+  <span class="hljs-keyword">set</span>(dataOrKey: IOptions | <span class="hljs-built_in">string</span>, value?: <span class="hljs-built_in">any</span>): IOptions;
 }</code></pre>
 				<h3 id="sheetbase-http">Sheetbase.HTTP</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IHttp {
@@ -111,36 +106,33 @@
 }</code></pre>
 				<h3 id="sheetbase-request">Sheetbase.Request</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IRequest {
-  queries(e: IHttpEvent);
-  params(e: IHttpEvent);
-  query(e: IHttpEvent, key?: <span class="hljs-built_in">string</span>);
-  param(e: IHttpEvent, key?: <span class="hljs-built_in">string</span>);
-  body(e: IHttpEvent, key?: <span class="hljs-built_in">string</span>);
+  query(e: IHttpEvent);
+  body(e: IHttpEvent);
 }</code></pre>
 				<h3 id="sheetbase-response">Sheetbase.Response</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IResponse {
-  send&lt;Content&gt;(content: Content);
+  send(content: <span class="hljs-built_in">any</span>);
   html(html: <span class="hljs-built_in">string</span>);
-  render&lt;Data&gt;(file: <span class="hljs-built_in">string</span>, data?: Data, viewEngine?: <span class="hljs-built_in">string</span>);
-  json&lt;Obj&gt;(object: Obj);
-  success&lt;Data, Meta&gt;(data: Data, meta?: Meta);
-  error&lt;Data&gt;(code?: <span class="hljs-built_in">string</span>, message?: <span class="hljs-built_in">string</span>, httpCode?: <span class="hljs-built_in">number</span>, data?: Data);
+  render(file: <span class="hljs-built_in">string</span>, data?: <span class="hljs-built_in">any</span>, viewEngine?: <span class="hljs-built_in">string</span>);
+  json(object: <span class="hljs-built_in">any</span>);
+  success(data: <span class="hljs-built_in">any</span>, meta?: <span class="hljs-built_in">any</span>);
+  error(code?: <span class="hljs-built_in">string</span>, message?: <span class="hljs-built_in">string</span>, httpCode?: <span class="hljs-built_in">number</span>, meta?: <span class="hljs-built_in">any</span>);
 }</code></pre>
 				<h3 id="sheetbase-router">Sheetbase.Router</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> IRouter {
-  use(...handlers: (<span class="hljs-built_in">string</span> | IHttpHandler)[]);
-  all(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  <span class="hljs-keyword">get</span>(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  post(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  put(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  patch(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  <span class="hljs-keyword">delete</span>(routeName: <span class="hljs-built_in">string</span>, ...handlers: IHttpHandler[]);
-  route?(method: <span class="hljs-built_in">string</span>, routeName: <span class="hljs-built_in">string</span>);
+  use(...handlers: (<span class="hljs-built_in">string</span> | IRouteHandler)[]);
+  all(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  <span class="hljs-keyword">get</span>(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  post(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  put(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  patch(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  <span class="hljs-keyword">delete</span>(routeName: <span class="hljs-built_in">string</span>, ...handlers: IRouteHandler[]);
+  route(method: <span class="hljs-built_in">string</span>, routeName: <span class="hljs-built_in">string</span>);
 }</code></pre>
 				<h2 id="license">License</h2>
 				<p><strong>@sheetbase/core-server</strong> is released under the <a href="https://github.com/sheetbase/module-core-server/blob/master/LICENSE">MIT</a> license.</p>
-				<!-- <footer> -->
-				<!-- </footer> -->
+				<!-- <block:footer> -->
+				<!-- </block:footer> -->
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -154,10 +146,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
-						<a href="classes/config.html" class="tsd-kind-icon">Config</a>
+						<a href="classes/app.html" class="tsd-kind-icon">App</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/http.html" class="tsd-kind-icon">Http</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/option.html" class="tsd-kind-icon">Option</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/request.html" class="tsd-kind-icon">Request</a>
@@ -168,6 +163,9 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/router.html" class="tsd-kind-icon">Router</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sheetbase.html" class="tsd-kind-icon">Sheetbase</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iaddonroutesoptions.html" class="tsd-kind-icon">IAddon<wbr>Routes<wbr>Options</a>
 					</li>
@@ -175,37 +173,19 @@
 						<a href="interfaces/iapp.html" class="tsd-kind-icon">IApp</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/iconfig.html" class="tsd-kind-icon">IConfig</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/iconfigs.html" class="tsd-kind-icon">IConfigs</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/ihttp.html" class="tsd-kind-icon">IHttp</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ihttperror.html" class="tsd-kind-icon">IHttp<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/ihttpevent.html" class="tsd-kind-icon">IHttp<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="interfaces/ihttphandler.html" class="tsd-kind-icon">IHttp<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="interfaces/ihttpnext.html" class="tsd-kind-icon">IHttp<wbr>Next</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ihttpqueries.html" class="tsd-kind-icon">IHttp<wbr>Queries</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ihttprequest.html" class="tsd-kind-icon">IHttp<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/ihttpsuccess.html" class="tsd-kind-icon">IHttp<wbr>Success</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="interfaces/imodule.html" class="tsd-kind-icon">IModule</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ioption.html" class="tsd-kind-icon">IOption</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/ioptions.html" class="tsd-kind-icon">IOptions</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/irequest.html" class="tsd-kind-icon">IRequest</a>
@@ -214,19 +194,40 @@
 						<a href="interfaces/iresponse.html" class="tsd-kind-icon">IResponse</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="interfaces/iresponseerror.html" class="tsd-kind-icon">IResponse<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iresponsesuccess.html" class="tsd-kind-icon">IResponse<wbr>Success</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iroutehandler.html" class="tsd-kind-icon">IRoute<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/iroutenext.html" class="tsd-kind-icon">IRoute<wbr>Next</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/iroutequery.html" class="tsd-kind-icon">IRoute<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/irouterequest.html" class="tsd-kind-icon">IRoute<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/irouteresponse.html" class="tsd-kind-icon">IRoute<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/irouter.html" class="tsd-kind-icon">IRouter</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/iroutingerrors.html" class="tsd-kind-icon">IRouting<wbr>Errors</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#sheetbasemodule" class="tsd-kind-icon">Sheetbase<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#moduleexports" class="tsd-kind-icon">module<wbr>Exports</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#example1" class="tsd-kind-icon">example1</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#example2" class="tsd-kind-icon">example2</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="globals.html#moduleexports" class="tsd-kind-icon">module<wbr>Exports</a>
 					</li>
 				</ul>
 			</nav>

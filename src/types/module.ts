@@ -1,17 +1,31 @@
-import { IHttpEvent, IHttpHandler } from './http';
+import { IOptions } from './option';
+import { IHttpEvent } from './http';
+import { IRouteHandler } from './route';
 
 export interface IModule {
-    app(configs?: IConfigs): IApp;
-    Config: IConfig;
+    Option: IOption;
     HTTP: IHttp;
     Request: IRequest;
     Response: IResponse;
     Router: IRouter;
+    init(options?: IOptions): IModule;
+    app(options?: IOptions): IApp;
 }
 
-export interface IConfig {
-    get(key?: string);
-    set<Value>(dataOrKey: IConfigs | string, value?: Value);
+export interface IApp {
+    use(...handlers: (string | IRouteHandler)[]);
+    all(routeName: string, ...handlers: IRouteHandler[]);
+    get(routeName: string, ...handlers: IRouteHandler[]);
+    post(routeName: string, ...handlers: IRouteHandler[]);
+    put(routeName: string, ...handlers: IRouteHandler[]);
+    patch(routeName: string, ...handlers: IRouteHandler[]);
+    delete(routeName: string, ...handlers: IRouteHandler[]);
+    set(dataOrKey: IOptions | string, value?: any): IOptions;
+}
+
+export interface IOption {
+    get(key?: string): IOptions | any;
+    set(dataOrKey: IOptions | string, value?: any): IOptions;
 }
 
 export interface IHttp {
@@ -20,51 +34,26 @@ export interface IHttp {
 }
 
 export interface IRequest {
-    queries(e: IHttpEvent);
-    params(e: IHttpEvent);
-    query(e: IHttpEvent, key?: string);
-    param(e: IHttpEvent, key?: string);
-    body(e: IHttpEvent, key?: string);
+    query(e: IHttpEvent);
+    body(e: IHttpEvent);
 }
 
 export interface IResponse {
-    send<Content>(content: Content);
+    send(content: any);
     html(html: string);
-    render<Data>(file: string, data?: Data, viewEngine?: string);
-    json<Obj>(object: Obj);
-    success<Data, Meta>(data: Data, meta?: Meta);
-    error<Data>(code?: string, message?: string, httpCode?: number, data?: Data);
+    render(file: string, data?: any, viewEngine?: string);
+    json(object: any);
+    success(data: any, meta?: any);
+    error(code?: string, message?: string, httpCode?: number, meta?: any);
 }
 
 export interface IRouter {
-    use(...handlers: (string | IHttpHandler)[]);
-    all(routeName: string, ...handlers: IHttpHandler[]);
-    get(routeName: string, ...handlers: IHttpHandler[]);
-    post(routeName: string, ...handlers: IHttpHandler[]);
-    put(routeName: string, ...handlers: IHttpHandler[]);
-    patch(routeName: string, ...handlers: IHttpHandler[]);
-    delete(routeName: string, ...handlers: IHttpHandler[]);
-    route?(method: string, routeName: string);
-}
-
-export interface IApp {
-    use(...handlers: (string | IHttpHandler)[]);
-    all(routeName: string, ...handlers: IHttpHandler[]);
-    get(routeName: string, ...handlers: IHttpHandler[]);
-    post(routeName: string, ...handlers: IHttpHandler[]);
-    put(routeName: string, ...handlers: IHttpHandler[]);
-    patch(routeName: string, ...handlers: IHttpHandler[]);
-    delete(routeName: string, ...handlers: IHttpHandler[]);
-    set<Value>(dataOrKey: IConfigs | string, value?: Value);
-}
-
-export interface IConfigs {
-    // system
-    allowMethodsWhenDoGet?: boolean;
-    // shared
-    apiKey?: string;
-    backendUrl?: string;
-    databaseId?: string;
-    encryptionKey?: string;
-    authUrl?: string;
+    use(...handlers: (string | IRouteHandler)[]);
+    all(routeName: string, ...handlers: IRouteHandler[]);
+    get(routeName: string, ...handlers: IRouteHandler[]);
+    post(routeName: string, ...handlers: IRouteHandler[]);
+    put(routeName: string, ...handlers: IRouteHandler[]);
+    patch(routeName: string, ...handlers: IRouteHandler[]);
+    delete(routeName: string, ...handlers: IRouteHandler[]);
+    route(method: string, routeName: string);
 }

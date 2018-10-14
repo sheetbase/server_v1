@@ -1,6 +1,19 @@
 {
   "timeZone": "Asia/Bangkok",
-  "dependencies": {},
+  "dependencies": {
+	"libraries": [
+		{
+		  "userSymbol": "Ejs",
+		  "libraryId": "1_mTEblCaR8CC6epwaMoz8rk-wep3k8TDfWFLBtefvOwke2tH7pZlr4YT",
+		  "version": "5"
+		},
+		{
+		  "userSymbol": "Handlebars",
+		  "libraryId": "1onxq7LQFPM7BgErdOCogyc6_BIqCpnoINv6BqoYrYpNsj7U0ayRulVB2",
+		  "version": "5"
+		}
+		]
+  },
   "exceptionLogging": "STACKDRIVER",
   "oauthScopes": [
 	"https://www.googleapis.com/auth/script.scriptapp"

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IHttpSuccess | @sheetbase/core-server</title>
+	<title>IRouteHandler | @sheetbase/core-server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="ihttpsuccess.html">IHttpSuccess</a>
+					<a href="iroutehandler.html">IRouteHandler</a>
 				</li>
 			</ul>
-			<h1>Interface IHttpSuccess</h1>
+			<h1>Interface IRouteHandler</h1>
 		</div>
 	</div>
 </header>
@@ -66,76 +66,37 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IHttpSuccess</span>
+						<span class="target">IRouteHandler</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel-group tsd-index-group">
-				<h2>Index</h2>
-				<section class="tsd-panel tsd-index-panel">
-					<div class="tsd-index-content">
-						<section class="tsd-index-section ">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ihttpsuccess.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ihttpsuccess.html#meta" class="tsd-kind-icon">meta</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ihttpsuccess.html#status" class="tsd-kind-icon">status</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ihttpsuccess.html#success" class="tsd-kind-icon">success</a></li>
+			<section class="tsd-panel">
+				<h3 class="tsd-before-signature">Callable</h3>
+				<ul class="tsd-signatures tsd-kind-interface">
+					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="irouterequest.html" class="tsd-signature-type">IRouteRequest</a>, res<span class="tsd-signature-symbol">: </span><a href="irouteresponse.html" class="tsd-signature-type">IRouteResponse</a>, next<span class="tsd-signature-symbol">?: </span><a href="iroutenext.html" class="tsd-signature-type">IRouteNext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/types/route.ts#L43">types/route.ts:43</a></li>
 							</ul>
-						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="data" class="tsd-anchor"></a>
-					<h3>data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/8301043/src/types/http.ts#L25">types/http.ts:25</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="meta" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> meta</h3>
-					<div class="tsd-signature tsd-kind-icon">meta<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/8301043/src/types/http.ts#L26">types/http.ts:26</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
-							<li class="tsd-parameter-index-signature">
-								<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+							<li>
+								<h5>req: <a href="irouterequest.html" class="tsd-signature-type">IRouteRequest</a></h5>
+							</li>
+							<li>
+								<h5>res: <a href="irouteresponse.html" class="tsd-signature-type">IRouteResponse</a></h5>
+							</li>
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> next: <a href="iroutenext.html" class="tsd-signature-type">IRouteNext</a></h5>
 							</li>
 						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="status" class="tsd-anchor"></a>
-					<h3>status</h3>
-					<div class="tsd-signature tsd-kind-icon">status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/8301043/src/types/http.ts#L24">types/http.ts:24</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3>success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/8301043/src/types/http.ts#L23">types/http.ts:23</a></li>
-						</ul>
-					</aside>
-				</section>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+					</li>
+				</ul>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -149,10 +110,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class">
-						<a href="../classes/config.html" class="tsd-kind-icon">Config</a>
+						<a href="../classes/app.html" class="tsd-kind-icon">App</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/http.html" class="tsd-kind-icon">Http</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/option.html" class="tsd-kind-icon">Option</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="../classes/request.html" class="tsd-kind-icon">Request</a>
@@ -163,6 +127,9 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/router.html" class="tsd-kind-icon">Router</a>
 					</li>
+					<li class=" tsd-kind-class">
+						<a href="../classes/sheetbase.html" class="tsd-kind-icon">Sheetbase</a>
+					</li>
 					<li class=" tsd-kind-interface">
 						<a href="iaddonroutesoptions.html" class="tsd-kind-icon">IAddon<wbr>Routes<wbr>Options</a>
 					</li>
@@ -170,55 +137,19 @@
 						<a href="iapp.html" class="tsd-kind-icon">IApp</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="iconfig.html" class="tsd-kind-icon">IConfig</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="iconfigs.html" class="tsd-kind-icon">IConfigs</a>
-					</li>
-					<li class=" tsd-kind-interface">
 						<a href="ihttp.html" class="tsd-kind-icon">IHttp</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="ihttperror.html" class="tsd-kind-icon">IHttp<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="ihttpevent.html" class="tsd-kind-icon">IHttp<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
-						<a href="ihttphandler.html" class="tsd-kind-icon">IHttp<wbr>Handler</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="ihttpnext.html" class="tsd-kind-icon">IHttp<wbr>Next</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="ihttpqueries.html" class="tsd-kind-icon">IHttp<wbr>Queries</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="ihttprequest.html" class="tsd-kind-icon">IHttp<wbr>Request</a>
-					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="ihttpsuccess.html" class="tsd-kind-icon">IHttp<wbr>Success</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ihttpsuccess.html#data" class="tsd-kind-icon">data</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ihttpsuccess.html#meta" class="tsd-kind-icon">meta</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ihttpsuccess.html#status" class="tsd-kind-icon">status</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ihttpsuccess.html#success" class="tsd-kind-icon">success</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
-					<li class=" tsd-kind-interface">
 						<a href="imodule.html" class="tsd-kind-icon">IModule</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ioption.html" class="tsd-kind-icon">IOption</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="ioptions.html" class="tsd-kind-icon">IOptions</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="irequest.html" class="tsd-kind-icon">IRequest</a>
@@ -227,19 +158,44 @@
 						<a href="iresponse.html" class="tsd-kind-icon">IResponse</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="iresponseerror.html" class="tsd-kind-icon">IResponse<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="iresponsesuccess.html" class="tsd-kind-icon">IResponse<wbr>Success</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="iroutehandler.html" class="tsd-kind-icon">IRoute<wbr>Handler</a>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="iroutenext.html" class="tsd-kind-icon">IRoute<wbr>Next</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="iroutequery.html" class="tsd-kind-icon">IRoute<wbr>Query</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="irouterequest.html" class="tsd-kind-icon">IRoute<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="irouteresponse.html" class="tsd-kind-icon">IRoute<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="irouter.html" class="tsd-kind-icon">IRouter</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="iroutingerrors.html" class="tsd-kind-icon">IRouting<wbr>Errors</a>
 					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#sheetbasemodule" class="tsd-kind-icon">Sheetbase<wbr>Module</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="../globals.html#moduleexports" class="tsd-kind-icon">module<wbr>Exports</a>
+					</li>
 					<li class=" tsd-kind-function">
 						<a href="../globals.html#example1" class="tsd-kind-icon">example1</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../globals.html#example2" class="tsd-kind-icon">example2</a>
-					</li>
-					<li class=" tsd-kind-object-literal">
-						<a href="../globals.html#moduleexports" class="tsd-kind-icon">module<wbr>Exports</a>
 					</li>
 				</ul>
 			</nav>

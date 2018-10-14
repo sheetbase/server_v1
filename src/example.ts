@@ -1,14 +1,10 @@
-import { IModule } from './types/module';
-declare const SheetbaseModule: {(): IModule};
-var Sheetbase = Sheetbase || SheetbaseModule();
+import { SheetbaseModule } from '../index';
+
+const Sheetbase = SheetbaseModule({
+    views: 'path/to/views'
+});
 
 export function example1() {
-    let configs = Sheetbase.Config.get();
-    Logger.log(configs);
-}
-
-export function example2() {
-    Sheetbase.Config.set('a', 456);
-    let configs = Sheetbase.Config.get();
-    Logger.log(configs);
+    let views = Sheetbase.Option.get('views');
+    Logger.log(views);
 }

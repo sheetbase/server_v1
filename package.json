@@ -1,16 +1,14 @@
 {
 	"name": "@sheetbase/core-server",
-	"type": "module",
-	"exportName": "Sheetbase",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Sheetbase core module for backend app.",
 	"author": "Sheetbase",
 	"homepage": "https://sheetbase.net",
 	"license": "MIT",
 	"scripts": {
-		"build:code": "sheetbase-app-scripts build",
+		"build:code": "sheetbase-app-scripts build --param options",
 		"build:readme": "sheetbase-app-scripts readme",
-		"build:docs": "typedoc ./src --out ./docs --mode file --target ES6 --excludeExternals --excludeNotExported",
+		"build:docs": "typedoc ./src --out ./docs --mode file --target ES6 --excludeExternals --excludeNotExported --ignoreCompilerErrors",
 		"build": "npm run build:code && npm run build:readme && npm run build:docs",
 		"push": "sheetbase-app-scripts push"
 	},
@@ -28,12 +26,9 @@
 	"bugs": {
 		"url": "https://github.com/sheetbase/module-core-server/issues"
 	},
-	"dependencies": {
-		"@sheetbase/ejs-server": "^2.6.0-3",
-		"@sheetbase/handlebars-server": "^4.0.11-3"
-	},
+	"dependencies": {},
 	"devDependencies": {
-		"@sheetbase/app-scripts": "0.0.7",
+		"@sheetbase/app-scripts": "0.0.14",
 		"@types/google-apps-script": "0.0.28"
 	}
 }

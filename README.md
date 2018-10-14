@@ -2,11 +2,11 @@
 
 Sheetbase core module for backend app.
 
-<!-- <content> -->
+<!-- <block:header> -->
 
 [![License][license_badge]][license_url] [![clasp][clasp_badge]][clasp_url] [![Support me on Patreon][patreon_badge]][patreon_url] [![PayPal][paypal_donate_badge]][paypal_donate_url] [![Ask me anything][ask_me_badge]][ask_me_url]
 
-<!-- </content> -->
+<!-- </block:header> -->
 
 ## Install
 
@@ -24,14 +24,8 @@ Sheetbase core module for backend app.
 
 ```ts
 function example1() {
-  let configs = Sheetbase.Config.get();
-  Logger.log(configs);
-}
-
-function example2() {
-  Sheetbase.Config.set("a", 456);
-  let configs = Sheetbase.Config.get();
-  Logger.log(configs);
+  let views = Sheetbase.Option.get("views");
+  Logger.log(views);
 }
 ```
 
@@ -41,27 +35,28 @@ See the docs: https://sheetbase.github.io/module-core-server
 
 ## API
 
-An overview of the API, for detail please refer [the documentation](https://sheetbase.github.io/module-core-server)
+An overview of the API, for detail please refer [the documentation](https://sheetbase.github.io/module-core-server).
 
 ### Sheetbase
 
 ```ts
 export interface IModule {
-  app(configs?: IConfigs): IApp;
-  Config: IConfig;
+  Option: IOption;
   HTTP: IHttp;
   Request: IRequest;
   Response: IResponse;
   Router: IRouter;
+  init(options?: IOptions): IModule;
+  app(options?: IOptions): IApp;
 }
 ```
 
-### Sheetbase.Config
+### Sheetbase.Option
 
 ```ts
-export interface IConfig {
-  get(key?: string);
-  set<Value>(dataOrKey: IConfigs | string, value?: Value);
+export interface IOption {
+  get(key?: string): IOptions | any;
+  set(dataOrKey: IOptions | string, value?: any): IOptions;
 }
 ```
 
@@ -78,11 +73,8 @@ export interface IHttp {
 
 ```ts
 export interface IRequest {
-  queries(e: IHttpEvent);
-  params(e: IHttpEvent);
-  query(e: IHttpEvent, key?: string);
-  param(e: IHttpEvent, key?: string);
-  body(e: IHttpEvent, key?: string);
+  query(e: IHttpEvent);
+  body(e: IHttpEvent);
 }
 ```
 
@@ -90,12 +82,12 @@ export interface IRequest {
 
 ```ts
 export interface IResponse {
-  send<Content>(content: Content);
+  send(content: any);
   html(html: string);
-  render<Data>(file: string, data?: Data, viewEngine?: string);
-  json<Obj>(object: Obj);
-  success<Data, Meta>(data: Data, meta?: Meta);
-  error<Data>(code?: string, message?: string, httpCode?: number, data?: Data);
+  render(file: string, data?: any, viewEngine?: string);
+  json(object: any);
+  success(data: any, meta?: any);
+  error(code?: string, message?: string, httpCode?: number, meta?: any);
 }
 ```
 
@@ -103,14 +95,14 @@ export interface IResponse {
 
 ```ts
 export interface IRouter {
-  use(...handlers: (string | IHttpHandler)[]);
-  all(routeName: string, ...handlers: IHttpHandler[]);
-  get(routeName: string, ...handlers: IHttpHandler[]);
-  post(routeName: string, ...handlers: IHttpHandler[]);
-  put(routeName: string, ...handlers: IHttpHandler[]);
-  patch(routeName: string, ...handlers: IHttpHandler[]);
-  delete(routeName: string, ...handlers: IHttpHandler[]);
-  route?(method: string, routeName: string);
+  use(...handlers: (string | IRouteHandler)[]);
+  all(routeName: string, ...handlers: IRouteHandler[]);
+  get(routeName: string, ...handlers: IRouteHandler[]);
+  post(routeName: string, ...handlers: IRouteHandler[]);
+  put(routeName: string, ...handlers: IRouteHandler[]);
+  patch(routeName: string, ...handlers: IRouteHandler[]);
+  delete(routeName: string, ...handlers: IRouteHandler[]);
+  route(method: string, routeName: string);
 }
 ```
 
@@ -118,7 +110,7 @@ export interface IRouter {
 
 **@sheetbase/core-server** is released under the [MIT](https://github.com/sheetbase/module-core-server/blob/master/LICENSE) license.
 
-<!-- <footer> -->
+<!-- <block:footer> -->
 
 [license_badge]: https://img.shields.io/github/license/mashape/apistatus.svg
 [license_url]: https://github.com/sheetbase/module-core-server/blob/master/LICENSE
@@ -131,4 +123,4 @@ export interface IRouter {
 [ask_me_badge]: https://img.shields.io/badge/ask/me-anything-1abc9c.svg
 [ask_me_url]: https://m.me/sheetbase
 
-<!-- </footer> -->
+<!-- </block:footer> -->

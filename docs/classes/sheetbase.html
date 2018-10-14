@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Http | @sheetbase/core-server</title>
+	<title>Sheetbase | @sheetbase/core-server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="http.html">Http</a>
+					<a href="sheetbase.html">Sheetbase</a>
 				</li>
 			</ul>
-			<h1>Class Http</h1>
+			<h1>Class Sheetbase</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Http</span>
+						<span class="target">Sheetbase</span>
 					</li>
 				</ul>
 			</section>
@@ -77,23 +77,24 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="http.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="sheetbase.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="http.html#_sheetbase" class="tsd-kind-icon">_<wbr>Sheetbase</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="http.html#_allowedmethods" class="tsd-kind-icon">_allowed<wbr>Methods</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sheetbase.html#http" class="tsd-kind-icon">HTTP</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sheetbase.html#option" class="tsd-kind-icon">Option</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sheetbase.html#request" class="tsd-kind-icon">Request</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sheetbase.html#response" class="tsd-kind-icon">Response</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="sheetbase.html#router" class="tsd-kind-icon">Router</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="http.html#_http" class="tsd-kind-icon">_http</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="http.html#_run" class="tsd-kind-icon">_run</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="http.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="http.html#post" class="tsd-kind-icon">post</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sheetbase.html#app" class="tsd-kind-icon">app</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="sheetbase.html#init" class="tsd-kind-icon">init</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,149 +106,124 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Http<span class="tsd-signature-symbol">(</span>Sheetbase<span class="tsd-signature-symbol">: </span><a href="../interfaces/imodule.html" class="tsd-signature-type">IModule</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="http.html" class="tsd-signature-type">Http</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Sheetbase<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sheetbase.html" class="tsd-signature-type">Sheetbase</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L7">http.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L15">sheetbase.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>Sheetbase: <a href="../interfaces/imodule.html" class="tsd-signature-type">IModule</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="http.html" class="tsd-signature-type">Http</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="sheetbase.html" class="tsd-signature-type">Sheetbase</a></h4>
 						</li>
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_sheetbase" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _<wbr>Sheetbase</h3>
-					<div class="tsd-signature tsd-kind-icon">_<wbr>Sheetbase<span class="tsd-signature-symbol">:</span> <a href="../interfaces/imodule.html" class="tsd-signature-type">IModule</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="http" class="tsd-anchor"></a>
+					<h3>HTTP</h3>
+					<div class="tsd-signature tsd-kind-icon">HTTP<span class="tsd-signature-symbol">:</span> <a href="http.html" class="tsd-signature-type">Http</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L4">http.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L12">sheetbase.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="_allowedmethods" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _allowed<wbr>Methods</h3>
-					<div class="tsd-signature tsd-kind-icon">_allowed<wbr>Methods<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;GET&#x27;, &#x27;POST&#x27;, &#x27;PUT&#x27;, &#x27;PATCH&#x27;, &#x27;DELETE&#x27;]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="option" class="tsd-anchor"></a>
+					<h3>Option</h3>
+					<div class="tsd-signature tsd-kind-icon">Option<span class="tsd-signature-symbol">:</span> <a href="option.html" class="tsd-signature-type">Option</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L5">http.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L11">sheetbase.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="request" class="tsd-anchor"></a>
+					<h3>Request</h3>
+					<div class="tsd-signature tsd-kind-icon">Request<span class="tsd-signature-symbol">:</span> <a href="request.html" class="tsd-signature-type">Request</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L13">sheetbase.ts:13</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="response" class="tsd-anchor"></a>
+					<h3>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Response<span class="tsd-signature-symbol">:</span> <a href="response.html" class="tsd-signature-type">Response</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L14">sheetbase.ts:14</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="router" class="tsd-anchor"></a>
+					<h3>Router</h3>
+					<div class="tsd-signature tsd-kind-icon">Router<span class="tsd-signature-symbol">:</span> <a href="router.html" class="tsd-signature-type">Router</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L15">sheetbase.ts:15</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_http" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _http</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_http<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a>, method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="app" class="tsd-anchor"></a>
+					<h3>app</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">app<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/iapp.html" class="tsd-signature-type">IApp</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L21">http.ts:21</a></li>
+									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L32">sheetbase.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a></h5>
-								</li>
-								<li>
-									<h5>method: <span class="tsd-signature-type">string</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="_run" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> _run</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">_run<span class="tsd-signature-symbol">(</span>handlers<span class="tsd-signature-symbol">: </span><a href="../interfaces/iroutehandler.html" class="tsd-signature-type">IRouteHandler</a><span class="tsd-signature-symbol">[]</span>, req<span class="tsd-signature-symbol">: </span><a href="../interfaces/irouterequest.html" class="tsd-signature-type">IRouteRequest</a>, res<span class="tsd-signature-symbol">: </span><a href="../interfaces/irouteresponse.html" class="tsd-signature-type">IRouteResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L52">http.ts:52</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>handlers: <a href="../interfaces/iroutehandler.html" class="tsd-signature-type">IRouteHandler</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>req: <a href="../interfaces/irouterequest.html" class="tsd-signature-type">IRouteRequest</a></h5>
-								</li>
-								<li>
-									<h5>res: <a href="../interfaces/irouteresponse.html" class="tsd-signature-type">IRouteResponse</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/iapp.html" class="tsd-signature-type">IApp</a></h4>
 						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="get" class="tsd-anchor"></a>
-					<h3>get</h3>
+					<a name="init" class="tsd-anchor"></a>
+					<h3>init</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">init<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/imodule.html" class="tsd-signature-type">IModule</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L13">http.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/sheetbase.ts#L27">sheetbase.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="../interfaces/ioptions.html" class="tsd-signature-type">IOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="post" class="tsd-anchor"></a>
-					<h3>post</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">post<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/Sheetbase/module-core-server/blob/17f1279/src/http.ts#L17">http.ts:17</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>e: <a href="../interfaces/ihttpevent.html" class="tsd-signature-type">IHttpEvent</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/imodule.html" class="tsd-signature-type">IModule</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -266,36 +242,9 @@
 					<li class=" tsd-kind-class">
 						<a href="app.html" class="tsd-kind-icon">App</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
+					<li class=" tsd-kind-class">
 						<a href="http.html" class="tsd-kind-icon">Http</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="http.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="http.html#_sheetbase" class="tsd-kind-icon">_<wbr>Sheetbase</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="http.html#_allowedmethods" class="tsd-kind-icon">_allowed<wbr>Methods</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="http.html#_http" class="tsd-kind-icon">_http</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="http.html#_run" class="tsd-kind-icon">_run</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="http.html#get" class="tsd-kind-icon">get</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="http.html#post" class="tsd-kind-icon">post</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="option.html" class="tsd-kind-icon">Option</a>
 					</li>
@@ -308,9 +257,39 @@
 					<li class=" tsd-kind-class">
 						<a href="router.html" class="tsd-kind-icon">Router</a>
 					</li>
-					<li class=" tsd-kind-class">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
 						<a href="sheetbase.html" class="tsd-kind-icon">Sheetbase</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="sheetbase.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sheetbase.html#http" class="tsd-kind-icon">HTTP</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sheetbase.html#option" class="tsd-kind-icon">Option</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sheetbase.html#request" class="tsd-kind-icon">Request</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sheetbase.html#response" class="tsd-kind-icon">Response</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="sheetbase.html#router" class="tsd-kind-icon">Router</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sheetbase.html#app" class="tsd-kind-icon">app</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="sheetbase.html#init" class="tsd-kind-icon">init</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/iaddonroutesoptions.html" class="tsd-kind-icon">IAddon<wbr>Routes<wbr>Options</a>
 					</li>

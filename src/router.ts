@@ -1,11 +1,11 @@
-import { IHttpHandler } from './types/http';
+import { IRouteHandler } from '../index';
 
 export class Router {
     private _routes = {};
     private _sharedMiddlewares = [];
     private _routeMiddlewares = {};
 
-    constructor () { }
+    constructor () {}
 
     use(...handlers: any[]) {
         if (!!handlers[0] && handlers[0] instanceof Function) {
@@ -36,7 +36,7 @@ export class Router {
     }        
 
     route(method: string, routeName: string) {
-        var notFoundHandler: IHttpHandler = (req, res) => {
+        var notFoundHandler: IRouteHandler = (req, res) => {
             try {                    
                 return res.render('errors/404');
             } catch (error) {

@@ -1,36 +1,7 @@
-import { IModule, IApp, IConfigs } from './types/module';
-import { Config } from './config';
-import { Http } from './http';
-import { Request } from './request';
-import { Response } from './response';
-import { Router } from './router';
+import { IModule, IOptions } from '../index';
+import { Sheetbase } from './sheetbase';
 
-const config = new Config();
-const router = new Router();
-const request = new Request();
-const response = new Response(config);
-const http = new Http(config, router, response);
-const app = (configs: IConfigs = {}): IApp => {
-    config.set(configs);
-    return {
-        // router
-        use: router.use,
-        all: router.all,
-        get: router.get,
-        post: router.post,
-        put: router.put,
-        patch: router.patch,
-        delete: router.delete,
-        // config
-        set: config.set
-    };
-}
+export declare const SheetbaseModule: {(options?: IOptions): IModule};
 
-export const moduleExports: IModule = {
-    app,
-    Config: config,
-    Router: router,
-    Request: request,
-    Response: response,
-    HTTP: http
-};
+declare const options: IOptions; 
+export const moduleExports: IModule = new Sheetbase(options);

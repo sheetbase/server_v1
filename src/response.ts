@@ -1,19 +1,16 @@
-import { IConfig } from './types/module';
-import { IHttpError } from './types/http';
+import { Handlebars, HandlebarsModule } from '@sheetbase/handlebars-server';
+import { Ejs, EjsModule } from '@sheetbase/ejs-server';
 
-declare const HandlebarsModule: {()};
-var Handlebars = Handlebars || HandlebarsModule();
-declare const EjsModule: {()};
-var Ejs = Ejs || EjsModule();
+import { IModule, IResponseError } from '../index';
 
 export class Response {
-    private _Config: IConfig;
+    private _Sheetbase: IModule;
     private _allowedExtensions: string[] = [
         'gs', 'hbs', 'ejs'
     ];
 
-    constructor (Config: IConfig) {
-        this._Config = Config;
+    constructor (Sheetbase: IModule) {
+        this._Sheetbase = Sheetbase;
     }
 
     send(content: any) {
@@ -26,10 +23,10 @@ export class Response {
     }
     
     render(template: any, data: any = {}, viewEngine: string = null) {
-        viewEngine = viewEngine ||  this._Config.get('view engine') || 'gs';
+        viewEngine = <string> (viewEngine ||  this._Sheetbase.Option.get('view engine') || 'gs');
         if (typeof template === 'string') {
             const fileName: string = template;
-            const views: string = this._Config.get('views');
+            const views: string = <string> this._Sheetbase.Option.get('views');
             let fileExt: string = (<string[]> template.split('.')).pop();
             fileExt = (this._allowedExtensions.indexOf(fileExt) > -1) ? fileExt: null;
             if (fileExt) { viewEngine = fileExt; }
@@ -49,10 +46,26 @@ export class Response {
                 outputHtml = templateText;
             }
         } else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-            const handlebars = Handlebars.compile(templateText);
-            outputHtml = handlebars(data);
+            let handlebars: any;
+            if (typeof Handlebars !== 'undefined') {
+                handlebars = Handlebars;
+            } else if (typeof HandlebarsModule !== 'undefined') {
+                handlebars = HandlebarsModule();
+            } else {
+                throw new Error('No Handlebars module, please install @sheetbase/handlebars-server.');
+            }
+            const render = handlebars.compile(templateText);
+            outputHtml = render(data);
         } else if(viewEngine === 'ejs') {
-            outputHtml = Ejs.render(templateText, data);
+            let ejs: any;
+            if (typeof Ejs !== 'undefined') {
+                ejs = Ejs;
+            } else if (typeof EjsModule !== 'undefined') {
+                ejs = EjsModule();
+            } else {
+                throw new Error('No Ejs module, please install @sheetbase/ejs-server.');
+            }
+            outputHtml = ejs.render(templateText, data);
         } else {
             outputHtml = templateText;
         }
@@ -66,39 +79,34 @@ export class Response {
         return JSONOutput;
     }
     
-    success(data: any, meta: any = null) {
-        let responseData = data;
-        if (!responseData) {
-            throw new Error('No response data.');
-        }
-        if (!(responseData instanceof Object)) {
-            responseData = { value: responseData };
-        }
-        if (!responseData.error) {
-            responseData = {
+    success(data: any, meta: any = {}) {
+        if (!(data instanceof Object)) {
+            data = { value: data };
+        } else {
+            data = {
                 success: true,
                 status: 200,
-                data: responseData
+                data,
+                meta: {
+                    at: (new Date()).getTime(),
+                    ... meta
+                }
             };
-            meta = meta || {};
-            if (!(meta instanceof Object)) meta = { value: meta };
-            meta.at = (new Date()).getTime();
-            responseData.meta = meta;
         }
-        return this.json(responseData);
+        return this.json(data);
     }
 
-    error(code: string = 'app/unknown', message: string = 'Something wrong!', httpCode: number = 500, data: any = {}) {
-        let theError: IHttpError = {
+    error(code: string = 'app/unknown', message: string = 'Something wrong!', httpCode: number = 500, meta: any = {}) {
+        let error: IResponseError = {
             error: true,
             status: httpCode,
-            data,
+            code,
+            message,
             meta: {
                 at: (new Date()).getTime(),
-                code,
-                message
+                ... meta
             }
         };
-        return this.json(theError);
+        return this.json(error);
     }
 }
