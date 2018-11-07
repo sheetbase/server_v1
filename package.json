@@ -31,8 +31,7 @@
    "bugs": {
       "url": "https://github.com/sheetbase/core-server/issues"
    },
-   "dependencies": {},
-   "peerDependencies": {
+   "dependencies": {
       "ejs": "2.6.1",
       "handlebars": "4.0.12"
    },
