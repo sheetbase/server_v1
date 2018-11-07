@@ -1,0 +1,10 @@
+import { OptionService } from './option';
+import { HttpService } from './http';
+import { RequestService } from './request';
+import { ResponseService } from './response';
+import { RouterService } from './router';
+export var Option = new OptionService();
+export var Router = new RouterService();
+export var Request = new RequestService();
+export var Response = new ResponseService(Option);
+export var HTTP = new HttpService(Option, Response, Router);

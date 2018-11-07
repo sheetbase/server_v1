@@ -1,2 +1,9 @@
 node_modules/
-dist/
+
+# build
+deploy/
+
+# test
+.nyc_output/
+coverage/
+tests/out-tsc/

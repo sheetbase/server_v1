@@ -1,10 +1,7 @@
-import { SheetbaseModule } from '../index';
-
-const Sheetbase = SheetbaseModule({
-    views: 'path/to/views'
-});
+import * as Sheetbase from './public_api';
 
 export function example1() {
-    let views = Sheetbase.Option.get('views');
+    Sheetbase.Option.set('views', 'hbs');
+    const views = Sheetbase.Option.get('views');
     Logger.log(views);
 }
