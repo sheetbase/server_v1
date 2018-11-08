@@ -1,7 +1,7 @@
 export default {
-    input: 'dist/public_api.js',
+    input: './dist/public_api.js',
     output: {
-        file: 'dist/bundles/sheetbase.umd.js',
+        file: './dist/bundles/sheetbase-core-server.umd.js',
         format: 'umd',
         name: 'Sheetbase',
         sourcemap: true,

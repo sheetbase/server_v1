@@ -9,11 +9,11 @@ install:
   - npm install
 
 before_script:
-  - npm run build
-  - npm run pre-test
+  - npm run transpile-test
 
 script:
   - npm run lint
   - npm run test
+  - npm run build
 
 after_success: npm run coverage

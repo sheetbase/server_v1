@@ -373,4 +373,4 @@
     Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=sheetbase.umd.js.map
+//# sourceMappingURL=sheetbase-core-server.umd.js.map

@@ -6,7 +6,7 @@
       "declaration": false
     },
     "files": [
-        "test.ts"
+        "./test.ts"
     ]
 }
   
