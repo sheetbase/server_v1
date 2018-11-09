@@ -1,6 +1,6 @@
 {
    "name": "@sheetbase/core-server",
-   "version": "0.0.9",
+   "version": "0.0.10",
    "description": "Sheetbase core module for backend app.",
    "author": "Sheetbase",
    "homepage": "https://sheetbase.net",
@@ -41,7 +41,7 @@
       "handlebars": "4.0.12"
    },
    "devDependencies": {
-      "@sheetbase/app-scripts": "0.0.22",
+      "@sheetbase/app-scripts": "0.0.24",
       "@types/chai": "^4.1.7",
       "@types/ejs": "^2.6.0",
       "@types/google-apps-script": "0.0.28",

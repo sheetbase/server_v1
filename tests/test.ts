@@ -1,5 +1,4 @@
 /* tslint:disable:no-unused-expression */
-
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
@@ -22,33 +21,6 @@ describe('Test module members', () => {
     });
     it('.Router should exist', () => {
         expect(Sheetbase.Router).to.not.null;
-    });
-});
-
-describe('Test module members (proxies)', () => {
-    it('#set should exist', () => {
-        expect(Sheetbase.set).to.not.null;
-    });
-    it('#use should exist', () => {
-        expect(Sheetbase.use).to.not.null;
-    });
-    it('#all should exist', () => {
-        expect(Sheetbase.all).to.not.null;
-    });
-    it('#get should exist', () => {
-        expect(Sheetbase.get).to.not.null;
-    });
-    it('#post should exist', () => {
-        expect(Sheetbase.post).to.not.null;
-    });
-    it('#put should exist', () => {
-        expect(Sheetbase.put).to.not.null;
-    });
-    it('#patch should exist', () => {
-        expect(Sheetbase.patch).to.not.null;
-    });
-    it('#delete should exist', () => {
-        expect(Sheetbase.delete).to.not.null;
     });
 });
 

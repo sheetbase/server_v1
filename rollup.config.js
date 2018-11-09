@@ -16,9 +16,5 @@ export default {
                 handlebars: 'Handlebars'
             }
         }
-    ],
-    external: [
-        'ejs',
-        'handlebars'
     ]
 };

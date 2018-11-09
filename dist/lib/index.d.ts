@@ -10,13 +10,4 @@ export declare function sheetbase(options?: Options): {
     Request: RequestService;
     Response: ResponseService;
     HTTP: HttpService;
-    set: (dataOrKey: string | Options, value?: any) => Options;
-    use: (...handlers: any[]) => void;
-    all: (routeName: string, ...handlers: any[]) => void;
-    get: (routeName: string, ...handlers: any[]) => void;
-    post: (routeName: string, ...handlers: any[]) => void;
-    put: (routeName: string, ...handlers: any[]) => void;
-    patch: (routeName: string, ...handlers: any[]) => void;
-    delete: (routeName: string, ...handlers: any[]) => void;
 };
-export { sheetbase as app };

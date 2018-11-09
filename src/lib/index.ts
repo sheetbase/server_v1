@@ -18,17 +18,5 @@ export function sheetbase(options?: Options) {
         Request,
         Response,
         HTTP,
-
-        set: Option.set,
-
-        use: Router.use,
-        all: Router.all,
-        get: Router.get,
-        post: Router.post,
-        put: Router.put,
-        patch: Router.patch,
-        delete: Router.delete,
     };
 }
-
-export { sheetbase as app };
