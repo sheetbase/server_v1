@@ -1,8 +1,8 @@
-import { sheetbase } from './public_api';
+import * as Sheetbase from './public_api';
 
 export function example1() {
-    const Sheetbase = sheetbase({ views: 'views' });
+    const App = Sheetbase.sheetbase({ views: 'views' });
 
-    const views = Sheetbase.Option.get('views');
+    const views = App.Option.get('views');
     Logger.log(views);
 }
