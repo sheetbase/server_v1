@@ -4,11 +4,19 @@ import { HttpService } from './http';
 import { RequestService } from './request';
 import { ResponseService } from './response';
 import { RouterService } from './router';
-export declare function app(options?: Options): {
+export declare function sheetbase(options?: Options): {
     Option: OptionService;
     Router: RouterService;
     Request: RequestService;
     Response: ResponseService;
     HTTP: HttpService;
+    set: (dataOrKey: string | Options, value?: any) => Options;
+    use: (...handlers: any[]) => void;
+    all: (routeName: string, ...handlers: any[]) => void;
+    get: (routeName: string, ...handlers: any[]) => void;
+    post: (routeName: string, ...handlers: any[]) => void;
+    put: (routeName: string, ...handlers: any[]) => void;
+    patch: (routeName: string, ...handlers: any[]) => void;
+    delete: (routeName: string, ...handlers: any[]) => void;
 };
-export { app as sheetbase };
+export { sheetbase as app };

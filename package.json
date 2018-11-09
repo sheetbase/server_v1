@@ -1,12 +1,16 @@
 {
    "name": "@sheetbase/core-server",
-   "version": "0.0.8",
+   "version": "0.0.9",
    "description": "Sheetbase core module for backend app.",
    "author": "Sheetbase",
    "homepage": "https://sheetbase.net",
    "license": "MIT",
-   "main": "./dist/bundles/sheetbase-core-server.umd.js",
-   "typings": "./dist/sheetbase-core-server.d.ts",
+   "files": [
+      "dist"
+   ],
+   "main": "dist/bundles/sheetbase-core-server.umd.js",
+   "module": "dist/esm3/sheetbase-core-server.js",
+   "typings": "dist/sheetbase-core-server.d.ts",
    "scripts": {
       "module": "sheetbase-app-scripts build",
       "readme": "sheetbase-app-scripts readme",
@@ -37,7 +41,7 @@
       "handlebars": "4.0.12"
    },
    "devDependencies": {
-      "@sheetbase/app-scripts": "0.0.21",
+      "@sheetbase/app-scripts": "0.0.22",
       "@types/chai": "^4.1.7",
       "@types/ejs": "^2.6.0",
       "@types/google-apps-script": "0.0.28",

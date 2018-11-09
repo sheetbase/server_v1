@@ -6,7 +6,7 @@ import { RequestService } from './request';
 import { ResponseService } from './response';
 import { RouterService } from './router';
 
-export function app(options?: Options) {
+export function sheetbase(options?: Options) {
     const Option = new OptionService(options);
     const Router = new RouterService();
     const Request = new RequestService();
@@ -18,7 +18,17 @@ export function app(options?: Options) {
         Request,
         Response,
         HTTP,
+
+        set: Option.set,
+
+        use: Router.use,
+        all: Router.all,
+        get: Router.get,
+        post: Router.post,
+        put: Router.put,
+        patch: Router.patch,
+        delete: Router.delete,
     };
 }
 
-export { app as sheetbase };
+export { sheetbase as app };

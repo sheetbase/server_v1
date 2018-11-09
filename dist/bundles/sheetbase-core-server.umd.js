@@ -381,7 +381,7 @@
         return RouterService;
     }());
 
-    function app(options) {
+    function sheetbase(options) {
         var Option = new OptionService(options);
         var Router = new RouterService();
         var Request = new RequestService();
@@ -392,12 +392,20 @@
             Router: Router,
             Request: Request,
             Response: Response,
-            HTTP: HTTP
+            HTTP: HTTP,
+            set: Option.set,
+            use: Router.use,
+            all: Router.all,
+            get: Router.get,
+            post: Router.post,
+            put: Router.put,
+            patch: Router.patch,
+            "delete": Router["delete"]
         };
     }
 
-    exports.app = app;
-    exports.sheetbase = app;
+    exports.sheetbase = sheetbase;
+    exports.app = sheetbase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
