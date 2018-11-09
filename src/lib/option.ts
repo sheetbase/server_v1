@@ -7,7 +7,9 @@ export class OptionService {
         'view engine': 'gs',
     };
 
-    constructor () {}
+    constructor (options: Options) {
+        this.options = {... this.options, ... options};
+    }
 
     get(key: string = null): Options | any {
         if (key) {

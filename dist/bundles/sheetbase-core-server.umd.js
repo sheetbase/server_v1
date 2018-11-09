@@ -4,13 +4,25 @@
     (factory((global.Sheetbase = {}),global.Handlebars,global.ejs));
 }(this, (function (exports,handlebars,ejs) { 'use strict';
 
+    var __assign = (undefined && undefined.__assign) || function () {
+        __assign = Object.assign || function(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                    t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign.apply(this, arguments);
+    };
     var OptionService = /** @class */ (function () {
-        function OptionService() {
+        function OptionService(options) {
             this.options = {
                 allowMethodsWhenDoGet: false,
                 views: 'views',
                 'view engine': 'gs'
             };
+            this.options = __assign({}, this.options, options);
         }
         OptionService.prototype.get = function (key) {
             if (key === void 0) { key = null; }
@@ -37,14 +49,25 @@
         return OptionService;
     }());
 
+    var __assign$1 = (undefined && undefined.__assign) || function () {
+        __assign$1 = Object.assign || function(t) {
+            for (var s, i = 1, n = arguments.length; i < n; i++) {
+                s = arguments[i];
+                for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                    t[p] = s[p];
+            }
+            return t;
+        };
+        return __assign$1.apply(this, arguments);
+    };
     var HttpService = /** @class */ (function () {
-        function HttpService(option, response, router) {
+        function HttpService(optionService, responseService, routerService) {
             this.allowedMethods = [
                 'GET', 'POST', 'PUT', 'PATCH', 'DELETE',
             ];
-            this.option = option;
-            this.response = response;
-            this.router = router;
+            this.optionService = optionService;
+            this.responseService = responseService;
+            this.routerService = routerService;
         }
         HttpService.prototype.get = function (e) {
             return this.http(e, 'GET');
@@ -58,7 +81,7 @@
                 endpoint = '/' + endpoint;
             }
             // methods
-            var allowMethodsWhenDoGet = this.option.get('allowMethodsWhenDoGet');
+            var allowMethodsWhenDoGet = this.optionService.get('allowMethodsWhenDoGet');
             if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
                 method = ((e.parameter || {}).method || 'GET').toUpperCase();
                 method = (this.allowedMethods.indexOf(method) > -1) ? method : 'GET';
@@ -81,9 +104,9 @@
                 req.body = JSON.parse(e.postData ? e.postData.contents : '{}');
             }
             // response object
-            var res = this.response;
+            var res = this.responseService;
             // run handlers
-            var handlers = this.router.route(method, endpoint);
+            var handlers = this.routerService.route(method, endpoint);
             return this.run(handlers, req, res);
         };
         HttpService.prototype.run = function (handlers, req, res) {
@@ -101,7 +124,7 @@
                         if (!(data instanceof Object)) {
                             data = { value: data };
                         }
-                        req.data = Object.assign({}, req.data || {}, data || {});
+                        req.data = __assign$1({}, (req.data || {}), (data || {}));
                     }
                     return _this.run(handlers, req, res);
                 };
@@ -130,8 +153,8 @@
         return RequestService;
     }());
 
-    var __assign = (undefined && undefined.__assign) || function () {
-        __assign = Object.assign || function(t) {
+    var __assign$2 = (undefined && undefined.__assign) || function () {
+        __assign$2 = Object.assign || function(t) {
             for (var s, i = 1, n = arguments.length; i < n; i++) {
                 s = arguments[i];
                 for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
@@ -139,14 +162,14 @@
             }
             return t;
         };
-        return __assign.apply(this, arguments);
+        return __assign$2.apply(this, arguments);
     };
     var ResponseService = /** @class */ (function () {
-        function ResponseService(option) {
+        function ResponseService(optionService) {
             this.allowedExtensions = [
                 'gs', 'hbs', 'ejs',
             ];
-            this.option = option;
+            this.optionService = optionService;
         }
         ResponseService.prototype.send = function (content) {
             if (content instanceof Object)
@@ -159,10 +182,10 @@
         ResponseService.prototype.render = function (template, data, viewEngine) {
             if (data === void 0) { data = {}; }
             if (viewEngine === void 0) { viewEngine = null; }
-            viewEngine = (viewEngine || this.option.get('view engine') || 'gs');
+            viewEngine = (viewEngine || this.optionService.get('view engine') || 'gs');
             if (typeof template === 'string') {
                 var fileName = template;
-                var views = this.option.get('views');
+                var views = this.optionService.get('views');
                 var fileExt = template.split('.').pop();
                 fileExt = (this.allowedExtensions.indexOf(fileExt) > -1) ? fileExt : null;
                 if (fileExt) {
@@ -214,7 +237,7 @@
                     success: true,
                     status: 200,
                     data: data,
-                    meta: __assign({ at: (new Date()).getTime() }, meta)
+                    meta: __assign$2({ at: (new Date()).getTime() }, meta)
                 };
             }
             return this.json(data);
@@ -229,7 +252,7 @@
                 status: httpCode,
                 code: code,
                 message: message,
-                meta: __assign({ at: (new Date()).getTime() }, meta)
+                meta: __assign$2({ at: (new Date()).getTime() }, meta)
             };
             return this.json(error);
         };
@@ -358,17 +381,23 @@
         return RouterService;
     }());
 
-    var Option = new OptionService();
-    var Router = new RouterService();
-    var Request = new RequestService();
-    var Response = new ResponseService(Option);
-    var HTTP = new HttpService(Option, Response, Router);
+    function app(options) {
+        var Option = new OptionService(options);
+        var Router = new RouterService();
+        var Request = new RequestService();
+        var Response = new ResponseService(Option);
+        var HTTP = new HttpService(Option, Response, Router);
+        return {
+            Option: Option,
+            Router: Router,
+            Request: Request,
+            Response: Response,
+            HTTP: HTTP
+        };
+    }
 
-    exports.Option = Option;
-    exports.Router = Router;
-    exports.Request = Request;
-    exports.Response = Response;
-    exports.HTTP = HTTP;
+    exports.app = app;
+    exports.sheetbase = app;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

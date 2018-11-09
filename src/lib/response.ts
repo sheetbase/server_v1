@@ -6,14 +6,14 @@ import { ResponseError } from './types';
 import { OptionService } from './option';
 
 export class ResponseService {
-    private option: OptionService;
+    private optionService: OptionService;
 
     private allowedExtensions: string[] = [
         'gs', 'hbs', 'ejs',
     ];
 
-    constructor (option: OptionService) {
-        this.option = option;
+    constructor (optionService: OptionService) {
+        this.optionService = optionService;
     }
 
     send(content: any) {
@@ -26,10 +26,10 @@ export class ResponseService {
     }
 
     render(template: any, data: any = {}, viewEngine: string = null) {
-        viewEngine = (viewEngine ||  this.option.get('view engine') || 'gs') as string;
+        viewEngine = (viewEngine ||  this.optionService.get('view engine') || 'gs') as string;
         if (typeof template === 'string') {
             const fileName: string = template;
-            const views: string = this.option.get('views') as string;
+            const views: string = this.optionService.get('views') as string;
             let fileExt: string = (template.split('.') as string[]).pop();
             fileExt = (this.allowedExtensions.indexOf(fileExt) > -1) ? fileExt : null;
             if (fileExt) { viewEngine = fileExt; }
@@ -83,7 +83,12 @@ export class ResponseService {
         return this.json(data);
     }
 
-    error(code = 'app/unknown', message = 'Something wrong!', httpCode = 500, meta: any = {}) {
+    error(
+        code = 'app/unknown',
+        message = 'Something wrong!',
+        httpCode = 500,
+        meta: any = {},
+    ) {
         const error: ResponseError = {
             error: true,
             status: httpCode,

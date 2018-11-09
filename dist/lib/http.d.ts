@@ -3,11 +3,11 @@ import { OptionService } from './option';
 import { ResponseService } from './response';
 import { RouterService } from './router';
 export declare class HttpService {
-    private option;
-    private response;
-    private router;
+    private optionService;
+    private responseService;
+    private routerService;
     private allowedMethods;
-    constructor(option: OptionService, response: ResponseService, router: RouterService);
+    constructor(optionService: OptionService, responseService: ResponseService, routerService: RouterService);
     get(e: HttpEvent): any;
     post(e: HttpEvent): any;
     private http;

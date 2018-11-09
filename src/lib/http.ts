@@ -5,22 +5,22 @@ import { ResponseService } from './response';
 import { RouterService } from './router';
 
 export class HttpService {
-    private option: OptionService;
-    private response: ResponseService;
-    private router: RouterService;
+    private optionService: OptionService;
+    private responseService: ResponseService;
+    private routerService: RouterService;
 
     private allowedMethods: string[] = [
         'GET', 'POST', 'PUT', 'PATCH', 'DELETE',
     ];
 
     constructor (
-        option: OptionService,
-        response: ResponseService,
-        router: RouterService,
+        optionService: OptionService,
+        responseService: ResponseService,
+        routerService: RouterService,
     ) {
-        this.option = option;
-        this.response = response;
-        this.router = router;
+        this.optionService = optionService;
+        this.responseService = responseService;
+        this.routerService = routerService;
     }
 
     get(e: HttpEvent) {
@@ -35,7 +35,7 @@ export class HttpService {
         let endpoint: string = (e.parameter || {}).e || '';
         if (endpoint.substr(0,1) !== '/') { endpoint = '/' + endpoint; }
         // methods
-        const allowMethodsWhenDoGet: boolean = this.option.get('allowMethodsWhenDoGet');
+        const allowMethodsWhenDoGet: boolean = this.optionService.get('allowMethodsWhenDoGet');
         if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
             method = ((e.parameter || {}).method as string || 'GET').toUpperCase();
             method = (this.allowedMethods.indexOf(method) > -1) ? method : 'GET';
@@ -56,9 +56,9 @@ export class HttpService {
             req.body = JSON.parse(e.postData ? e.postData.contents : '{}');
         }
         // response object
-        const res: RouteResponse = this.response;
+        const res: RouteResponse = this.responseService;
         // run handlers
-        const handlers: RouteHandler[] = this.router.route(method, endpoint);
+        const handlers: RouteHandler[] = this.routerService.route(method, endpoint);
         return this.run(handlers, req, res);
     }
 
@@ -75,7 +75,7 @@ export class HttpService {
                     if (!(data instanceof Object)) {
                         data = { value: data };
                     }
-                    req.data = Object.assign({}, req.data || {}, data || {});
+                    req.data = {... (req.data || {}), ... (data || {})};
                 }
                 return this.run(handlers, req, res);
             };

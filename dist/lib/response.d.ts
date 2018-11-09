@@ -1,8 +1,8 @@
 import { OptionService } from './option';
 export declare class ResponseService {
-    private option;
+    private optionService;
     private allowedExtensions;
-    constructor(option: OptionService);
+    constructor(optionService: OptionService);
     send(content: any): GoogleAppsScript.Content.TextOutput | GoogleAppsScript.HTML.HtmlOutput;
     html(html: string): GoogleAppsScript.HTML.HtmlOutput;
     render(template: any, data?: any, viewEngine?: string): GoogleAppsScript.HTML.HtmlOutput;
