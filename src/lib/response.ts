@@ -1,9 +1,8 @@
-import { compile } from 'handlebars';
-import { render } from 'ejs';
-
 import { ResponseError } from './types';
-
 import { OptionService } from './option';
+
+declare const ejs: any;
+declare const Handlebars: any;
 
 export class ResponseService {
     private optionService: OptionService;
@@ -26,7 +25,7 @@ export class ResponseService {
     }
 
     render(template: any, data: any = {}, viewEngine: string = null) {
-        viewEngine = (viewEngine ||  this.optionService.get('view engine') || 'gs') as string;
+        viewEngine = (viewEngine ||  'gs') as string;
         if (typeof template === 'string') {
             const fileName: string = template;
             const views: string = this.optionService.get('views') as string;
@@ -49,10 +48,9 @@ export class ResponseService {
                 outputHtml = templateText;
             }
         } else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-            const render = compile(templateText);
-            outputHtml = render(data);
+            outputHtml = Handlebars.compile(templateText).render(data);
         } else if(viewEngine === 'ejs') {
-            outputHtml = render(templateText, data);
+            outputHtml = ejs.render(templateText, data);
         } else {
             outputHtml = templateText;
         }

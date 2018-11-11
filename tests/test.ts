@@ -2,7 +2,7 @@
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 
-import { sheetbase } from '../src/public_api';
+import { sheetbase, o2a, a2o, uniqueId } from '../src/public_api';
 
 const Sheetbase = sheetbase();
 
@@ -21,9 +21,6 @@ describe('Test module members', () => {
     });
     it('.Router should exist', () => {
         expect(Sheetbase.Router).to.not.null;
-    });
-    it('.Utils should exist', () => {
-        expect(Sheetbase.Utils).to.not.null;
     });
 });
 
@@ -91,8 +88,6 @@ describe('RouterService test', () => {
 
 describe('UtilsService test', () => {
 
-    const Utils = Sheetbase.Utils;
-
     it('#o2a should work', () => {
         const OBJ = { a: 1, b: 2, c: { c1: 1, c2: 2 } };
         const ARR = [
@@ -100,7 +95,7 @@ describe('UtilsService test', () => {
             { $key: 'b', value: 2 },
             { $key: 'c', c1: 1, c2: 2 },
         ];
-        const arr = Utils.o2a(OBJ);
+        const arr = o2a(OBJ);
         expect(arr).deep.equal(ARR);
     });
 
@@ -111,23 +106,23 @@ describe('UtilsService test', () => {
             b: {key: 'b', b: 1},
             c: {slug: 'c', b: 1},
         };
-        const obj = Utils.a2o(ARR);
+        const obj = a2o(ARR);
         expect(obj).deep.equal(OBJ);
     });
 
     it('#uniqueId should works', () => {
-        const id = Utils.uniqueId();
+        const id = uniqueId();
         expect(id.substr(0, 1)).to.equal('-');
         expect(id.length).to.equal(12);
     });
 
     it('#uniqueId should create id (32 chars)', () => {
-        const id = Utils.uniqueId(32);
+        const id = uniqueId(32);
         expect(id.length).to.equal(32);
     });
 
     it('#uniqueId should create id (12 chars, start with 1)', () => {
-        const id = Utils.uniqueId(null, '1');
+        const id = uniqueId(null, '1');
         expect(id.substr(0, 1)).to.equal('1');
     });
 

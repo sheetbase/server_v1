@@ -4,7 +4,6 @@ export class OptionService {
     private options: Options = {
         allowMethodsWhenDoGet: false,
         views: 'views',
-        'view engine': 'gs',
     };
 
     constructor (options: Options) {

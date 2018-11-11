@@ -10,11 +10,7 @@ export default {
             file: './dist/bundles/sheetbase-core-server.umd.js',
             format: 'umd',
             sourcemap: true,
-            name: 'Sheetbase',
-            globals: {
-                ejs: 'ejs',
-                handlebars: 'Handlebars'
-            }
+            name: 'Sheetbase'
         }
     ]
 };

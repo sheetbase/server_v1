@@ -8,7 +8,6 @@ export interface HttpEvent {
 export interface Options {
     allowMethodsWhenDoGet?: boolean;
     views?: string;
-    'view engine'?: string;
 }
 
 export interface RouteRequest {

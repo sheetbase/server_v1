@@ -1,6 +1,6 @@
 {
    "name": "@sheetbase/core-server",
-   "version": "0.0.11",
+   "version": "0.0.12",
    "description": "Sheetbase core module for backend app.",
    "author": "Sheetbase",
    "homepage": "https://sheetbase.net",
@@ -15,7 +15,7 @@
       "module": "sheetbase-app-scripts build",
       "readme": "sheetbase-app-scripts readme",
       "docs": "sheetbase-app-scripts docs",
-      "build": "npm run module && npm run readme && npm run docs",
+      "build": "npm run module && npm run readme && npm run docs && npm run transpile-test",
       "deploy": "sheetbase-app-scripts deploy",
       "lint": "tslint --project tslint.json && echo 'No lint errors.'",
       "transpile-test": "tsc --project tests/tsconfig.test.json",
@@ -36,14 +36,10 @@
    "bugs": {
       "url": "https://github.com/sheetbase/core-server/issues"
    },
-   "dependencies": {
-      "ejs": "2.6.1",
-      "handlebars": "4.0.12"
-   },
+   "dependencies": {},
    "devDependencies": {
       "@sheetbase/app-scripts": "0.0.26",
       "@types/chai": "^4.1.7",
-      "@types/ejs": "^2.6.0",
       "@types/google-apps-script": "0.0.28",
       "@types/mocha": "^5.2.5",
       "@types/node": "^10.12.2",
