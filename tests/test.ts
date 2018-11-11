@@ -36,10 +36,8 @@ describe('OptionService test', () => {
     it('#get should work (default values)', () => {
         const allowMethods = Sheetbase.Option.get('allowMethodsWhenDoGet');
         const views = Sheetbase.Option.get('views');
-        const engine = Sheetbase.Option.get('view engine');
         expect(allowMethods).to.be.false;
         expect(views).to.equal('views');
-        expect(engine).to.equal('gs');
     });
 
     it('#set should work', () => {
