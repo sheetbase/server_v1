@@ -3,7 +3,7 @@ export function o2a<Obj, K extends keyof Obj, P extends Obj[K]>(
     keyName = '$key',
 ): Array<(P extends {[key: string]: any} ? P: {value: P}) & {$key: string}> {
     const array = [];
-    for (const key of Object.keys(object)) {
+    for (const key of Object.keys(object || {})) {
         if (object[key] instanceof Object) {
         object[key][keyName] = key;
         } else {
