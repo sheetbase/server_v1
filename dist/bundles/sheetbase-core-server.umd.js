@@ -209,7 +209,8 @@
                 }
             }
             else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-                outputHtml = Handlebars.compile(templateText).render(data);
+                var compiler = Handlebars.compile(templateText);
+                outputHtml = compiler(data);
             }
             else if (viewEngine === 'ejs') {
                 outputHtml = ejs.render(templateText, data);
@@ -382,7 +383,7 @@
     function o2a(object, keyName) {
         if (keyName === void 0) { keyName = '$key'; }
         var array = [];
-        for (var _i = 0, _a = Object.keys(object); _i < _a.length; _i++) {
+        for (var _i = 0, _a = Object.keys(object || {}); _i < _a.length; _i++) {
             var key = _a[_i];
             if (object[key] instanceof Object) {
                 object[key][keyName] = key;
