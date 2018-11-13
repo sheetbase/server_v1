@@ -48,7 +48,8 @@ export class ResponseService {
                 outputHtml = templateText;
             }
         } else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-            outputHtml = Handlebars.compile(templateText).render(data);
+            const compiler = Handlebars.compile(templateText);
+            outputHtml = compiler(data);
         } else if(viewEngine === 'ejs') {
             outputHtml = ejs.render(templateText, data);
         } else {
