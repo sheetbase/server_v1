@@ -25,10 +25,6 @@ declare const SheetbaseModule: { Sheetbase: any };
 const Sheetbase = SheetbaseModule.Sheetbase;
 ```
 
-## Scopes
-
-`https://www.googleapis.com/auth/script.scriptapp`
-
 ## Usage
 
 - Docs homepage: https://sheetbase.github.io/core-server
