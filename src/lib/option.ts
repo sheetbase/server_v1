@@ -3,10 +3,10 @@ import { Options } from './types';
 export class OptionService {
     private options: Options = {
         allowMethodsWhenDoGet: false,
-        views: 'views',
+        views: '',
     };
 
-    constructor (options: Options) {
+    constructor (options: Options = {}) {
         this.options = {... this.options, ... options};
     }
 

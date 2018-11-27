@@ -1,4 +1,4 @@
-import { ResponseError } from './types';
+import { ResponseError, ResponseSuccess } from './types';
 import { OptionService } from './option';
 
 declare const ejs: any;
@@ -15,7 +15,7 @@ export class ResponseService {
         this.optionService = optionService;
     }
 
-    send(content: any) {
+    send(content: string | {}) {
         if(content instanceof Object) return this.json(content);
         return this.html(content);
     }
@@ -24,8 +24,7 @@ export class ResponseService {
         return HtmlService.createHtmlOutput(html);
     }
 
-    render(template: any, data: any = {}, viewEngine: string = null) {
-        viewEngine = (viewEngine ||  'gs') as string;
+    render(template: any, data: {} = {}, viewEngine = 'raw') {
         if (typeof template === 'string') {
             const fileName: string = template;
             const views: string = this.optionService.get('views') as string;
@@ -48,8 +47,8 @@ export class ResponseService {
                 outputHtml = templateText;
             }
         } else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-            const compiler = Handlebars.compile(templateText);
-            outputHtml = compiler(data);
+            const render = Handlebars.compile(templateText);
+            outputHtml = render(data);
         } else if(viewEngine === 'ejs') {
             outputHtml = ejs.render(templateText, data);
         } else {
@@ -58,41 +57,49 @@ export class ResponseService {
         return this.html(outputHtml);
     }
 
-    json(object: any) {
+    json(object: {}) {
         const JSONString = JSON.stringify(object);
         const JSONOutput = ContentService.createTextOutput(JSONString);
         JSONOutput.setMimeType(ContentService.MimeType.JSON);
         return JSONOutput;
     }
 
-    success(data: any, meta: any = {}) {
+    success(data: {}, meta: any = {}) {
+        if (!data) return this.error();
+
         if (!(data instanceof Object)) {
             data = { value: data };
-        } else {
-            data = {
-                success: true,
-                status: 200,
-                data,
-                meta: {
-                    at: (new Date()).getTime(),
-                    ... meta,
-                },
-            };
         }
-        return this.json(data);
+        if (!(meta instanceof Object)) {
+            meta = { value: meta };
+        }
+
+        const success: ResponseSuccess = {
+            success: true,
+            status: 200,
+            data,
+            meta: {
+                at: (new Date()).getTime(),
+                ... meta,
+            },
+        };
+        return this.json(success);
     }
 
     error(
-        code = 'app/unknown',
-        message = 'Something wrong!',
-        httpCode = 500,
+        err: ResponseError = {},
         meta: any = {},
     ) {
+        if (!err.status) err.status = 500;
+        if (!err.code) err.code = 'unknown';
+        if (!err.message) err.message = 'Unknown error.';
+        if (!(meta instanceof Object)) {
+            meta = { value: meta };
+        }
+
         const error: ResponseError = {
+            ... err,
             error: true,
-            status: httpCode,
-            code,
-            message,
             meta: {
                 at: (new Date()).getTime(),
                 ... meta,

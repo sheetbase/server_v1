@@ -7,35 +7,35 @@ export class RouterService {
 
     constructor () {}
 
-    use(...handlers: any[]) {
+    use(...handlers: RouteHandler[]) {
         if (!!handlers[0] && handlers[0] instanceof Function) {
             this.sharedMiddlewares = this.sharedMiddlewares.concat(handlers);
         } else {
-            const routeName = handlers.shift();
-            this.register('ALL', routeName, handlers);
+            const routeName: any = handlers.shift();
+            this.register('ALL', routeName, ...handlers);
         }
     }
 
-    all(routeName: string, ...handlers: any[]) {
+    all(routeName: string, ...handlers: RouteHandler[]) {
         this.register('ALL', routeName, ...handlers);
     }
-    get(routeName: string, ...handlers: any[]) {
+    get(routeName: string, ...handlers: RouteHandler[]) {
         this.register('GET', routeName, ...handlers);
     }
-    post(routeName: string, ...handlers: any[]) {
+    post(routeName: string, ...handlers: RouteHandler[]) {
         this.register('POST', routeName, ...handlers);
     }
-    put(routeName: string, ...handlers: any[]) {
+    put(routeName: string, ...handlers: RouteHandler[]) {
         this.register('PUT', routeName, ...handlers);
     }
-    patch(routeName: string, ...handlers: any[]) {
+    patch(routeName: string, ...handlers: RouteHandler[]) {
         this.register('PATCH', routeName, ...handlers);
     }
-    delete(routeName: string, ...handlers: any[]) {
+    delete(routeName: string, ...handlers: RouteHandler[]) {
         this.register('DELETE', routeName, ...handlers);
     }
 
-    route(method: string, routeName: string) {
+    route(method: string, routeName: string): RouteHandler[] {
         const notFoundHandler: RouteHandler = (req, res) => {
             try {
                 return res.render('errors/404');
@@ -55,13 +55,7 @@ export class RouterService {
         return handlers;
     }
 
-    private register(method: string, routeName: string, ...handlers: any[]) {
-        if (!routeName) {
-            throw new Error('Invalid route name.');
-        }
-        if(handlers.length < 1) {
-            throw new Error('No handlers.');
-        }
+    private register(method: string, routeName: string, ...handlers: RouteHandler[]) {
         // remove invalid handlers
         for (let i = 0; i < handlers.length; i++) {
             if (!handlers[i] || (i !== 0 && !(handlers[i] instanceof Function))) {

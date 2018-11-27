@@ -12,6 +12,7 @@ export interface Options {
 
 export interface RouteRequest {
     query?: RouteQuery;
+    params?: RouteQuery;
     body?: any;
     data?: any;
 }
@@ -26,10 +27,10 @@ export interface RouteQuery {
 }
 
 export interface ResponseError {
-    error: boolean;
-    status: number;
+    error?: boolean;
     code?: string;
     message?: string;
+    status?: number;
     meta?: {
         at?: number;
         [key: string]: any;
@@ -37,9 +38,9 @@ export interface ResponseError {
 }
 
 export interface ResponseSuccess {
-    success: boolean;
-    status: number;
     data: any;
+    success?: boolean;
+    status?: number;
     meta?: {
         at?: number;
         [key: string]: any;

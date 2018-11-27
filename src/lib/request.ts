@@ -4,14 +4,21 @@ export class RequestService {
 
     constructor () {}
 
-    query(e: HttpEvent) {
-        if (!e) { throw new Error('No Http event.'); }
-        return (e.parameter || {});
+    query(e: HttpEvent = {}) {
+        return this.params(e);
     }
 
-    body(e: HttpEvent) {
-        if (!e) { throw new Error('No Http event.'); }
-        const body = JSON.parse(e.postData ? e.postData.contents : '{}');
+    params(e: HttpEvent = {}) {
+        return (e.parameter ? e.parameter : {});
+    }
+
+    body(e: HttpEvent = {}) {
+        let body = {};
+        try {
+            body = JSON.parse((e.postData && e.postData.contents) ? e.postData.contents : '{}');
+        } catch (error) {
+            /* */
+        }
         return body;
     }
 }

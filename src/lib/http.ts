@@ -31,7 +31,7 @@ export class HttpService {
         return this.http(e, 'POST');
     }
 
-    private http(e: HttpEvent, method: string) {
+    private http(e: HttpEvent = {}, method = 'GET') {
         let endpoint: string = (e.parameter || {}).e || '';
         if (endpoint.substr(0,1) !== '/') { endpoint = '/' + endpoint; }
         // methods
@@ -43,9 +43,11 @@ export class HttpService {
         // request object
         const req: RouteRequest = {
             query: e.parameter || {},
+            params: e.parameter || {},
             body: {},
             data: {},
         };
+        // body
         if(method === 'GET' && allowMethodsWhenDoGet) {
             try {
                 req.body = JSON.parse((e.parameter || {}).body || '{}');
@@ -57,12 +59,12 @@ export class HttpService {
         }
         // response object
         const res: RouteResponse = this.responseService;
-        // run handlers
+        // execute handlers
         const handlers: RouteHandler[] = this.routerService.route(method, endpoint);
-        return this.run(handlers, req, res);
+        return this.execute(handlers, req, res);
     }
 
-    private run(handlers: RouteHandler[], req: RouteRequest, res: RouteResponse) {
+    private execute(handlers: RouteHandler[], req: RouteRequest, res: RouteResponse) {
         const handler: RouteHandler = handlers.shift();
         if (!handler) {
             throw new Error('Invalid router handler!');
@@ -77,7 +79,7 @@ export class HttpService {
                     }
                     req.data = {... (req.data || {}), ... (data || {})};
                 }
-                return this.run(handlers, req, res);
+                return this.execute(handlers, req, res);
             };
             return handler(req, res, next);
         }
