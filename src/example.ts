@@ -1,11 +1,11 @@
 import * as Sheetbase from './public_api';
 
-function load() {
+function load_() {
     return Sheetbase.sheetbase({ views: 'views' });
 }
 
 export function example1() {
-    const Sheetbase = load();
+    const Sheetbase = load_();
 
     const views = Sheetbase.Option.get('views');
     Logger.log(views);
