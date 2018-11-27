@@ -31,22 +31,27 @@
             return this.http(e, 'POST');
         };
         HttpService.prototype.http = function (e, method) {
+            if (method === void 0) { method = 'GET'; }
             var endpoint = (e.parameter || {}).e || '';
             if (endpoint.substr(0, 1) !== '/') {
                 endpoint = '/' + endpoint;
             }
             // methods
+            var originalMethod = method;
             var allowMethodsWhenDoGet = this.optionService.get('allowMethodsWhenDoGet');
             if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
-                method = ((e.parameter || {}).method || 'GET').toUpperCase();
-                method = (this.allowedMethods.indexOf(method) > -1) ? method : 'GET';
+                var useMeMethod = (e.parameter || {}).method;
+                method = useMeMethod ? useMeMethod.toUpperCase() : method;
+                method = (this.allowedMethods.indexOf(method) < 0) ? originalMethod : method;
             }
             // request object
             var req = {
                 query: e.parameter || {},
+                params: e.parameter || {},
                 body: {},
                 data: {}
             };
+            // body
             if (method === 'GET' && allowMethodsWhenDoGet) {
                 try {
                     req.body = JSON.parse((e.parameter || {}).body || '{}');
@@ -60,11 +65,11 @@
             }
             // response object
             var res = this.responseService;
-            // run handlers
+            // execute handlers
             var handlers = this.routerService.route(method, endpoint);
-            return this.run(handlers, req, res);
+            return this.execute(handlers, req, res);
         };
-        HttpService.prototype.run = function (handlers, req, res) {
+        HttpService.prototype.execute = function (handlers, req, res) {
             var _this = this;
             var handler = handlers.shift();
             if (!handler) {
@@ -81,7 +86,7 @@
                         }
                         req.data = __assign({}, (req.data || {}), (data || {}));
                     }
-                    return _this.run(handlers, req, res);
+                    return _this.execute(handlers, req, res);
                 };
                 return handler(req, res, next);
             }
@@ -102,9 +107,10 @@
     };
     var OptionService = /** @class */ (function () {
         function OptionService(options) {
+            if (options === void 0) { options = {}; }
             this.options = {
                 allowMethodsWhenDoGet: false,
-                views: 'views'
+                views: ''
             };
             this.options = __assign$1({}, this.options, options);
         }
@@ -137,16 +143,22 @@
         function RequestService() {
         }
         RequestService.prototype.query = function (e) {
-            if (!e) {
-                throw new Error('No Http event.');
-            }
-            return (e.parameter || {});
+            if (e === void 0) { e = {}; }
+            return this.params(e);
+        };
+        RequestService.prototype.params = function (e) {
+            if (e === void 0) { e = {}; }
+            return (e.parameter ? e.parameter : {});
         };
         RequestService.prototype.body = function (e) {
-            if (!e) {
-                throw new Error('No Http event.');
+            if (e === void 0) { e = {}; }
+            var body = {};
+            try {
+                body = JSON.parse((e.postData && e.postData.contents) ? e.postData.contents : '{}');
             }
-            var body = JSON.parse(e.postData ? e.postData.contents : '{}');
+            catch (error) {
+                /* */
+            }
             return body;
         };
         return RequestService;
@@ -180,8 +192,7 @@
         };
         ResponseService.prototype.render = function (template, data, viewEngine) {
             if (data === void 0) { data = {}; }
-            if (viewEngine === void 0) { viewEngine = null; }
-            viewEngine = (viewEngine || 'gs');
+            if (viewEngine === void 0) { viewEngine = 'raw'; }
             if (typeof template === 'string') {
                 var fileName = template;
                 var views = this.optionService.get('views');
@@ -209,8 +220,8 @@
                 }
             }
             else if (viewEngine === 'handlebars' || viewEngine === 'hbs') {
-                var compiler = Handlebars.compile(templateText);
-                outputHtml = compiler(data);
+                var render = Handlebars.compile(templateText);
+                outputHtml = render(data);
             }
             else if (viewEngine === 'ejs') {
                 outputHtml = ejs.render(templateText, data);
@@ -228,31 +239,35 @@
         };
         ResponseService.prototype.success = function (data, meta) {
             if (meta === void 0) { meta = {}; }
+            if (!data)
+                return this.error();
             if (!(data instanceof Object)) {
                 data = { value: data };
             }
-            else {
-                data = {
-                    success: true,
-                    status: 200,
-                    data: data,
-                    meta: __assign$2({ at: (new Date()).getTime() }, meta)
-                };
+            if (!(meta instanceof Object)) {
+                meta = { value: meta };
             }
-            return this.json(data);
-        };
-        ResponseService.prototype.error = function (code, message, httpCode, meta) {
-            if (code === void 0) { code = 'app/unknown'; }
-            if (message === void 0) { message = 'Something wrong!'; }
-            if (httpCode === void 0) { httpCode = 500; }
-            if (meta === void 0) { meta = {}; }
-            var error = {
-                error: true,
-                status: httpCode,
-                code: code,
-                message: message,
+            var success = {
+                success: true,
+                status: 200,
+                data: data,
                 meta: __assign$2({ at: (new Date()).getTime() }, meta)
             };
+            return this.json(success);
+        };
+        ResponseService.prototype.error = function (err, meta) {
+            if (err === void 0) { err = {}; }
+            if (meta === void 0) { meta = {}; }
+            if (!err.status)
+                err.status = 500;
+            if (!err.code)
+                err.code = 'unknown';
+            if (!err.message)
+                err.message = 'Unknown error.';
+            if (!(meta instanceof Object)) {
+                meta = { value: meta };
+            }
+            var error = __assign$2({}, err, { error: true, meta: __assign$2({ at: (new Date()).getTime() }, meta) });
             return this.json(error);
         };
         return ResponseService;
@@ -269,12 +284,16 @@
             for (var _i = 0; _i < arguments.length; _i++) {
                 handlers[_i] = arguments[_i];
             }
-            if (!!handlers[0] && handlers[0] instanceof Function) {
-                this.sharedMiddlewares = this.sharedMiddlewares.concat(handlers);
+            if (typeof handlers[0] === 'string') {
+                var routeName = handlers.shift();
+                this.routeMiddlewares['GET:' + routeName] = handlers;
+                this.routeMiddlewares['POST:' + routeName] = handlers;
+                this.routeMiddlewares['PUT:' + routeName] = handlers;
+                this.routeMiddlewares['PATCH:' + routeName] = handlers;
+                this.routeMiddlewares['DELETE:' + routeName] = handlers;
             }
             else {
-                var routeName = handlers.shift();
-                this.register('ALL', routeName, handlers);
+                this.sharedMiddlewares = this.sharedMiddlewares.concat(handlers);
             }
         };
         RouterService.prototype.all = function (routeName) {
@@ -341,12 +360,6 @@
             for (var _i = 2; _i < arguments.length; _i++) {
                 handlers[_i - 2] = arguments[_i];
             }
-            if (!routeName) {
-                throw new Error('Invalid route name.');
-            }
-            if (handlers.length < 1) {
-                throw new Error('No handlers.');
-            }
             // remove invalid handlers
             for (var i = 0; i < handlers.length; i++) {
                 if (!handlers[i] || (i !== 0 && !(handlers[i] instanceof Function))) {
@@ -382,7 +395,7 @@
 
     function o2a(object, keyName) {
         if (keyName === void 0) { keyName = '$key'; }
-        var array = [];
+        var arr = [];
         for (var _i = 0, _a = Object.keys(object || {}); _i < _a.length; _i++) {
             var key = _a[_i];
             if (object[key] instanceof Object) {
@@ -394,22 +407,23 @@
                 object[key][keyName] = key;
                 object[key]['value'] = value;
             }
-            array.push(object[key]);
+            arr.push(object[key]);
         }
-        return array;
+        return arr;
     }
     function a2o(array, keyName) {
         if (keyName === void 0) { keyName = 'key'; }
-        var object = {};
+        var obj = {};
         for (var i = 0; i < (array || []).length; i++) {
             var item = array[i];
-            object[item[keyName] ||
+            obj[item[keyName] ||
+                item['key'] ||
                 item['slug'] ||
                 (item['id'] ? '' + item['id'] : null) ||
                 (item['#'] ? '' + item['#'] : null) ||
                 ('' + Math.random() * 1E20)] = item;
         }
-        return object;
+        return obj;
     }
     function uniqueId(length, startWith) {
         if (length === void 0) { length = 12; }
@@ -446,7 +460,8 @@
     }
     function honorData(data) {
         if (data === void 0) { data = {}; }
-        for (var key in data) {
+        for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
+            var key = _a[_i];
             if (data[key] === '' || data[key] === null || data[key] === undefined) {
                 // delete null key
                 delete data[key];
@@ -461,12 +476,11 @@
             }
             else if (!isNaN(data[key])) {
                 // number
+                // tslint:disable:ban radix
                 if (Number(data[key]) % 1 === 0) {
-                    // tslint:disable-next-line:ban
-                    data[key] = parseInt(data[key], 2);
+                    data[key] = parseInt(data[key]);
                 }
                 if (Number(data[key]) % 1 !== 0) {
-                    // tslint:disable-next-line:ban
                     data[key] = parseFloat(data[key]);
                 }
             }

@@ -31,14 +31,16 @@ export class HttpService {
         return this.http(e, 'POST');
     }
 
-    private http(e: HttpEvent = {}, method = 'GET') {
+    private http(e: HttpEvent, method = 'GET') {
         let endpoint: string = (e.parameter || {}).e || '';
         if (endpoint.substr(0,1) !== '/') { endpoint = '/' + endpoint; }
         // methods
+        const originalMethod = method;
         const allowMethodsWhenDoGet: boolean = this.optionService.get('allowMethodsWhenDoGet');
         if (method !== 'GET' || (method === 'GET' && allowMethodsWhenDoGet)) {
-            method = ((e.parameter || {}).method as string || 'GET').toUpperCase();
-            method = (this.allowedMethods.indexOf(method) > -1) ? method : 'GET';
+            const useMeMethod: string = (e.parameter || {}).method;
+            method = useMeMethod ? useMeMethod.toUpperCase() : method;
+            method = (this.allowedMethods.indexOf(method) < 0) ? originalMethod : method;
         }
         // request object
         const req: RouteRequest = {

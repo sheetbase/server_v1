@@ -84,6 +84,7 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="requestservice.html#body" class="tsd-kind-icon">body</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="requestservice.html#params" class="tsd-kind-icon">params</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="requestservice.html#query" class="tsd-kind-icon">query</a></li>
 							</ul>
 						</section>
@@ -102,7 +103,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/request.ts#L3">lib/request.ts:3</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/request.ts#L3">lib/request.ts:3</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="requestservice.html" class="tsd-signature-type">RequestService</a></h4>
@@ -116,19 +117,44 @@
 					<a name="body" class="tsd-anchor"></a>
 					<h3>body</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">body<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">?: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/request.ts#L12">lib/request.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/request.ts#L15">lib/request.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span></h4>
+							<ul class="tsd-parameters">
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="params" class="tsd-anchor"></a>
+					<h3>params</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">params<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">?: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/request.ts#L11">lib/request.ts:11</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -139,19 +165,19 @@
 					<a name="query" class="tsd-anchor"></a>
 					<h3>query</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">?: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/request.ts#L7">lib/request.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/request.ts#L7">lib/request.ts:7</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -186,6 +212,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="requestservice.html#body" class="tsd-kind-icon">body</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="requestservice.html#params" class="tsd-kind-icon">params</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="requestservice.html#query" class="tsd-kind-icon">query</a>

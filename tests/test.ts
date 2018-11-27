@@ -24,7 +24,6 @@ let Option = new OptionService();
 const Request = new RequestService();
 let Response = new ResponseService(Option);
 let Router = new RouterService();
-const HTTP = new HttpService(Option, Response, Router);
 
 const Sheetbase = sheetbase();
 
@@ -108,17 +107,72 @@ describe('Test module members', () => {
     });
 });
 
-describe('HttpService test', () => {
+describe('HTTP test', () => {
+    it('#get should work', () => {
+        Sheetbase.Router.get('/', (req, res, next) => res.send('GET / response'));
+        Sheetbase.Router.get('/me', (req, res, next) => res.send('GET /me response'));
+        const result1 = Sheetbase.HTTP.get({});
+        const result2 = Sheetbase.HTTP.get({
+            parameter: { e: '/me' },
+        });
+        expect(result1).to.equal('GET / response output');
+        expect(result2).to.equal('GET /me response output');
+    });
 
-    it('#get should work');
-    it('#post should work');
+    it('#post should work', () => {
+        Sheetbase.Router.post('/', (req, res, next) => res.send('POST / response'));
+        Sheetbase.Router.post('/me', (req, res, next) => res.send('POST /me response'));
+        const result1 = Sheetbase.HTTP.post({});
+        const result2 = Sheetbase.HTTP.post({
+            parameter: { e: '/me' },
+        });
+        expect(result1).to.equal('POST / response output');
+        expect(result2).to.equal('POST /me response output');
+    });
 
+    it('#get should work (NOT allows custom methods)', () => {
+        Sheetbase.Router.get('/', (req, res, next) => res.send('GET / response'));
+        Sheetbase.Router.post('/', (req, res, next) => res.send('POST / response'));
+        const resultGET = Sheetbase.HTTP.get({});
+        const resultPOST = Sheetbase.HTTP.get({
+            parameter: { method: 'POST' },
+        });
+        expect(resultGET).to.equal('GET / response output');
+        expect(resultPOST).to.equal('GET / response output');
+    });
+
+    it('#get should work (custom methods)', () => {
+        Sheetbase.Option.set({ allowMethodsWhenDoGet: true });
+
+        Sheetbase.Router.get('/', (req, res, next) => res.send('GET / response'));
+        Sheetbase.Router.post('/', (req, res, next) => res.send('POST / response'));
+        Sheetbase.Router.put('/', (req, res, next) => res.send('PUT / response'));
+        Sheetbase.Router.patch('/', (req, res, next) => res.send('PATCH / response'));
+        Sheetbase.Router.delete('/', (req, res, next) => res.send('DELETE / response'));
+        const resultGET = Sheetbase.HTTP.get({});
+        const resultPOST = Sheetbase.HTTP.get({
+            parameter: { method: 'POST' },
+        });
+        const resultPUT = Sheetbase.HTTP.get({
+            parameter: { method: 'PUT' },
+        });
+        const resultPATCH = Sheetbase.HTTP.get({
+            parameter: { method: 'PATCH' },
+        });
+        const resultDELETE = Sheetbase.HTTP.get({
+            parameter: { method: 'DELETE' },
+        });
+        expect(resultGET).to.equal('GET / response output');
+        expect(resultPOST).to.equal('POST / response output');
+        expect(resultPUT).to.equal('PUT / response output');
+        expect(resultPATCH).to.equal('PATCH / response output');
+        expect(resultDELETE).to.equal('DELETE / response output');
+    });
 });
 
 describe('OptionService test', () => {
     afterEach(() => {
-        // reset options
-        Option = new OptionService();
+        Option = new OptionService(); // reset options
     });
 
     it('#get should work (default values)', () => {
@@ -377,6 +431,25 @@ describe('RouterService test', () => {
         expect(route instanceof Function).to.equal(true);
         expect(result).to.equal(method + ' / result');
     });
+
+    it('#get should work (with middlewares)', () => {
+        const method = 'GET';
+
+        Router.get('/',
+            (req, res, next) => next(), // middleware 1
+            (req, res, next) => next(), // middleware 2
+            (req, res) => res.send(method + ' / result'),
+        );
+        const [ middleware1, middleware2, route ] = Router.route(method, '/');
+        const middleware1Result = middleware1(req, res, next as any);
+        const middleware2Result = middleware2(req, res, () => 'next >' as any);
+        const routeResult = route(req, res);
+
+        expect(middleware1Result).to.equal(true);
+        expect(middleware2Result).to.equal('next >');
+        expect(routeResult).to.equal(method + ' / result');
+    });
+
     it('#post should work', () => {
         const method = 'POST';
 
@@ -433,7 +506,38 @@ describe('RouterService test', () => {
         expect(routeDELETE instanceof Function).to.equal(true);
     });
 
-    it('#use should work');
+    it('#use should work', () => {
+        const hdlr = (req, res, next) => next(); // always pass middleware
+        const next = () => 'next >'; // return a text when next() is call
+
+        // use one middleware
+        Router.use(hdlr);
+        const result1 = Router.route('GET', '/');
+        const middlewareResult1 = result1[0](req, res, next as any); // the first middleware
+
+        expect(result1.length).to.equal(2);
+        expect(middlewareResult1).to.equal('next >');
+
+        // use 3 more middlewares
+        Router.use(hdlr, hdlr, hdlr);
+        const result2 = Router.route('GET', '/');
+        const middlewareResult2 = result2[3](req, res, next as any); // the last middleware
+
+        expect(result2.length).to.equal(5);
+        expect(middlewareResult2).to.equal('next >');
+    });
+
+    it('#use should work (for a specific route)', () => {
+        // only for /me
+        Router.use('/me', (req, res, next) => next());
+        const result1 = Router.route('GET', '/me');
+        const middlewareResult1 = result1[0](req, res, next as any);
+        const result2 = Router.route('GET', '/');
+
+        expect(result1.length).to.equal(2);
+        expect(middlewareResult1).to.equal(true);
+        expect(result2.length).to.equal(1); // not for this route
+    });
 
 });
 

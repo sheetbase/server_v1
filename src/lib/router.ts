@@ -7,31 +7,35 @@ export class RouterService {
 
     constructor () {}
 
-    use(...handlers: RouteHandler[]) {
-        if (!!handlers[0] && handlers[0] instanceof Function) {
-            this.sharedMiddlewares = this.sharedMiddlewares.concat(handlers);
+    use(...handlers: Array<RouteHandler | string>): void {
+        if (typeof handlers[0] === 'string') {
+            const routeName = handlers.shift() as string;
+            this.routeMiddlewares['GET:' + routeName] = handlers;
+            this.routeMiddlewares['POST:' + routeName] = handlers;
+            this.routeMiddlewares['PUT:' + routeName] = handlers;
+            this.routeMiddlewares['PATCH:' + routeName] = handlers;
+            this.routeMiddlewares['DELETE:' + routeName] = handlers;
         } else {
-            const routeName: any = handlers.shift();
-            this.register('ALL', routeName, ...handlers);
+            this.sharedMiddlewares = this.sharedMiddlewares.concat(handlers);
         }
     }
 
-    all(routeName: string, ...handlers: RouteHandler[]) {
+    all(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('ALL', routeName, ...handlers);
     }
-    get(routeName: string, ...handlers: RouteHandler[]) {
+    get(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('GET', routeName, ...handlers);
     }
-    post(routeName: string, ...handlers: RouteHandler[]) {
+    post(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('POST', routeName, ...handlers);
     }
-    put(routeName: string, ...handlers: RouteHandler[]) {
+    put(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('PUT', routeName, ...handlers);
     }
-    patch(routeName: string, ...handlers: RouteHandler[]) {
+    patch(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('PATCH', routeName, ...handlers);
     }
-    delete(routeName: string, ...handlers: RouteHandler[]) {
+    delete(routeName: string, ...handlers: RouteHandler[]): void {
         this.register('DELETE', routeName, ...handlers);
     }
 
@@ -55,7 +59,7 @@ export class RouterService {
         return handlers;
     }
 
-    private register(method: string, routeName: string, ...handlers: RouteHandler[]) {
+    private register(method: string, routeName: string, ...handlers: RouteHandler[]): void {
         // remove invalid handlers
         for (let i = 0; i < handlers.length; i++) {
             if (!handlers[i] || (i !== 0 && !(handlers[i] instanceof Function))) {

@@ -112,7 +112,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L12">lib/response.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L12">lib/response.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -132,26 +132,20 @@
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, message<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, httpCode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">?: </span><a href="responseerror.html" class="tsd-signature-type">ResponseError</a>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#error">error</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L85">lib/response.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L89">lib/response.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> code: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;app/unknown&quot;</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> message: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;Something wrong!&quot;</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> httpCode: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;500</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> err: <a href="responseerror.html" class="tsd-signature-type">ResponseError</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> meta: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
@@ -172,7 +166,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#html">html</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L23">lib/response.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L23">lib/response.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -189,20 +183,20 @@
 					<a name="json" class="tsd-anchor"></a>
 					<h3>json</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">json<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">json<span class="tsd-signature-symbol">(</span>object<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#json">json</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L61">lib/response.ts:61</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L60">lib/response.ts:60</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>object: <span class="tsd-signature-type">any</span></h5>
+									<h5>object: <span class="tsd-signature-type">__type</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TextOutput</span></h4>
@@ -213,14 +207,14 @@
 					<a name="render" class="tsd-anchor"></a>
 					<h3>render</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>template<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span>, viewEngine<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HtmlOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">render<span class="tsd-signature-symbol">(</span>template<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">__type</span>, viewEngine<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HtmlOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L27">lib/response.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L27">lib/response.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -229,10 +223,10 @@
 									<h5>template: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> data: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> data: <span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> viewEngine: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;null</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> viewEngine: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;raw&quot;</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">HtmlOutput</span></h4>
@@ -243,20 +237,20 @@
 					<a name="send" class="tsd-anchor"></a>
 					<h3>send</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">send<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HtmlOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">send<span class="tsd-signature-symbol">(</span>content<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">__type</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">HtmlOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#send">send</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L18">lib/response.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L18">lib/response.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>content: <span class="tsd-signature-type">any</span></h5>
+									<h5>content: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">__type</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TextOutput</span>
@@ -270,20 +264,20 @@
 					<a name="success" class="tsd-anchor"></a>
 					<h3>success</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">__type</span>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#success">success</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/6982fee/src/lib/response.ts#L68">lib/response.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/response.ts#L67">lib/response.ts:67</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>data: <span class="tsd-signature-type">any</span></h5>
+									<h5>data: <span class="tsd-signature-type">__type</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> meta: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>

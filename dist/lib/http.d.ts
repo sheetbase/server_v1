@@ -11,5 +11,5 @@ export declare class HttpService {
     get(e: HttpEvent): any;
     post(e: HttpEvent): any;
     private http;
-    private run;
+    private execute;
 }
