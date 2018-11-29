@@ -402,6 +402,10 @@
                 return handler({ code: code, message: message, status: status });
             };
         };
+        RouterService.prototype.routingError = function (errors, handler, code) {
+            var builder = this.errorBuilder(errors, handler);
+            return builder(code);
+        };
         RouterService.prototype.exposeChecker = function (disabledRoutes) {
             return function (method, routeName) {
                 var enable = true;
@@ -428,6 +432,10 @@
                 }
                 return enable;
             };
+        };
+        RouterService.prototype.enabledRoute = function (disabledRoutes, method, routeName) {
+            var checker = this.exposeChecker(disabledRoutes);
+            return checker(method, routeName);
         };
         return RouterService;
     }());

@@ -21,7 +21,11 @@ export declare class RouterService {
     }): {
         (code?: string): any;
     };
+    routingError(errors: RoutingErrors, handler: {
+        (err: ResponseError): any;
+    }, code?: string): any;
     exposeChecker(disabledRoutes: string | string[]): {
         (method: string, routeName: string): boolean;
     };
+    enabledRoute(disabledRoutes: string | string[], method: string, routeName: string): boolean;
 }

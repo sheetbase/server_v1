@@ -106,6 +106,11 @@ export class RouterService {
         };
     }
 
+    routingError(errors: RoutingErrors, handler: {(err: ResponseError)}, code?: string) {
+        const builder = this.errorBuilder(errors, handler);
+        return builder(code);
+    }
+
     exposeChecker(disabledRoutes: string | string[]): {
         (method: string, routeName: string): boolean;
     } {
@@ -135,4 +140,10 @@ export class RouterService {
             return enable;
         };
     }
+
+    enabledRoute(disabledRoutes: string | string[], method: string, routeName: string): boolean {
+        const checker = this.exposeChecker(disabledRoutes);
+        return checker(method, routeName);
+    }
+
 }

@@ -578,6 +578,19 @@ describe('Router helpers', () => {
         expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
     });
 
+    it('#errorBuilder should show correct error (direct method)', () => {
+        const result1 = Router.routingError(ROUTING_ERRORS, errorHandler); // default
+        const result2 = Router.routingError(ROUTING_ERRORS, errorHandler, 'xxx'); // invalid
+        const result3 = Router.routingError(
+            ROUTING_ERRORS, errorHandler, 'error1',
+        ); // no status (default to 400)
+        const result4 = Router.routingError(ROUTING_ERRORS, errorHandler, 'error2'); // has status
+        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
+    });
+
     it('#exposeChecker should show correct result', () => {
         const result0 = exposeChecker('get', '/xxx0');
         const result1 = exposeChecker('get', '/xxx1');
@@ -588,6 +601,27 @@ describe('Router helpers', () => {
         const result6 = exposeChecker('get', '/xxx6');
         const result7 = exposeChecker('get', '/xxx7');
         const result8 = exposeChecker('get', '/xxx8');
+        expect(result0).to.equal(true);
+        expect(result1).to.equal(false);
+        expect(result2).to.equal(false);
+        expect(result3).to.equal(false);
+        expect(result4).to.equal(false);
+        expect(result5).to.equal(false);
+        expect(result6).to.equal(false);
+        expect(result7).to.equal(false);
+        expect(result8).to.equal(false);
+    });
+
+    it('#exposeChecker should show correct result (direct method)', () => {
+        const result0 = Router.enabledRoute(disaledRoutes, 'get', '/xxx0');
+        const result1 = Router.enabledRoute(disaledRoutes, 'get', '/xxx1');
+        const result2 = Router.enabledRoute(disaledRoutes, 'get', '/xxx2');
+        const result3 = Router.enabledRoute(disaledRoutes, 'get', '/xxx3');
+        const result4 = Router.enabledRoute(disaledRoutes, 'get', '/xxx4');
+        const result5 = Router.enabledRoute(disaledRoutes, 'get', '/xxx5');
+        const result6 = Router.enabledRoute(disaledRoutes, 'get', '/xxx6');
+        const result7 = Router.enabledRoute(disaledRoutes, 'get', '/xxx7');
+        const result8 = Router.enabledRoute(disaledRoutes, 'get', '/xxx8');
         expect(result0).to.equal(true);
         expect(result1).to.equal(false);
         expect(result2).to.equal(false);
