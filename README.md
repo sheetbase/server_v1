@@ -25,6 +25,10 @@ declare const SheetbaseModule: { Sheetbase: any };
 const Sheetbase = SheetbaseModule.Sheetbase;
 ```
 
+## Scopes
+
+`https://www.googleapis.com/auth/script.scriptapp`
+
 ## Usage
 
 - Docs homepage: https://sheetbase.github.io/core-server
@@ -36,12 +40,12 @@ const Sheetbase = SheetbaseModule.Sheetbase;
 ```ts
 import * as Sheetbase from "./public_api";
 
-function load() {
+function load_() {
   return Sheetbase.sheetbase({ views: "views" });
 }
 
 export function example1() {
-  const Sheetbase = load();
+  const Sheetbase = load_();
 
   const views = Sheetbase.Option.get("views");
   Logger.log(views);

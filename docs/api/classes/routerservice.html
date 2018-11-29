@@ -93,6 +93,8 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#all" class="tsd-kind-icon">all</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#delete" class="tsd-kind-icon">delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#errorbuilder" class="tsd-kind-icon">error<wbr>Builder</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#exposechecker" class="tsd-kind-icon">expose<wbr>Checker</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#patch" class="tsd-kind-icon">patch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="routerservice.html#post" class="tsd-kind-icon">post</a></li>
@@ -117,7 +119,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L6">lib/router.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L6">lib/router.ts:6</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="routerservice.html" class="tsd-signature-type">RouterService</a></h4>
@@ -133,7 +135,7 @@
 					<div class="tsd-signature tsd-kind-icon">route<wbr>Middlewares<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L6">lib/router.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L6">lib/router.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -148,7 +150,7 @@
 					<div class="tsd-signature tsd-kind-icon">routes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L4">lib/router.ts:4</a></li>
+							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L4">lib/router.ts:4</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -163,7 +165,7 @@
 					<div class="tsd-signature tsd-kind-icon">shared<wbr>Middlewares<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L5">lib/router.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L5">lib/router.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -180,7 +182,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L23">lib/router.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L23">lib/router.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -206,7 +208,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L38">lib/router.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L38">lib/router.ts:38</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -223,6 +225,117 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="errorbuilder" class="tsd-anchor"></a>
+					<h3>error<wbr>Builder</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">error<wbr>Builder<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">: </span><a href="../interfaces/routingerrors.html" class="tsd-signature-type">RoutingErrors</a>, handler<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L97">lib/router.ts:97</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Helpers</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>errors: <a href="../interfaces/routingerrors.html" class="tsd-signature-type">RoutingErrors</a></h5>
+								</li>
+								<li>
+									<h5>handler: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">: </span><a href="../interfaces/responseerror.html" class="tsd-signature-type">ResponseError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>err: <a href="../interfaces/responseerror.html" class="tsd-signature-type">ResponseError</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-siganture">
+									<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>code<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5><span class="tsd-flag ts-flagOptional">Optional</span> code: <span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="exposechecker" class="tsd-anchor"></a>
+					<h3>expose<wbr>Checker</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">expose<wbr>Checker<span class="tsd-signature-symbol">(</span>disabledRoutes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L109">lib/router.ts:109</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>disabledRoutes: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
+							<ul class="tsd-parameters">
+								<li class="tsd-parameter-siganture">
+									<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+										<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>method<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, routeName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+									</ul>
+									<ul class="tsd-descriptions">
+										<li class="tsd-description">
+											<h4 class="tsd-parameters-title">Parameters</h4>
+											<ul class="tsd-parameters">
+												<li>
+													<h5>method: <span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li>
+													<h5>routeName: <span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+											<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -232,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L26">lib/router.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L26">lib/router.ts:26</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -258,7 +371,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L35">lib/router.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L35">lib/router.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -284,7 +397,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L29">lib/router.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L29">lib/router.ts:29</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -310,7 +423,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L32">lib/router.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L32">lib/router.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -336,7 +449,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L62">lib/router.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L62">lib/router.ts:62</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -365,7 +478,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L42">lib/router.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L42">lib/router.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -391,7 +504,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/951e079/src/lib/router.ts#L10">lib/router.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/f79e5c3/src/lib/router.ts#L10">lib/router.ts:10</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -452,6 +565,12 @@
 								<a href="routerservice.html#delete" class="tsd-kind-icon">delete</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="routerservice.html#errorbuilder" class="tsd-kind-icon">error<wbr>Builder</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="routerservice.html#exposechecker" class="tsd-kind-icon">expose<wbr>Checker</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="routerservice.html#get" class="tsd-kind-icon">get</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
@@ -505,6 +624,9 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/routeresponse.html" class="tsd-kind-icon">Route<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/routingerror.html" class="tsd-kind-icon">Routing<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/routingerrors.html" class="tsd-kind-icon">Routing<wbr>Errors</a>

@@ -10,11 +10,12 @@ import {
     uniqueId,
     honorData,
 
-    HttpService,
     OptionService,
     RequestService,
     ResponseService,
     RouterService,
+
+    RoutingErrors,
 } from '../src/public_api';
 
 /**
@@ -537,6 +538,65 @@ describe('RouterService test', () => {
         expect(result1.length).to.equal(2);
         expect(middlewareResult1).to.equal(true);
         expect(result2.length).to.equal(1); // not for this route
+    });
+
+});
+
+describe('Router helpers', () => {
+    const ROUTING_ERRORS: RoutingErrors = {
+        error1: { message: 'Error 1' },
+        error2: { status: 500, message: 'Error 2' },
+    };
+    const errorHandler = (err) => err;
+    const disaledRoutes = [
+        'get:/xxx1',
+        'GET:/xxx2',
+        'get:xxx3',
+        'GET:xxx4',
+        'get /xxx5',
+        'GET /xxx6',
+        'get xxx7',
+        'GET xxx8',
+    ];
+
+    const errorBuilder = Router.errorBuilder(ROUTING_ERRORS, errorHandler);
+    const exposeChecker = Router.exposeChecker(disaledRoutes);
+
+    it('should create the instances', () => {
+        expect(errorBuilder instanceof Function).to.equal(true);
+        expect(exposeChecker instanceof Function).to.equal(true);
+    });
+
+    it('#errorBuilder should show correct error', () => {
+        const result1 = errorBuilder(); // default
+        const result2 = errorBuilder('xxx'); // invalid
+        const result3 = errorBuilder('error1'); // no status (default to 400)
+        const result4 = errorBuilder('error2'); // has status
+        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
+    });
+
+    it('#exposeChecker should show correct result', () => {
+        const result0 = exposeChecker('get', '/xxx0');
+        const result1 = exposeChecker('get', '/xxx1');
+        const result2 = exposeChecker('get', '/xxx2');
+        const result3 = exposeChecker('get', '/xxx3');
+        const result4 = exposeChecker('get', '/xxx4');
+        const result5 = exposeChecker('get', '/xxx5');
+        const result6 = exposeChecker('get', '/xxx6');
+        const result7 = exposeChecker('get', '/xxx7');
+        const result8 = exposeChecker('get', '/xxx8');
+        expect(result0).to.equal(true);
+        expect(result1).to.equal(false);
+        expect(result2).to.equal(false);
+        expect(result3).to.equal(false);
+        expect(result4).to.equal(false);
+        expect(result5).to.equal(false);
+        expect(result6).to.equal(false);
+        expect(result7).to.equal(false);
+        expect(result8).to.equal(false);
     });
 
 });

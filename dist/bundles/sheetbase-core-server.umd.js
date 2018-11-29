@@ -390,6 +390,45 @@
                 this.routeMiddlewares['DELETE:' + routeName] = handlers;
             }
         };
+        /**
+         * Helpers
+         */
+        RouterService.prototype.errorBuilder = function (errors, handler) {
+            return function (code) {
+                code = errors[code] ? code : Object.keys(errors)[0];
+                var error = errors[code];
+                error = (typeof error === 'string') ? { message: error } : error;
+                var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
+                return handler({ code: code, message: message, status: status });
+            };
+        };
+        RouterService.prototype.exposeChecker = function (disabledRoutes) {
+            return function (method, routeName) {
+                var enable = true;
+                // cheking value (against disabledRoutes)
+                var value = method + ':' + routeName;
+                var valueSpaced = method + ' ' + routeName;
+                var valueUppercase = method.toUpperCase() + ':' + routeName;
+                var valueSpacedUppercase = method.toUpperCase() + ' ' + routeName;
+                var values = [
+                    value,
+                    valueUppercase,
+                    (value).replace(':/', ':'),
+                    (valueUppercase).replace(':/', ':'),
+                    valueSpaced,
+                    valueSpacedUppercase,
+                    (valueSpaced).replace(' /', ' '),
+                    (valueSpacedUppercase).replace(' /', ' '),
+                ];
+                // check
+                for (var i = 0; i < values.length; i++) {
+                    if (disabledRoutes.indexOf(values[i]) > -1) {
+                        enable = false;
+                    }
+                }
+                return enable;
+            };
+        };
         return RouterService;
     }());
 

@@ -1,4 +1,4 @@
-import { RouteHandler } from './types';
+import { RouteHandler, RoutingErrors, ResponseError, RoutingError } from './types';
 
 export class RouterService {
     private routes = {};
@@ -89,5 +89,50 @@ export class RouterService {
             this.routes['DELETE:' + routeName] = handler;
             this.routeMiddlewares['DELETE:' + routeName] = handlers;
         }
+    }
+
+    /**
+     * Helpers
+     */
+    errorBuilder(errors: RoutingErrors, handler: {(err: ResponseError)}): {
+        (code?: string);
+    } {
+        return (code?: string) => {
+            code = errors[code] ? code : Object.keys(errors)[0];
+            let error = errors[code];
+            error = (typeof error === 'string') ? { message: error } : error;
+            const { status = 400, message } = error as RoutingError;
+            return handler({ code, message, status });
+        };
+    }
+
+    exposeChecker(disabledRoutes: string | string[]): {
+        (method: string, routeName: string): boolean;
+    } {
+        return (method: string, routeName: string): boolean => {
+            let enable = true;
+            // cheking value (against disabledRoutes)
+            const value: string = method + ':' + routeName;
+            const valueSpaced: string = method + ' ' + routeName;
+            const valueUppercase: string = method.toUpperCase() + ':' + routeName;
+            const valueSpacedUppercase: string = method.toUpperCase() + ' ' + routeName;
+            const values: string[] = [
+                value, // get:/xxx
+                valueUppercase, // GET:/xxx
+                (value).replace(':/', ':'), // get:xxx
+                (valueUppercase).replace(':/', ':'), // GET:xxx
+                valueSpaced, // get /xxx
+                valueSpacedUppercase, // GET /xxx
+                (valueSpaced).replace(' /', ' '), // get xxx
+                (valueSpacedUppercase).replace(' /', ' '), // GET xxx
+            ];
+            // check
+            for (let i = 0; i < values.length; i++) {
+                if (disabledRoutes.indexOf(values[i]) > -1) {
+                    enable = false;
+                }
+            }
+            return enable;
+        };
     }
 }

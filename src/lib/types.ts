@@ -1,4 +1,5 @@
 import { ResponseService } from './response';
+import { RouterService } from './router';
 
 export interface HttpEvent {
     parameter?: any;
@@ -55,14 +56,19 @@ export interface RouteHandler {
     (req: RouteRequest, res: RouteResponse, next?: RouteNext);
 }
 
+export interface RoutingError {
+    message: string;
+    code?: string | number;
+    status?: number;
+}
+
 export interface RoutingErrors {
-    [code: string]: {
-        status?: number;
-        message?: string;
-    };
+    [code: string]: string | RoutingError;
 }
 
 export interface AddonRoutesOptions {
+    router: RouterService;
+    disabledRoutes?: string | string[];
     endpoint?: string;
     middlewares?: RouteHandler[];
 }
