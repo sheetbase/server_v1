@@ -1,3 +1,5 @@
+import { RoutingErrors, ResponseError, RoutingError } from './types';
+
 export function o2a<Obj, K extends keyof Obj, P extends Obj[K]>(
     object: Obj,
     keyName = '$key',
@@ -102,4 +104,70 @@ export function honorData<Obj>(
         }
     }
     return data;
+}
+
+/**
+ * Routing helpers
+ */
+export function routingErrorBuilder(errors: RoutingErrors, errorHandler?: {(err: ResponseError)}): {
+    (code?: string, overrideHandler?: {(err: ResponseError)});
+} {
+    return (code?: string, overrideHandler?: {(err: ResponseError)}) => {
+        // error
+        code = errors[code] ? code : Object.keys(errors)[0];
+        let error = errors[code];
+        error = (typeof error === 'string') ? { message: error } : error;
+        const { status = 400, message } = error as RoutingError;
+        // handler
+        const handler = overrideHandler || errorHandler;
+        if (!!handler && handler instanceof Function) {
+            return handler({ code, message, status });
+        } else {
+            return { code, message, status };
+        }
+    };
+}
+
+export function routingError(errors: RoutingErrors, code?: string, errorHandler?: {(err: ResponseError)}) {
+    const builder = routingErrorBuilder(errors, errorHandler);
+    return builder(code);
+}
+
+export function addonRoutesExposedChecker(disabledRoutes: string | string[]): {
+    (method: string, routeName: string): boolean;
+} {
+    return (method: string, routeName: string): boolean => {
+        let enable = true;
+        // cheking value (against disabledRoutes)
+        const value: string = method.toLowerCase() + ':' + routeName;
+        const valueSpaced: string = method.toLowerCase() + ' ' + routeName;
+        const valueUppercase: string = method.toUpperCase() + ':' + routeName;
+        const valueSpacedUppercase: string = method.toUpperCase() + ' ' + routeName;
+        const values: string[] = [
+            value, // get:/xxx
+            valueUppercase, // GET:/xxx
+            (value).replace(':/', ':'), // get:xxx
+            (valueUppercase).replace(':/', ':'), // GET:xxx
+            valueSpaced, // get /xxx
+            valueSpacedUppercase, // GET /xxx
+            (valueSpaced).replace(' /', ' '), // get xxx
+            (valueSpacedUppercase).replace(' /', ' '), // GET xxx
+        ];
+        // check
+        for (let i = 0; i < values.length; i++) {
+            if (disabledRoutes.indexOf(values[i]) > -1) {
+                enable = false;
+            }
+        }
+        return enable;
+    };
+}
+
+export function addonRoutesExposed(
+    disabledRoutes: string | string[],
+    method: string,
+    routeName: string,
+): boolean {
+    const checker = addonRoutesExposedChecker(disabledRoutes);
+    return checker(method, routeName);
 }

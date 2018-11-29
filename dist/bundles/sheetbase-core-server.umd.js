@@ -390,53 +390,6 @@
                 this.routeMiddlewares['DELETE:' + routeName] = handlers;
             }
         };
-        /**
-         * Helpers
-         */
-        RouterService.prototype.errorBuilder = function (errors, handler) {
-            return function (code) {
-                code = errors[code] ? code : Object.keys(errors)[0];
-                var error = errors[code];
-                error = (typeof error === 'string') ? { message: error } : error;
-                var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
-                return handler({ code: code, message: message, status: status });
-            };
-        };
-        RouterService.prototype.routingError = function (errors, handler, code) {
-            var builder = this.errorBuilder(errors, handler);
-            return builder(code);
-        };
-        RouterService.prototype.exposeChecker = function (disabledRoutes) {
-            return function (method, routeName) {
-                var enable = true;
-                // cheking value (against disabledRoutes)
-                var value = method + ':' + routeName;
-                var valueSpaced = method + ' ' + routeName;
-                var valueUppercase = method.toUpperCase() + ':' + routeName;
-                var valueSpacedUppercase = method.toUpperCase() + ' ' + routeName;
-                var values = [
-                    value,
-                    valueUppercase,
-                    (value).replace(':/', ':'),
-                    (valueUppercase).replace(':/', ':'),
-                    valueSpaced,
-                    valueSpacedUppercase,
-                    (valueSpaced).replace(' /', ' '),
-                    (valueSpacedUppercase).replace(' /', ' '),
-                ];
-                // check
-                for (var i = 0; i < values.length; i++) {
-                    if (disabledRoutes.indexOf(values[i]) > -1) {
-                        enable = false;
-                    }
-                }
-                return enable;
-            };
-        };
-        RouterService.prototype.enabledRoute = function (disabledRoutes, method, routeName) {
-            var checker = this.exposeChecker(disabledRoutes);
-            return checker(method, routeName);
-        };
         return RouterService;
     }());
 
@@ -543,6 +496,61 @@
         }
         return data;
     }
+    /**
+     * Routing helpers
+     */
+    function routingErrorBuilder(errors, errorHandler) {
+        return function (code, overrideHandler) {
+            // error
+            code = errors[code] ? code : Object.keys(errors)[0];
+            var error = errors[code];
+            error = (typeof error === 'string') ? { message: error } : error;
+            var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
+            // handler
+            var handler = overrideHandler || errorHandler;
+            if (!!handler && handler instanceof Function) {
+                return handler({ code: code, message: message, status: status });
+            }
+            else {
+                return { code: code, message: message, status: status };
+            }
+        };
+    }
+    function routingError(errors, code, errorHandler) {
+        var builder = routingErrorBuilder(errors, errorHandler);
+        return builder(code);
+    }
+    function addonRoutesExposedChecker(disabledRoutes) {
+        return function (method, routeName) {
+            var enable = true;
+            // cheking value (against disabledRoutes)
+            var value = method.toLowerCase() + ':' + routeName;
+            var valueSpaced = method.toLowerCase() + ' ' + routeName;
+            var valueUppercase = method.toUpperCase() + ':' + routeName;
+            var valueSpacedUppercase = method.toUpperCase() + ' ' + routeName;
+            var values = [
+                value,
+                valueUppercase,
+                (value).replace(':/', ':'),
+                (valueUppercase).replace(':/', ':'),
+                valueSpaced,
+                valueSpacedUppercase,
+                (valueSpaced).replace(' /', ' '),
+                (valueSpacedUppercase).replace(' /', ' '),
+            ];
+            // check
+            for (var i = 0; i < values.length; i++) {
+                if (disabledRoutes.indexOf(values[i]) > -1) {
+                    enable = false;
+                }
+            }
+            return enable;
+        };
+    }
+    function addonRoutesExposed(disabledRoutes, method, routeName) {
+        var checker = addonRoutesExposedChecker(disabledRoutes);
+        return checker(method, routeName);
+    }
 
     function sheetbase(options) {
         var Option = new OptionService(options);
@@ -568,6 +576,10 @@
     exports.a2o = a2o;
     exports.uniqueId = uniqueId;
     exports.honorData = honorData;
+    exports.routingErrorBuilder = routingErrorBuilder;
+    exports.routingError = routingError;
+    exports.addonRoutesExposedChecker = addonRoutesExposedChecker;
+    exports.addonRoutesExposed = addonRoutesExposed;
     exports.sheetbase = sheetbase;
 
     Object.defineProperty(exports, '__esModule', { value: true });

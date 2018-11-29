@@ -1,4 +1,4 @@
-import { RouteHandler, RoutingErrors, ResponseError } from './types';
+import { RouteHandler } from './types';
 export declare class RouterService {
     private routes;
     private sharedMiddlewares;
@@ -13,19 +13,4 @@ export declare class RouterService {
     delete(routeName: string, ...handlers: RouteHandler[]): void;
     route(method: string, routeName: string): RouteHandler[];
     private register;
-    /**
-     * Helpers
-     */
-    errorBuilder(errors: RoutingErrors, handler: {
-        (err: ResponseError): any;
-    }): {
-        (code?: string): any;
-    };
-    routingError(errors: RoutingErrors, handler: {
-        (err: ResponseError): any;
-    }, code?: string): any;
-    exposeChecker(disabledRoutes: string | string[]): {
-        (method: string, routeName: string): boolean;
-    };
-    enabledRoute(disabledRoutes: string | string[], method: string, routeName: string): boolean;
 }

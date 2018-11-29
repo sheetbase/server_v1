@@ -9,6 +9,10 @@ import {
     a2o,
     uniqueId,
     honorData,
+    routingErrorBuilder,
+    routingError,
+    addonRoutesExposedChecker,
+    addonRoutesExposed,
 
     OptionService,
     RequestService,
@@ -542,99 +546,6 @@ describe('RouterService test', () => {
 
 });
 
-describe('Router helpers', () => {
-    const ROUTING_ERRORS: RoutingErrors = {
-        error1: { message: 'Error 1' },
-        error2: { status: 500, message: 'Error 2' },
-    };
-    const errorHandler = (err) => err;
-    const disaledRoutes = [
-        'get:/xxx1',
-        'GET:/xxx2',
-        'get:xxx3',
-        'GET:xxx4',
-        'get /xxx5',
-        'GET /xxx6',
-        'get xxx7',
-        'GET xxx8',
-    ];
-
-    const errorBuilder = Router.errorBuilder(ROUTING_ERRORS, errorHandler);
-    const exposeChecker = Router.exposeChecker(disaledRoutes);
-
-    it('should create the instances', () => {
-        expect(errorBuilder instanceof Function).to.equal(true);
-        expect(exposeChecker instanceof Function).to.equal(true);
-    });
-
-    it('#errorBuilder should show correct error', () => {
-        const result1 = errorBuilder(); // default
-        const result2 = errorBuilder('xxx'); // invalid
-        const result3 = errorBuilder('error1'); // no status (default to 400)
-        const result4 = errorBuilder('error2'); // has status
-        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
-    });
-
-    it('#errorBuilder should show correct error (direct method)', () => {
-        const result1 = Router.routingError(ROUTING_ERRORS, errorHandler); // default
-        const result2 = Router.routingError(ROUTING_ERRORS, errorHandler, 'xxx'); // invalid
-        const result3 = Router.routingError(
-            ROUTING_ERRORS, errorHandler, 'error1',
-        ); // no status (default to 400)
-        const result4 = Router.routingError(ROUTING_ERRORS, errorHandler, 'error2'); // has status
-        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
-    });
-
-    it('#exposeChecker should show correct result', () => {
-        const result0 = exposeChecker('get', '/xxx0');
-        const result1 = exposeChecker('get', '/xxx1');
-        const result2 = exposeChecker('get', '/xxx2');
-        const result3 = exposeChecker('get', '/xxx3');
-        const result4 = exposeChecker('get', '/xxx4');
-        const result5 = exposeChecker('get', '/xxx5');
-        const result6 = exposeChecker('get', '/xxx6');
-        const result7 = exposeChecker('get', '/xxx7');
-        const result8 = exposeChecker('get', '/xxx8');
-        expect(result0).to.equal(true);
-        expect(result1).to.equal(false);
-        expect(result2).to.equal(false);
-        expect(result3).to.equal(false);
-        expect(result4).to.equal(false);
-        expect(result5).to.equal(false);
-        expect(result6).to.equal(false);
-        expect(result7).to.equal(false);
-        expect(result8).to.equal(false);
-    });
-
-    it('#exposeChecker should show correct result (direct method)', () => {
-        const result0 = Router.enabledRoute(disaledRoutes, 'get', '/xxx0');
-        const result1 = Router.enabledRoute(disaledRoutes, 'get', '/xxx1');
-        const result2 = Router.enabledRoute(disaledRoutes, 'get', '/xxx2');
-        const result3 = Router.enabledRoute(disaledRoutes, 'get', '/xxx3');
-        const result4 = Router.enabledRoute(disaledRoutes, 'get', '/xxx4');
-        const result5 = Router.enabledRoute(disaledRoutes, 'get', '/xxx5');
-        const result6 = Router.enabledRoute(disaledRoutes, 'get', '/xxx6');
-        const result7 = Router.enabledRoute(disaledRoutes, 'get', '/xxx7');
-        const result8 = Router.enabledRoute(disaledRoutes, 'get', '/xxx8');
-        expect(result0).to.equal(true);
-        expect(result1).to.equal(false);
-        expect(result2).to.equal(false);
-        expect(result3).to.equal(false);
-        expect(result4).to.equal(false);
-        expect(result5).to.equal(false);
-        expect(result6).to.equal(false);
-        expect(result7).to.equal(false);
-        expect(result8).to.equal(false);
-    });
-
-});
-
 describe('UtilsService test', () => {
 
     it('#o2a should work', () => {
@@ -724,6 +635,110 @@ describe('UtilsService test', () => {
             j5: {c:3},
             j6: [{c:3, d:4}],
         });
+    });
+
+});
+
+describe('Routing helpers', () => {
+    const ROUTING_ERRORS: RoutingErrors = {
+        error1: { message: 'Error 1' },
+        error2: { status: 500, message: 'Error 2' },
+    };
+    const errorHandler = (err) => err;
+    const disaledRoutes = [
+        'get:/xxx1',
+        'GET:/xxx2',
+        'get:xxx3',
+        'GET:xxx4',
+        'get /xxx5',
+        'GET /xxx6',
+        'get xxx7',
+        'GET xxx8',
+        'get:/xxx9',
+    ];
+
+    const routingErrorFunc = routingErrorBuilder(ROUTING_ERRORS, errorHandler);
+    const addonRoutesExposedFunc = addonRoutesExposedChecker(disaledRoutes);
+
+    it('should create the instances', () => {
+        expect(routingErrorFunc instanceof Function).to.equal(true);
+        expect(addonRoutesExposedFunc instanceof Function).to.equal(true);
+    });
+
+    it('routingErrorFunc should show correct error', () => {
+        const result1 = routingErrorFunc(); // default
+        const result2 = routingErrorFunc('xxx'); // invalid
+        const result3 = routingErrorFunc('error1'); // no status (default to 400)
+        const result4 = routingErrorFunc('error2'); // has status
+        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
+    });
+
+    it('#routingError should show correct error (direct method)', () => {
+        const result1 = routingError(ROUTING_ERRORS, null, errorHandler); // default
+        const result2 = routingError(ROUTING_ERRORS, 'xxx', errorHandler); // invalid
+        const result3 = routingError(
+            ROUTING_ERRORS, 'error1', errorHandler,
+        ); // no status (default to 400)
+        const result4 = routingError(ROUTING_ERRORS, 'error2', errorHandler); // has status
+        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
+    });
+
+    it('routingErrorFunc should override the error handler', () => {
+        const result1 = routingErrorFunc('error1', () => 'overridden');
+        expect(result1).to.equal('overridden');
+    });
+
+    it('routingErrorFunc return the error if no error handler', () => {
+        const result1 = routingError(ROUTING_ERRORS, 'error1');
+        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+    });
+
+    it('addonRoutesExposedFunc should show correct result', () => {
+        const result0 = addonRoutesExposedFunc('get', '/xxx0');
+        const result1 = addonRoutesExposedFunc('get', '/xxx1');
+        const result2 = addonRoutesExposedFunc('get', '/xxx2');
+        const result3 = addonRoutesExposedFunc('get', '/xxx3');
+        const result4 = addonRoutesExposedFunc('get', '/xxx4');
+        const result5 = addonRoutesExposedFunc('get', '/xxx5');
+        const result6 = addonRoutesExposedFunc('get', '/xxx6');
+        const result7 = addonRoutesExposedFunc('get', '/xxx7');
+        const result8 = addonRoutesExposedFunc('get', '/xxx8');
+        expect(result0).to.equal(true);
+        expect(result1).to.equal(false);
+        expect(result2).to.equal(false);
+        expect(result3).to.equal(false);
+        expect(result4).to.equal(false);
+        expect(result5).to.equal(false);
+        expect(result6).to.equal(false);
+        expect(result7).to.equal(false);
+        expect(result8).to.equal(false);
+    });
+
+    it('#addonRoutesExposed should show correct result (direct method)', () => {
+        const result0 = addonRoutesExposed(disaledRoutes, 'get', '/xxx0');
+        const result1 = addonRoutesExposed(disaledRoutes, 'get', '/xxx1');
+        const result2 = addonRoutesExposed(disaledRoutes, 'get', '/xxx2');
+        const result3 = addonRoutesExposed(disaledRoutes, 'get', '/xxx3');
+        const result4 = addonRoutesExposed(disaledRoutes, 'get', '/xxx4');
+        const result5 = addonRoutesExposed(disaledRoutes, 'get', '/xxx5');
+        const result6 = addonRoutesExposed(disaledRoutes, 'get', '/xxx6');
+        const result7 = addonRoutesExposed(disaledRoutes, 'get', '/xxx7');
+        const result8 = addonRoutesExposed(disaledRoutes, 'get', '/xxx8');
+        expect(result0).to.equal(true);
+        expect(result1).to.equal(false);
+        expect(result2).to.equal(false);
+        expect(result3).to.equal(false);
+        expect(result4).to.equal(false);
+        expect(result5).to.equal(false);
+        expect(result6).to.equal(false);
+        expect(result7).to.equal(false);
+        expect(result8).to.equal(false);
     });
 
 });
