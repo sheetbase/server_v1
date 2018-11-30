@@ -114,9 +114,13 @@ export function routingErrorBuilder(errors: RoutingErrors, errorHandler?: {(err:
 } {
     return (code?: string, overrideHandler?: {(err: ResponseError)}) => {
         // error
-        code = errors[code] ? code : Object.keys(errors)[0];
         let error = errors[code];
-        error = (typeof error === 'string') ? { message: error } : error;
+        if (!error) {
+            error = { status: 500, message: code || 'Unknown.' };
+            code = 'internal';
+        } else {
+            error = (typeof error === 'string') ? { message: error } : error;
+        }
         const { status = 400, message } = error as RoutingError;
         // handler
         const handler = overrideHandler || errorHandler;

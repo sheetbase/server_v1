@@ -667,11 +667,11 @@ describe('Routing helpers', () => {
 
     it('routingErrorFunc should show correct error', () => {
         const result1 = routingErrorFunc(); // default
-        const result2 = routingErrorFunc('xxx'); // invalid
+        const result2 = routingErrorFunc('xxx'); // custom
         const result3 = routingErrorFunc('error1'); // no status (default to 400)
         const result4 = routingErrorFunc('error2'); // has status
-        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result1).to.eql({ code: 'internal', status: 500, message: 'Unknown.' });
+        expect(result2).to.eql({ code: 'internal', status: 500, message: 'xxx' });
         expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
         expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
     });
@@ -683,8 +683,8 @@ describe('Routing helpers', () => {
             ROUTING_ERRORS, 'error1', errorHandler,
         ); // no status (default to 400)
         const result4 = routingError(ROUTING_ERRORS, 'error2', errorHandler); // has status
-        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result2).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
+        expect(result1).to.eql({ code: 'internal', status: 500, message: 'Unknown.' });
+        expect(result2).to.eql({ code: 'internal', status: 500, message: 'xxx' });
         expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
         expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
     });

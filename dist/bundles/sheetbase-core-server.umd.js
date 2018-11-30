@@ -502,9 +502,14 @@
     function routingErrorBuilder(errors, errorHandler) {
         return function (code, overrideHandler) {
             // error
-            code = errors[code] ? code : Object.keys(errors)[0];
             var error = errors[code];
-            error = (typeof error === 'string') ? { message: error } : error;
+            if (!error) {
+                error = { status: 500, message: code || 'Unknown.' };
+                code = 'internal';
+            }
+            else {
+                error = (typeof error === 'string') ? { message: error } : error;
+            }
             var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
             // handler
             var handler = overrideHandler || errorHandler;
