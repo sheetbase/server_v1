@@ -1,11 +1,24 @@
-import { RouteHandler } from './types';
+import { RouteHandler, RoutingErrors } from './types';
+import { OptionService } from './option';
 
 export class RouterService {
+    private optionService: OptionService;
+
     private routes = {};
     private sharedMiddlewares = [];
     private routeMiddlewares = {};
 
-    constructor () {}
+    constructor (optionService: OptionService) {
+        this.optionService = optionService;
+    }
+
+    setErrors(errors: RoutingErrors, override = false): void {
+        this.optionService.setRoutingErrors(errors, override);
+    }
+
+    setDisabled(disabledRoutes: string | string[], override = false): void {
+        this.optionService.setDisabledRoutes(disabledRoutes, override);
+    }
 
     use(...handlers: Array<RouteHandler | string>): void {
         if (typeof handlers[0] === 'string') {

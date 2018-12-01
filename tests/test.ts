@@ -29,7 +29,7 @@ import {
 let Option = new OptionService();
 const Request = new RequestService();
 let Response = new ResponseService(Option);
-let Router = new RouterService();
+let Router = new RouterService(Option);
 
 const Sheetbase = sheetbase();
 
@@ -214,6 +214,30 @@ describe('OptionService test', () => {
         expect(Option.get()).to.have.property('views').equal('xxx');
     });
 
+    it('#get/set allowMethodsWhenDoGet should work', () => {
+        Option.setAllowMethodsWhenDoGet(true);
+        expect(Option.getAllowMethodsWhenDoGet()).to.equal(true);
+    });
+
+    it('#get/set views should work', () => {
+        Option.setViews('my_views');
+        expect(Option.getViews()).to.equal('my_views');
+    });
+
+    it('#get/set disabledRoutes should work', () => {
+        Option.setDisabledRoutes(['get:/']);
+        expect(Option.getDisabledRoutes()).to.eql(['get:/']);
+    });
+
+    it('#get/set routingErrors should work', () => {
+        const errors = {
+            error1: 'Error 1',
+            error2: { status: 400, message: 'Error 2' },
+        };
+        Option.setRoutingErrors(errors);
+        expect(Option.getRoutingErrors()).to.eql(errors);
+    });
+
 });
 
 describe('RequestService test', () => {
@@ -289,6 +313,18 @@ describe('RequestService test', () => {
 });
 
 describe('ResponseService test', () => {
+
+    it('#setErrors should work', () => {
+        const Response = new ResponseService(Option);
+        const errors = {
+            error1: 'Error 1',
+            error2: { status: 400, message: 'Error 2' },
+        };
+        Response.setErrors(errors);
+
+        const result: Options = Option.get();
+        expect(result.routingErrors).to.eql(errors);
+    });
 
     it('#html should work', () => {
         const result = Response.html('a html');
@@ -408,8 +444,28 @@ describe('RouterService test', () => {
 
     afterEach(() => {
         // reset router & response
-        Router = new RouterService();
+        Router = new RouterService(Option);
         Response = new ResponseService(Option);
+    });
+
+    it('#setErrors should work', () => {
+        const Router = new ResponseService(Option);
+        const errors = {
+            error1: 'Error 1',
+            error2: { status: 400, message: 'Error 2' },
+        };
+        Router.setErrors(errors);
+
+        const result: Options = Option.get();
+        expect(result.routingErrors).to.eql(errors);
+    });
+
+    it('#setDisabled should work', () => {
+        const disabledRoutes = ['get /'];
+        Router.setDisabled(disabledRoutes);
+
+        const result: Options = Option.get();
+        expect(result.disabledRoutes).to.eql(disabledRoutes);
     });
 
     it('404 handler', () => {

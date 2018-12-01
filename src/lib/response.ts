@@ -1,4 +1,4 @@
-import { ResponseError, ResponseSuccess } from './types';
+import { ResponseError, ResponseSuccess, RoutingErrors } from './types';
 import { OptionService } from './option';
 
 declare const ejs: any;
@@ -13,6 +13,10 @@ export class ResponseService {
 
     constructor (optionService: OptionService) {
         this.optionService = optionService;
+    }
+
+    setErrors(errors: RoutingErrors, override = false): void {
+        this.optionService.setRoutingErrors(errors, override);
     }
 
     send(content: string | {}) {
