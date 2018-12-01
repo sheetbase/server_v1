@@ -9,6 +9,8 @@ export interface HttpEvent {
 export interface Options {
     allowMethodsWhenDoGet?: boolean;
     views?: string;
+    disabledRoutes?: string | string[];
+    routingErrors?: RoutingErrors;
 }
 
 export interface RouteRequest {

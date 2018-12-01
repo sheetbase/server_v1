@@ -19,6 +19,7 @@ import {
     ResponseService,
     RouterService,
 
+    Options,
     RoutingErrors,
 } from '../src/public_api';
 
@@ -183,11 +184,12 @@ describe('OptionService test', () => {
     it('#get should work (default values)', () => {
         const Option = new OptionService();
 
-        const allowMethods = Option.get('allowMethodsWhenDoGet');
-        const views = Option.get('views');
+        const result: Options = Option.get();
 
-        expect(allowMethods).to.equal(false);
-        expect(views).to.equal('');
+        expect(result.allowMethodsWhenDoGet).to.equal(false);
+        expect(result.views).to.equal('');
+        expect(result.disabledRoutes).to.eql([]);
+        expect(result.routingErrors).to.eql({});
     });
 
     it('#get should work', () => {
@@ -196,11 +198,10 @@ describe('OptionService test', () => {
             views: 'public',
         });
 
-        const allowMethods = Option.get('allowMethodsWhenDoGet');
-        const views = Option.get('views');
+        const result: Options = Option.get();
 
-        expect(allowMethods).to.equal(true);
-        expect(views).to.equal('public');
+        expect(result.allowMethodsWhenDoGet).to.equal(true);
+        expect(result.views).to.equal('public');
     });
 
     it('#set should work', () => {
