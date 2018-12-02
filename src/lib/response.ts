@@ -1,4 +1,4 @@
-import { ResponseError, ResponseSuccess, RoutingErrors } from './types';
+import { ResponseError, ResponseSuccess, RoutingErrors, RoutingError } from './types';
 import { OptionService } from './option';
 
 declare const ejs: any;
@@ -91,24 +91,43 @@ export class ResponseService {
     }
 
     error(
-        err: ResponseError = {},
+        err?: string | ResponseError,
         meta: any = {},
     ) {
-        if (!err.status) err.status = 500;
-        if (!err.code) err.code = 'unknown';
-        if (!err.message) err.message = 'Unknown error.';
+        let responseError: ResponseError;
+        if (typeof err === 'string') { // a string
+            // build response erro from routing errors
+            let code: string = err;
+            const errors = this.optionService.getRoutingErrors();
+
+            let error = errors[code];
+            if (!error) {
+                error = { message: code };
+                code = null;
+            } else {
+                error = (typeof error === 'string') ? { message: error } : error;
+            }
+
+            // return a response error
+            const { status, message } = error as RoutingError;
+            responseError = { code, message, status };
+        } else {  // a ResponseError
+            responseError = err as ResponseError || {};
+        }
+
+        if (!responseError.status) responseError.status = 500;
+        if (!responseError.code) responseError.code = 'app/internal';
+        if (!responseError.message) responseError.message = 'Unknown error.';
         if (!(meta instanceof Object)) {
             meta = { value: meta };
         }
-
-        const error: ResponseError = {
-            ... err,
+        return this.json({
+            ... responseError,
             error: true,
             meta: {
                 at: (new Date()).getTime(),
                 ... meta,
             },
-        };
-        return this.json(error);
+        });
     }
 }
