@@ -1,9 +1,13 @@
-import { RouteHandler } from './types';
+import { RouteHandler, RoutingErrors } from './types';
+import { OptionService } from './option';
 export declare class RouterService {
+    private optionService;
     private routes;
     private sharedMiddlewares;
     private routeMiddlewares;
-    constructor();
+    constructor(optionService: OptionService);
+    setErrors(errors: RoutingErrors, override?: boolean): void;
+    setDisabled(disabledRoutes: string[], override?: boolean): void;
     use(...handlers: Array<RouteHandler | string>): void;
     all(routeName: string, ...handlers: RouteHandler[]): void;
     get(routeName: string, ...handlers: RouteHandler[]): void;
@@ -13,4 +17,5 @@ export declare class RouterService {
     delete(routeName: string, ...handlers: RouteHandler[]): void;
     route(method: string, routeName: string): RouteHandler[];
     private register;
+    private disabled;
 }

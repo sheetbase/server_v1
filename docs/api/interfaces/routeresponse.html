@@ -93,6 +93,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="routeresponse.html#json" class="tsd-kind-icon">json</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="routeresponse.html#render" class="tsd-kind-icon">render</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="routeresponse.html#send" class="tsd-kind-icon">send</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="routeresponse.html#seterrors" class="tsd-kind-icon">set<wbr>Errors</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-inherited"><a href="routeresponse.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
@@ -112,7 +113,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L12">lib/response.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L12">lib/response.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -132,20 +133,20 @@
 					<a name="error" class="tsd-anchor"></a>
 					<h3>error</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
-						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">?: </span><a href="responseerror.html" class="tsd-signature-type">ResponseError</a>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
+						<li class="tsd-signature tsd-kind-icon">error<span class="tsd-signature-symbol">(</span>err<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="responseerror.html" class="tsd-signature-type">ResponseError</a>, meta<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TextOutput</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#error">error</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L89">lib/response.ts:89</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L93">lib/response.ts:93</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> err: <a href="responseerror.html" class="tsd-signature-type">ResponseError</a><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> err: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><a href="responseerror.html" class="tsd-signature-type">ResponseError</a></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> meta: <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> =&nbsp;{}</span></h5>
@@ -166,7 +167,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#html">html</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L23">lib/response.ts:23</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L27">lib/response.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -190,7 +191,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#json">json</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L60">lib/response.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L64">lib/response.ts:64</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -214,7 +215,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#render">render</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L27">lib/response.ts:27</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L31">lib/response.ts:31</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -244,7 +245,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#send">send</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L18">lib/response.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L22">lib/response.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -261,6 +262,33 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+					<a name="seterrors" class="tsd-anchor"></a>
+					<h3>set<wbr>Errors</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Errors<span class="tsd-signature-symbol">(</span>errors<span class="tsd-signature-symbol">: </span><a href="routingerrors.html" class="tsd-signature-type">RoutingErrors</a>, override<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#seterrors">setErrors</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L18">lib/response.ts:18</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>errors: <a href="routingerrors.html" class="tsd-signature-type">RoutingErrors</a></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> override: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 					<a name="success" class="tsd-anchor"></a>
 					<h3>success</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
@@ -271,7 +299,7 @@
 							<aside class="tsd-sources">
 								<p>Inherited from <a href="../classes/responseservice.html">ResponseService</a>.<a href="../classes/responseservice.html#success">success</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/7895b1d/src/lib/response.ts#L67">lib/response.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/core-server/blob/c9db466/src/lib/response.ts#L71">lib/response.ts:71</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -365,6 +393,9 @@
 								<a href="routeresponse.html#send" class="tsd-kind-icon">send</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
+								<a href="routeresponse.html#seterrors" class="tsd-kind-icon">set<wbr>Errors</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-inherited">
 								<a href="routeresponse.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
@@ -380,23 +411,11 @@
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../index.html#a2o" class="tsd-kind-icon">a2o</a>
 					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#addonroutesexposed" class="tsd-kind-icon">addon<wbr>Routes<wbr>Exposed</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#addonroutesexposedchecker" class="tsd-kind-icon">addon<wbr>Routes<wbr>Exposed<wbr>Checker</a>
-					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../index.html#honordata" class="tsd-kind-icon">honor<wbr>Data</a>
 					</li>
 					<li class=" tsd-kind-function tsd-has-type-parameter">
 						<a href="../index.html#o2a" class="tsd-kind-icon">o2a</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#routingerror" class="tsd-kind-icon">routing<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="../index.html#routingerrorbuilder" class="tsd-kind-icon">routing<wbr>Error<wbr>Builder</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="../index.html#sheetbase" class="tsd-kind-icon">sheetbase</a>

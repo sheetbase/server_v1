@@ -108,11 +108,7 @@
     var OptionService = /** @class */ (function () {
         function OptionService(options) {
             if (options === void 0) { options = {}; }
-            this.options = {
-                allowMethodsWhenDoGet: false,
-                views: ''
-            };
-            this.options = __assign$1({}, this.options, options);
+            this.options = __assign$1({ allowMethodsWhenDoGet: false, views: '', disabledRoutes: [], routingErrors: {} }, options);
         }
         OptionService.prototype.get = function (key) {
             if (key === void 0) { key = null; }
@@ -125,16 +121,49 @@
             if (value === void 0) { value = null; }
             if (dataOrKey instanceof Object) {
                 var data = dataOrKey;
-                for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
-                    var key = _a[_i];
-                    this.options[key] = data[key];
-                }
+                this.options = __assign$1({}, this.options, data);
             }
             else {
                 var key = dataOrKey;
                 this.options[key] = value;
             }
             return this.options;
+        };
+        OptionService.prototype.getAllowMethodsWhenDoGet = function () {
+            return this.options.allowMethodsWhenDoGet;
+        };
+        OptionService.prototype.setAllowMethodsWhenDoGet = function (value) {
+            this.options.allowMethodsWhenDoGet = value;
+        };
+        OptionService.prototype.getViews = function () {
+            return this.options.views;
+        };
+        OptionService.prototype.setViews = function (value) {
+            this.options.views = value;
+        };
+        OptionService.prototype.getDisabledRoutes = function () {
+            return this.options.disabledRoutes;
+        };
+        OptionService.prototype.setDisabledRoutes = function (value, override) {
+            if (override === void 0) { override = false; }
+            if (override) {
+                this.options.disabledRoutes = value;
+            }
+            else {
+                this.options.disabledRoutes = this.options.disabledRoutes.concat(value);
+            }
+        };
+        OptionService.prototype.getRoutingErrors = function () {
+            return this.options.routingErrors;
+        };
+        OptionService.prototype.setRoutingErrors = function (value, override) {
+            if (override === void 0) { override = false; }
+            if (override) {
+                this.options.routingErrors = value;
+            }
+            else {
+                this.options.routingErrors = __assign$1({}, this.options.routingErrors, value);
+            }
         };
         return OptionService;
     }());
@@ -182,6 +211,10 @@
             ];
             this.optionService = optionService;
         }
+        ResponseService.prototype.setErrors = function (errors, override) {
+            if (override === void 0) { override = false; }
+            this.optionService.setRoutingErrors(errors, override);
+        };
         ResponseService.prototype.send = function (content) {
             if (content instanceof Object)
                 return this.json(content);
@@ -256,29 +289,56 @@
             return this.json(success);
         };
         ResponseService.prototype.error = function (err, meta) {
-            if (err === void 0) { err = {}; }
             if (meta === void 0) { meta = {}; }
-            if (!err.status)
-                err.status = 500;
-            if (!err.code)
-                err.code = 'unknown';
-            if (!err.message)
-                err.message = 'Unknown error.';
+            var responseError;
+            if (typeof err === 'string') { // a string
+                // build response erro from routing errors
+                var code = err;
+                var errors = this.optionService.getRoutingErrors();
+                var error = errors[code];
+                if (!error) {
+                    error = { message: code };
+                    code = null;
+                }
+                else {
+                    error = (typeof error === 'string') ? { message: error } : error;
+                }
+                // return a response error
+                var _a = error, status = _a.status, message = _a.message;
+                responseError = { code: code, message: message, status: status };
+            }
+            else { // a ResponseError
+                responseError = err || {};
+            }
+            if (!responseError.status)
+                responseError.status = 500;
+            if (!responseError.code)
+                responseError.code = 'app/internal';
+            if (!responseError.message)
+                responseError.message = 'Unknown error.';
             if (!(meta instanceof Object)) {
                 meta = { value: meta };
             }
-            var error = __assign$2({}, err, { error: true, meta: __assign$2({ at: (new Date()).getTime() }, meta) });
-            return this.json(error);
+            return this.json(__assign$2({}, responseError, { error: true, meta: __assign$2({ at: (new Date()).getTime() }, meta) }));
         };
         return ResponseService;
     }());
 
     var RouterService = /** @class */ (function () {
-        function RouterService() {
+        function RouterService(optionService) {
             this.routes = {};
             this.sharedMiddlewares = [];
             this.routeMiddlewares = {};
+            this.optionService = optionService;
         }
+        RouterService.prototype.setErrors = function (errors, override) {
+            if (override === void 0) { override = false; }
+            this.optionService.setRoutingErrors(errors, override);
+        };
+        RouterService.prototype.setDisabled = function (disabledRoutes, override) {
+            if (override === void 0) { override = false; }
+            this.optionService.setDisabledRoutes(disabledRoutes, override);
+        };
         RouterService.prototype.use = function () {
             var handlers = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -347,6 +407,10 @@
                     return res.html("\n\t\t\t\t\t<h1>404!</h1>\n\t\t\t\t\t<p>Not found.</p>\n\t\t\t\t");
                 }
             };
+            // check if route is disabled
+            if (this.disabled(method, routeName)) {
+                return [notFoundHandler];
+            }
             var handler = this.routes[method + ':' + routeName] || notFoundHandler;
             var handlers = this.routeMiddlewares[method + ':' + routeName] || [];
             // shared middlewares
@@ -389,6 +453,32 @@
                 this.routes['DELETE:' + routeName] = handler;
                 this.routeMiddlewares['DELETE:' + routeName] = handlers;
             }
+        };
+        RouterService.prototype.disabled = function (method, routeName) {
+            var disabledRoutes = this.optionService.getDisabledRoutes();
+            var status = false;
+            // cheking value (against disabledRoutes)
+            var value = method.toLowerCase() + ':' + routeName;
+            var valueUppercase = method.toUpperCase() + ':' + routeName;
+            var valueSpaced = method.toLowerCase() + ' ' + routeName;
+            var valueSpacedUppercase = method.toUpperCase() + ' ' + routeName;
+            var values = [
+                value,
+                valueUppercase,
+                (value).replace(':/', ':'),
+                (valueUppercase).replace(':/', ':'),
+                valueSpaced,
+                valueSpacedUppercase,
+                (valueSpaced).replace(' /', ' '),
+                (valueSpacedUppercase).replace(' /', ' '),
+            ];
+            // check
+            for (var i = 0; i < values.length; i++) {
+                if (disabledRoutes.indexOf(values[i]) > -1) {
+                    status = true;
+                }
+            }
+            return status;
         };
         return RouterService;
     }());
@@ -496,70 +586,10 @@
         }
         return data;
     }
-    /**
-     * Routing helpers
-     */
-    function routingErrorBuilder(errors, errorHandler) {
-        return function (code, overrideHandler) {
-            // error
-            var error = errors[code];
-            if (!error) {
-                error = { status: 500, message: code || 'Unknown.' };
-                code = 'internal';
-            }
-            else {
-                error = (typeof error === 'string') ? { message: error } : error;
-            }
-            var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
-            // handler
-            var handler = overrideHandler || errorHandler;
-            if (!!handler && handler instanceof Function) {
-                return handler({ code: code, message: message, status: status });
-            }
-            else {
-                return { code: code, message: message, status: status };
-            }
-        };
-    }
-    function routingError(errors, code, errorHandler) {
-        var builder = routingErrorBuilder(errors, errorHandler);
-        return builder(code);
-    }
-    function addonRoutesExposedChecker(disabledRoutes) {
-        return function (method, routeName) {
-            var enable = true;
-            // cheking value (against disabledRoutes)
-            var value = method.toLowerCase() + ':' + routeName;
-            var valueSpaced = method.toLowerCase() + ' ' + routeName;
-            var valueUppercase = method.toUpperCase() + ':' + routeName;
-            var valueSpacedUppercase = method.toUpperCase() + ' ' + routeName;
-            var values = [
-                value,
-                valueUppercase,
-                (value).replace(':/', ':'),
-                (valueUppercase).replace(':/', ':'),
-                valueSpaced,
-                valueSpacedUppercase,
-                (valueSpaced).replace(' /', ' '),
-                (valueSpacedUppercase).replace(' /', ' '),
-            ];
-            // check
-            for (var i = 0; i < values.length; i++) {
-                if (disabledRoutes.indexOf(values[i]) > -1) {
-                    enable = false;
-                }
-            }
-            return enable;
-        };
-    }
-    function addonRoutesExposed(disabledRoutes, method, routeName) {
-        var checker = addonRoutesExposedChecker(disabledRoutes);
-        return checker(method, routeName);
-    }
 
     function sheetbase(options) {
         var Option = new OptionService(options);
-        var Router = new RouterService();
+        var Router = new RouterService(Option);
         var Request = new RequestService();
         var Response = new ResponseService(Option);
         var HTTP = new HttpService(Option, Response, Router);
@@ -581,10 +611,6 @@
     exports.a2o = a2o;
     exports.uniqueId = uniqueId;
     exports.honorData = honorData;
-    exports.routingErrorBuilder = routingErrorBuilder;
-    exports.routingError = routingError;
-    exports.addonRoutesExposedChecker = addonRoutesExposedChecker;
-    exports.addonRoutesExposed = addonRoutesExposed;
     exports.sheetbase = sheetbase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
