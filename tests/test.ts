@@ -9,29 +9,9 @@ import {
     a2o,
     uniqueId,
     honorData,
-    routingErrorBuilder,
-    routingError,
-    addonRoutesExposedChecker,
-    addonRoutesExposed,
-
-    OptionService,
-    RequestService,
-    ResponseService,
-    RouterService,
 
     Options,
-    RoutingErrors,
 } from '../src/public_api';
-
-/**
- * create instances for testing
- */
-let Option = new OptionService();
-const Request = new RequestService();
-let Response = new ResponseService(Option);
-let Router = new RouterService(Option);
-
-const Sheetbase = sheetbase();
 
 /*
  * mock global objects
@@ -88,7 +68,14 @@ function createFakedTemplateFromText(tmpl: string) {
 
 // faked router objects
 const req = {};
+
+const { Response } = sheetbase();
 const res = Response;
+    res.send = (content): any => content;
+    res.html = (html): any => html;
+    res.json = (json): any => json;
+    res.render = (file): any => file;
+
 const next = () => true;
 
 /**
@@ -96,24 +83,32 @@ const next = () => true;
  */
 
 describe('Test module members', () => {
+    const Sheetbase = sheetbase();
+
     it('.HTTP should exist', () => {
-        expect(Sheetbase.HTTP).to.not.null;
+        expect(!!Sheetbase.HTTP).to.equal(true);
     });
     it('.Option should exist', () => {
-        expect(Sheetbase.Option).to.not.null;
+        expect(!!Sheetbase.Option).to.equal(true);
     });
     it('.Request should exist', () => {
-        expect(Sheetbase.Request).to.not.null;
+        expect(!!Sheetbase.Request).to.equal(true);
     });
     it('.Response should exist', () => {
-        expect(Sheetbase.Response).to.not.null;
+        expect(!!Sheetbase.Response).to.equal(true);
     });
     it('.Router should exist', () => {
-        expect(Sheetbase.Router).to.not.null;
+        expect(!!Sheetbase.Router).to.equal(true);
     });
 });
 
 describe('HTTP test', () => {
+    let Sheetbase = sheetbase();
+
+    beforeEach(() => {
+        Sheetbase = sheetbase();
+    });
+
     it('#get should work', () => {
         Sheetbase.Router.get('/', (req, res, next) => res.send('GET / response'));
         Sheetbase.Router.get('/me', (req, res, next) => res.send('GET /me response'));
@@ -177,14 +172,14 @@ describe('HTTP test', () => {
 });
 
 describe('OptionService test', () => {
-    afterEach(() => {
-        Option = new OptionService(); // reset options
+    let Sheetbase = sheetbase();
+
+    beforeEach(() => {
+        Sheetbase = sheetbase();
     });
 
     it('#get should work (default values)', () => {
-        const Option = new OptionService();
-
-        const result: Options = Option.get();
+        const result: Options = Sheetbase.Option.get();
 
         expect(result.allowMethodsWhenDoGet).to.equal(false);
         expect(result.views).to.equal('');
@@ -193,40 +188,39 @@ describe('OptionService test', () => {
     });
 
     it('#get should work', () => {
-        const Option = new OptionService({
+        Sheetbase = sheetbase({
             allowMethodsWhenDoGet: true,
             views: 'public',
         });
-
-        const result: Options = Option.get();
+        const result: Options = Sheetbase.Option.get();
 
         expect(result.allowMethodsWhenDoGet).to.equal(true);
         expect(result.views).to.equal('public');
     });
 
     it('#set should work', () => {
-        const result1 = Option.set('views', 'abc');
+        const result1 = Sheetbase.Option.set('views', 'abc');
         expect(result1.views).to.equal('abc');
-        expect(Option.get('views')).to.equal('abc');
+        expect(Sheetbase.Option.get('views')).to.equal('abc');
 
-        const result2 = Option.set({ views: 'xxx' });
+        const result2 = Sheetbase.Option.set({ views: 'xxx' });
         expect(result2.views).to.equal('xxx');
-        expect(Option.get()).to.have.property('views').equal('xxx');
+        expect(Sheetbase.Option.get()).to.have.property('views').equal('xxx');
     });
 
     it('#get/set allowMethodsWhenDoGet should work', () => {
-        Option.setAllowMethodsWhenDoGet(true);
-        expect(Option.getAllowMethodsWhenDoGet()).to.equal(true);
+        Sheetbase.Option.setAllowMethodsWhenDoGet(true);
+        expect(Sheetbase.Option.getAllowMethodsWhenDoGet()).to.equal(true);
     });
 
     it('#get/set views should work', () => {
-        Option.setViews('my_views');
-        expect(Option.getViews()).to.equal('my_views');
+        Sheetbase.Option.setViews('my_views');
+        expect(Sheetbase.Option.getViews()).to.equal('my_views');
     });
 
     it('#get/set disabledRoutes should work', () => {
-        Option.setDisabledRoutes(['get:/']);
-        expect(Option.getDisabledRoutes()).to.eql(['get:/']);
+        Sheetbase.Option.setDisabledRoutes(['get:/']);
+        expect(Sheetbase.Option.getDisabledRoutes()).to.eql(['get:/']);
     });
 
     it('#get/set routingErrors should work', () => {
@@ -234,36 +228,42 @@ describe('OptionService test', () => {
             error1: 'Error 1',
             error2: { status: 400, message: 'Error 2' },
         };
-        Option.setRoutingErrors(errors);
-        expect(Option.getRoutingErrors()).to.eql(errors);
+        Sheetbase.Option.setRoutingErrors(errors);
+        expect(Sheetbase.Option.getRoutingErrors()).to.eql(errors);
     });
 
 });
 
 describe('RequestService test', () => {
+    let Sheetbase = sheetbase();
+
+    beforeEach(() => {
+        Sheetbase = sheetbase();
+    });
+
     it('#query should work (blank)', () => {
-        const result1 = Request.query();
-        const result2 = Request.query({});
+        const result1 = Sheetbase.Request.query();
+        const result2 = Sheetbase.Request.query({});
         expect(result1).to.eql({});
         expect(result2).to.eql({});
     });
 
     it('#params should work (blank)', () => {
-        const result1 = Request.params();
-        const result2 = Request.params({});
+        const result1 = Sheetbase.Request.params();
+        const result2 = Sheetbase.Request.params({});
         expect(result1).to.eql({});
         expect(result2).to.eql({});
     });
 
     it('#body should work (blank)', () => {
-        const result1 = Request.body();
-        const result2 = Request.body({});
+        const result1 = Sheetbase.Request.body();
+        const result2 = Sheetbase.Request.body({});
         expect(result1).to.eql({});
         expect(result2).to.eql({});
     });
 
     it('#query should work', () => {
-        const result = Request.query({
+        const result = Sheetbase.Request.query({
             parameter: {
                 e: '/home',
             },
@@ -272,7 +272,7 @@ describe('RequestService test', () => {
     });
 
     it('#params should work', () => {
-        const result = Request.params({
+        const result = Sheetbase.Request.params({
             parameter: {
                 e: '/home',
             },
@@ -281,15 +281,15 @@ describe('RequestService test', () => {
     });
 
     it('#body should work (no contents, malform)', () => {
-        const result1 = Request.body({
+        const result1 = Sheetbase.Request.body({
             postData: {},
         });
-        const result2 = Request.body({
+        const result2 = Sheetbase.Request.body({
             postData: {
                 contents: 'a string',
             },
         });
-        const result3 = Request.body({
+        const result3 = Sheetbase.Request.body({
             postData: {
                 contents: {a: 1, b: 2},
             },
@@ -300,7 +300,7 @@ describe('RequestService test', () => {
     });
 
     it('#body should work', () => {
-        const result = Request.body({
+        const result = Sheetbase.Request.body({
             postData: {
                 contents: '{"a":1,"b":2}',
             },
@@ -313,32 +313,36 @@ describe('RequestService test', () => {
 });
 
 describe('ResponseService test', () => {
+    let Sheetbase = sheetbase();
+
+    beforeEach(() => {
+        Sheetbase = sheetbase();
+    });
 
     it('#setErrors should work', () => {
-        const Response = new ResponseService(Option);
         const errors = {
             error1: 'Error 1',
             error2: { status: 400, message: 'Error 2' },
         };
-        Response.setErrors(errors);
+        Sheetbase.Response.setErrors(errors);
 
-        const result: Options = Option.get();
+        const result: Options = Sheetbase.Option.get();
         expect(result.routingErrors).to.eql(errors);
     });
 
     it('#html should work', () => {
-        const result = Response.html('a html');
+        const result = Sheetbase.Response.html('a html');
         expect(result).to.equal('a html output');
     });
 
     it('#json should work', () => {
-        const result: any = Response.json({ a: 1 });
+        const result: any = Sheetbase.Response.json({ a: 1 });
         expect(result).to.have.property('value').equal('{"a":1}');
     });
 
     it('#send should work', () => {
-        const result1 = Response.send('a html');
-        const result2: any = Response.send({ a: 1 });
+        const result1 = Sheetbase.Response.send('a html');
+        const result2: any = Sheetbase.Response.send({ a: 1 });
 
         expect(result1).to.equal('a html output');
         expect(result2).to.have.property('value').equal('{"a":1}');
@@ -346,10 +350,10 @@ describe('ResponseService test', () => {
 
     it('#render should work (from string, different)', () => {
         const tmpl = createFakedTemplateFromText('a template text');
-        const result1 = Response.render(tmpl); // no engine, keep as is
-        const result2 = Response.render(tmpl, {}, 'gs'); // default engine
-        const result3 = Response.render(tmpl, {}, 'ejs'); // ejs
-        const result4 = Response.render(tmpl, {}, 'hbs'); // handlebars
+        const result1 = Sheetbase.Response.render(tmpl); // no engine, keep as is
+        const result2 = Sheetbase.Response.render(tmpl, {}, 'gs'); // default engine
+        const result3 = Sheetbase.Response.render(tmpl, {}, 'ejs'); // ejs
+        const result4 = Sheetbase.Response.render(tmpl, {}, 'hbs'); // handlebars
 
         expect(result1).to.equal('a template text output');
         expect(result2).to.equal('a template text as html rendered by GS output');
@@ -358,11 +362,11 @@ describe('ResponseService test', () => {
     });
 
     it('#render should work (from file)', () => {
-        const result1 = Response.render('index');
-        const result2 = Response.render('index.gs');
-        const result3 = Response.render('index.ejs');
-        const result4 = Response.render('index.hbs');
-        const result5 = Response.render('index.html', {}, 'hbs'); // override file ext
+        const result1 = Sheetbase.Response.render('index');
+        const result2 = Sheetbase.Response.render('index.gs');
+        const result3 = Sheetbase.Response.render('index.ejs');
+        const result4 = Sheetbase.Response.render('index.hbs');
+        const result5 = Sheetbase.Response.render('index.html', {}, 'hbs'); // override file ext
 
         expect(result1).to.equal('File \'index\' content output');
         expect(result2).to.equal('File \'index.gs\' content as html rendered by GS output');
@@ -371,15 +375,15 @@ describe('ResponseService test', () => {
         expect(result5).to.equal('File \'index.html\' content as html rendered by handlebars output');
     });
 
-    it('#error should show error (no data)', () => {
-        const result: any = Response.success(null);
+    it('#success should show error (no data)', () => {
+        const result: any = Sheetbase.Response.success(null);
         const parsedResult = JSON.parse(result.value);
 
         expect(parsedResult).to.have.property('error').equal(true);
     });
     it('#success should work', () => {
-        const result1: any = Response.success(1); // a scalar value
-        const result2: any = Response.success({ a: 1 });
+        const result1: any = Sheetbase.Response.success(1); // a scalar value
+        const result2: any = Sheetbase.Response.success({ a: 1 });
         const parsedResult1 = JSON.parse(result1.value);
         const parsedResult2 = JSON.parse(result2.value);
 
@@ -394,8 +398,8 @@ describe('ResponseService test', () => {
         expect(isNaN(parsedResult2.meta.at)).to.equal(false);
     });
     it('#success should work (custom meta)', () => {
-        const result1: any = Response.success('data', 'a meta');
-        const result2: any = Response.success('data', { a: 1 });
+        const result1: any = Sheetbase.Response.success('data', 'a meta');
+        const result2: any = Sheetbase.Response.success('data', { a: 1 });
         const parsedResult1 = JSON.parse(result1.value);
         const parsedResult2 = JSON.parse(result2.value);
 
@@ -404,14 +408,18 @@ describe('ResponseService test', () => {
     });
 
     it('#error should work', () => {
-        const result1: any = Response.error();
-        const result2: any = Response.error({ status: 400, code: 'error/an-error', message: 'An error.' });
+        const result1: any = Sheetbase.Response.error();
+        const result2: any = Sheetbase.Response.error({
+            status: 400,
+            code: 'error/an-error',
+            message: 'An error.',
+        });
         const parsedResult1 = JSON.parse(result1.value);
         const parsedResult2 = JSON.parse(result2.value);
 
         expect(parsedResult1).to.have.property('error').equal(true);
         expect(parsedResult1).to.have.property('status').equal(500);
-        expect(parsedResult1).to.have.property('code').equal('unknown');
+        expect(parsedResult1).to.have.property('code').equal('app/internal');
         expect(parsedResult1).to.have.property('message').equal('Unknown error.');
         expect(isNaN(parsedResult1.meta.at)).to.equal(false);
 
@@ -423,53 +431,93 @@ describe('ResponseService test', () => {
     });
 
     it('#error should work (custom meta)', () => {
-        const result1: any = Response.error({ message: 'an error' }, 'a meta');
-        const result2: any = Response.error({ message: 'an error' }, { a: 1 });
+        const result1: any = Sheetbase.Response.error({ message: 'an error' }, 'a meta');
+        const result2: any = Sheetbase.Response.error({ message: 'an error' }, { a: 1 });
         const parsedResult1 = JSON.parse(result1.value);
         const parsedResult2 = JSON.parse(result2.value);
 
         expect(parsedResult1.meta).to.have.property('value').equal('a meta');
         expect(parsedResult2.meta).to.have.property('a').equal(1);
     });
+
+    it('#error should work (passing a string)', () => {
+        Sheetbase.Response.setErrors({
+            error1: 'Error 1',
+            error2: { message: 'Error 2' },
+            error3: { status: 400, message: 'Error 3' },
+        });
+
+        const result1: any = Sheetbase.Response.error(); // default
+        const result2: any = Sheetbase.Response.error('xxx'); // custom
+        const result3: any = Sheetbase.Response.error('error1'); // a string
+        const result4: any = Sheetbase.Response.error('error2'); // no status (default to 500)
+        const result5: any = Sheetbase.Response.error('error3'); // has status
+
+        const parsedResult1 = JSON.parse(result1.value);
+        const parsedResult2 = JSON.parse(result2.value);
+        const parsedResult3 = JSON.parse(result3.value);
+        const parsedResult4 = JSON.parse(result4.value);
+        const parsedResult5 = JSON.parse(result5.value);
+
+        expect(parsedResult1).to.have.property('error').equal(true);
+        expect(parsedResult1).to.have.property('status').equal(500);
+        expect(parsedResult1).to.have.property('code').equal('app/internal');
+        expect(parsedResult1).to.have.property('message').equal('Unknown error.');
+
+        expect(parsedResult2).to.have.property('error').equal(true);
+        expect(parsedResult2).to.have.property('status').equal(500);
+        expect(parsedResult2).to.have.property('code').equal('app/internal');
+        expect(parsedResult2).to.have.property('message').equal('xxx');
+
+        expect(parsedResult3).to.have.property('error').equal(true);
+        expect(parsedResult3).to.have.property('status').equal(500);
+        expect(parsedResult3).to.have.property('code').equal('error1');
+        expect(parsedResult3).to.have.property('message').equal('Error 1');
+
+        expect(parsedResult4).to.have.property('error').equal(true);
+        expect(parsedResult4).to.have.property('status').equal(500);
+        expect(parsedResult4).to.have.property('code').equal('error2');
+        expect(parsedResult4).to.have.property('message').equal('Error 2');
+
+        expect(parsedResult5).to.have.property('error').equal(true);
+        expect(parsedResult5).to.have.property('status').equal(400);
+        expect(parsedResult5).to.have.property('code').equal('error3');
+        expect(parsedResult5).to.have.property('message').equal('Error 3');
+    });
+
 });
 
 describe('RouterService test', () => {
+    let Sheetbase = sheetbase();
 
-    before(() => {
-        res.send = (content): any => content;
-        res.html = (html): any => html;
-        res.json = (json): any => json;
-        res.render = (file): any => file;
-    });
-
-    afterEach(() => {
-        // reset router & response
-        Router = new RouterService(Option);
-        Response = new ResponseService(Option);
+    beforeEach(() => {
+        Sheetbase = sheetbase();
     });
 
     it('#setErrors should work', () => {
-        const Router = new ResponseService(Option);
         const errors = {
             error1: 'Error 1',
             error2: { status: 400, message: 'Error 2' },
         };
-        Router.setErrors(errors);
+        Sheetbase.Router.setErrors(errors);
 
-        const result: Options = Option.get();
+        const result: Options = Sheetbase.Option.get();
         expect(result.routingErrors).to.eql(errors);
     });
 
     it('#setDisabled should work', () => {
         const disabledRoutes = ['get /'];
-        Router.setDisabled(disabledRoutes);
+        Sheetbase.Router.setDisabled(disabledRoutes);
 
-        const result: Options = Option.get();
+        const result: Options = Sheetbase.Option.get();
         expect(result.disabledRoutes).to.eql(disabledRoutes);
+
+        // reset
+        Sheetbase.Router.setDisabled([]);
     });
 
     it('404 handler', () => {
-        const [ route ] = Router.route('GET', '/');
+        const [ route ] = Sheetbase.Router.route('GET', '/');
         expect(route instanceof Function).to.equal(true);
 
         // use 404 html text (no 404.html or can not be rendered)
@@ -485,9 +533,8 @@ describe('RouterService test', () => {
 
     it('#get should work', () => {
         const method = 'GET';
-
-        Router.get('/', (req, res) => res.send(method + ' / result'));
-        const [ route ] = Router.route(method, '/'); // get the route
+        Sheetbase.Router.get('/', (req, res) => res.send(method + ' / result'));
+        const [ route ] = Sheetbase.Router.route(method, '/'); // get the route
         const result = route(req, res);
 
         expect(route instanceof Function).to.equal(true);
@@ -496,13 +543,12 @@ describe('RouterService test', () => {
 
     it('#get should work (with middlewares)', () => {
         const method = 'GET';
-
-        Router.get('/',
+        Sheetbase.Router.get('/',
             (req, res, next) => next(), // middleware 1
             (req, res, next) => next(), // middleware 2
             (req, res) => res.send(method + ' / result'),
         );
-        const [ middleware1, middleware2, route ] = Router.route(method, '/');
+        const [ middleware1, middleware2, route ] = Sheetbase.Router.route(method, '/');
         const middleware1Result = middleware1(req, res, next as any);
         const middleware2Result = middleware2(req, res, () => 'next >' as any);
         const routeResult = route(req, res);
@@ -514,39 +560,38 @@ describe('RouterService test', () => {
 
     it('#post should work', () => {
         const method = 'POST';
-
-        Router.post('/', (req, res) => res.send(method + ' / result'));
-        const [ route ] = Router.route(method, '/'); // get the route
+        Sheetbase.Router.post('/', (req, res) => res.send(method + ' / result'));
+        const [ route ] = Sheetbase.Router.route(method, '/'); // get the route
         const result = route(req, res);
 
         expect(route instanceof Function).to.equal(true);
         expect(result).to.equal(method + ' / result');
     });
+
     it('#put should work', () => {
         const method = 'PUT';
-
-        Router.put('/', (req, res) => res.send(method + ' / result'));
-        const [ route ] = Router.route(method, '/'); // get the route
+        Sheetbase.Router.put('/', (req, res) => res.send(method + ' / result'));
+        const [ route ] = Sheetbase.Router.route(method, '/'); // get the route
         const result = route(req, res);
 
         expect(route instanceof Function).to.equal(true);
         expect(result).to.equal(method + ' / result');
     });
+
     it('#patch should work', () => {
         const method = 'PATCH';
-
-        Router.patch('/', (req, res) => res.send(method + ' / result'));
-        const [ route ] = Router.route(method, '/'); // get the route
+        Sheetbase.Router.patch('/', (req, res) => res.send(method + ' / result'));
+        const [ route ] = Sheetbase.Router.route(method, '/'); // get the route
         const result = route(req, res);
 
         expect(route instanceof Function).to.equal(true);
         expect(result).to.equal(method + ' / result');
     });
+
     it('#delete should work', () => {
         const method = 'DELETE';
-
-        Router.delete('/', (req, res) => res.send(method + ' / result'));
-        const [ route ] = Router.route(method, '/'); // get the route
+        Sheetbase.Router.delete('/', (req, res) => res.send(method + ' / result'));
+        const [ route ] = Sheetbase.Router.route(method, '/'); // get the route
         const result = route(req, res);
 
         expect(route instanceof Function).to.equal(true);
@@ -554,12 +599,12 @@ describe('RouterService test', () => {
     });
 
     it('#all should work', () => {
-        Router.all('/', (req, res) => res.send('a result'));
-        const [ routeGET ] = Router.route('GET', '/');
-        const [ routePOST ] = Router.route('POST', '/');
-        const [ routePUT ] = Router.route('PUT', '/');
-        const [ routePATCH ] = Router.route('PATCH', '/');
-        const [ routeDELETE ] = Router.route('DELETE', '/');
+        Sheetbase.Router.all('/', (req, res) => res.send('a result'));
+        const [ routeGET ] = Sheetbase.Router.route('GET', '/');
+        const [ routePOST ] = Sheetbase.Router.route('POST', '/');
+        const [ routePUT ] = Sheetbase.Router.route('PUT', '/');
+        const [ routePATCH ] = Sheetbase.Router.route('PATCH', '/');
+        const [ routeDELETE ] = Sheetbase.Router.route('DELETE', '/');
 
         expect(routeGET instanceof Function).to.equal(true);
         expect(routePOST instanceof Function).to.equal(true);
@@ -573,16 +618,16 @@ describe('RouterService test', () => {
         const next = () => 'next >'; // return a text when next() is call
 
         // use one middleware
-        Router.use(hdlr);
-        const result1 = Router.route('GET', '/');
+        Sheetbase.Router.use(hdlr);
+        const result1 = Sheetbase.Router.route('GET', '/');
         const middlewareResult1 = result1[0](req, res, next as any); // the first middleware
 
         expect(result1.length).to.equal(2);
         expect(middlewareResult1).to.equal('next >');
 
         // use 3 more middlewares
-        Router.use(hdlr, hdlr, hdlr);
-        const result2 = Router.route('GET', '/');
+        Sheetbase.Router.use(hdlr, hdlr, hdlr);
+        const result2 = Sheetbase.Router.route('GET', '/');
         const middlewareResult2 = result2[3](req, res, next as any); // the last middleware
 
         expect(result2.length).to.equal(5);
@@ -591,14 +636,22 @@ describe('RouterService test', () => {
 
     it('#use should work (for a specific route)', () => {
         // only for /me
-        Router.use('/me', (req, res, next) => next());
-        const result1 = Router.route('GET', '/me');
+        Sheetbase.Router.use('/me', (req, res, next) => next());
+        const result1 = Sheetbase.Router.route('GET', '/me');
         const middlewareResult1 = result1[0](req, res, next as any);
-        const result2 = Router.route('GET', '/');
+        const result2 = Sheetbase.Router.route('GET', '/');
 
         expect(result1.length).to.equal(2);
         expect(middlewareResult1).to.equal(true);
         expect(result2.length).to.equal(1); // not for this route
+    });
+
+    it('disabled routes should work', () => {
+        Sheetbase.Router.setDisabled(['get /']);
+        Sheetbase.Router.get('/', (req, res) => res.send('a result'));
+        const [ route ] = Sheetbase.Router.route('GET', '/');
+        const result1 = route(req, res);
+        expect(result1).to.equal('errors/404');
     });
 
 });
@@ -692,110 +745,6 @@ describe('UtilsService test', () => {
             j5: {c:3},
             j6: [{c:3, d:4}],
         });
-    });
-
-});
-
-describe('Routing helpers', () => {
-    const ROUTING_ERRORS: RoutingErrors = {
-        error1: { message: 'Error 1' },
-        error2: { status: 500, message: 'Error 2' },
-    };
-    const errorHandler = (err) => err;
-    const disaledRoutes = [
-        'get:/xxx1',
-        'GET:/xxx2',
-        'get:xxx3',
-        'GET:xxx4',
-        'get /xxx5',
-        'GET /xxx6',
-        'get xxx7',
-        'GET xxx8',
-        'get:/xxx9',
-    ];
-
-    const routingErrorFunc = routingErrorBuilder(ROUTING_ERRORS, errorHandler);
-    const addonRoutesExposedFunc = addonRoutesExposedChecker(disaledRoutes);
-
-    it('should create the instances', () => {
-        expect(routingErrorFunc instanceof Function).to.equal(true);
-        expect(addonRoutesExposedFunc instanceof Function).to.equal(true);
-    });
-
-    it('routingErrorFunc should show correct error', () => {
-        const result1 = routingErrorFunc(); // default
-        const result2 = routingErrorFunc('xxx'); // custom
-        const result3 = routingErrorFunc('error1'); // no status (default to 400)
-        const result4 = routingErrorFunc('error2'); // has status
-        expect(result1).to.eql({ code: 'internal', status: 500, message: 'Unknown.' });
-        expect(result2).to.eql({ code: 'internal', status: 500, message: 'xxx' });
-        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
-    });
-
-    it('#routingError should show correct error (direct method)', () => {
-        const result1 = routingError(ROUTING_ERRORS, null, errorHandler); // default
-        const result2 = routingError(ROUTING_ERRORS, 'xxx', errorHandler); // invalid
-        const result3 = routingError(
-            ROUTING_ERRORS, 'error1', errorHandler,
-        ); // no status (default to 400)
-        const result4 = routingError(ROUTING_ERRORS, 'error2', errorHandler); // has status
-        expect(result1).to.eql({ code: 'internal', status: 500, message: 'Unknown.' });
-        expect(result2).to.eql({ code: 'internal', status: 500, message: 'xxx' });
-        expect(result3).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-        expect(result4).to.eql({ code: 'error2', status: 500, message: 'Error 2' });
-    });
-
-    it('routingErrorFunc should override the error handler', () => {
-        const result1 = routingErrorFunc('error1', () => 'overridden');
-        expect(result1).to.equal('overridden');
-    });
-
-    it('routingErrorFunc return the error if no error handler', () => {
-        const result1 = routingError(ROUTING_ERRORS, 'error1');
-        expect(result1).to.eql({ code: 'error1', status: 400, message: 'Error 1' });
-    });
-
-    it('addonRoutesExposedFunc should show correct result', () => {
-        const result0 = addonRoutesExposedFunc('get', '/xxx0');
-        const result1 = addonRoutesExposedFunc('get', '/xxx1');
-        const result2 = addonRoutesExposedFunc('get', '/xxx2');
-        const result3 = addonRoutesExposedFunc('get', '/xxx3');
-        const result4 = addonRoutesExposedFunc('get', '/xxx4');
-        const result5 = addonRoutesExposedFunc('get', '/xxx5');
-        const result6 = addonRoutesExposedFunc('get', '/xxx6');
-        const result7 = addonRoutesExposedFunc('get', '/xxx7');
-        const result8 = addonRoutesExposedFunc('get', '/xxx8');
-        expect(result0).to.equal(true);
-        expect(result1).to.equal(false);
-        expect(result2).to.equal(false);
-        expect(result3).to.equal(false);
-        expect(result4).to.equal(false);
-        expect(result5).to.equal(false);
-        expect(result6).to.equal(false);
-        expect(result7).to.equal(false);
-        expect(result8).to.equal(false);
-    });
-
-    it('#addonRoutesExposed should show correct result (direct method)', () => {
-        const result0 = addonRoutesExposed(disaledRoutes, 'get', '/xxx0');
-        const result1 = addonRoutesExposed(disaledRoutes, 'get', '/xxx1');
-        const result2 = addonRoutesExposed(disaledRoutes, 'get', '/xxx2');
-        const result3 = addonRoutesExposed(disaledRoutes, 'get', '/xxx3');
-        const result4 = addonRoutesExposed(disaledRoutes, 'get', '/xxx4');
-        const result5 = addonRoutesExposed(disaledRoutes, 'get', '/xxx5');
-        const result6 = addonRoutesExposed(disaledRoutes, 'get', '/xxx6');
-        const result7 = addonRoutesExposed(disaledRoutes, 'get', '/xxx7');
-        const result8 = addonRoutesExposed(disaledRoutes, 'get', '/xxx8');
-        expect(result0).to.equal(true);
-        expect(result1).to.equal(false);
-        expect(result2).to.equal(false);
-        expect(result3).to.equal(false);
-        expect(result4).to.equal(false);
-        expect(result5).to.equal(false);
-        expect(result6).to.equal(false);
-        expect(result7).to.equal(false);
-        expect(result8).to.equal(false);
     });
 
 });
