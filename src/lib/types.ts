@@ -9,7 +9,7 @@ export interface HttpEvent {
 export interface Options {
     allowMethodsWhenDoGet?: boolean;
     views?: string;
-    disabledRoutes?: string | string[];
+    disabledRoutes?: string[];
     routingErrors?: RoutingErrors;
 }
 
@@ -70,7 +70,7 @@ export interface RoutingErrors {
 
 export interface AddonRoutesOptions {
     router: RouterService;
-    disabledRoutes?: string | string[];
+    disabledRoutes?: string[];
     endpoint?: string;
     middlewares?: RouteHandler[];
 }

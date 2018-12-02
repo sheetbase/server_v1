@@ -48,18 +48,14 @@ export class OptionService {
     getDisabledRoutes(): string | string[] {
         return this.options.disabledRoutes;
     }
-    setDisabledRoutes(value: string | string[], override = false): void {
+    setDisabledRoutes(value: string[], override = false): void {
         if (override) {
             this.options.disabledRoutes = value;
         } else {
-            if (value instanceof Array) {
-                this.options.disabledRoutes = [
-                    ... this.options.disabledRoutes as string[],
-                    ... value,
-                ];
-            } else {
-                this.options.disabledRoutes += ' ' + value;
-            }
+            this.options.disabledRoutes = [
+                ... this.options.disabledRoutes as string[],
+                ... value,
+            ];
         }
     }
 

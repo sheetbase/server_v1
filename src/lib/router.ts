@@ -16,7 +16,7 @@ export class RouterService {
         this.optionService.setRoutingErrors(errors, override);
     }
 
-    setDisabled(disabledRoutes: string | string[], override = false): void {
+    setDisabled(disabledRoutes: string[], override = false): void {
         this.optionService.setDisabledRoutes(disabledRoutes, override);
     }
 
@@ -63,6 +63,12 @@ export class RouterService {
 				`);
             }
         };
+
+        // check if route is disabled
+        if (this.disabled(method, routeName)) {
+            return [ notFoundHandler ];
+        }
+
         const handler = this.routes[method + ':' + routeName] || notFoundHandler;
         let handlers = this.routeMiddlewares[method + ':' + routeName] || [];
         // shared middlewares
@@ -102,6 +108,37 @@ export class RouterService {
             this.routes['DELETE:' + routeName] = handler;
             this.routeMiddlewares['DELETE:' + routeName] = handlers;
         }
+    }
+
+    private disabled(method: string, routeName: string): boolean {
+        const disabledRoutes = this.optionService.getDisabledRoutes();
+        let status = false;
+
+        // cheking value (against disabledRoutes)
+        const value: string = method.toLowerCase() + ':' + routeName;
+        const valueUppercase: string = method.toUpperCase() + ':' + routeName;
+        const valueSpaced: string = method.toLowerCase() + ' ' + routeName;
+        const valueSpacedUppercase: string = method.toUpperCase() + ' ' + routeName;
+
+        const values: string[] = [
+            value, // get:/xxx
+            valueUppercase, // GET:/xxx
+            (value).replace(':/', ':'), // get:xxx
+            (valueUppercase).replace(':/', ':'), // GET:xxx
+
+            valueSpaced, // get /xxx
+            valueSpacedUppercase, // GET /xxx
+            (valueSpaced).replace(' /', ' '), // get xxx
+            (valueSpacedUppercase).replace(' /', ' '), // GET xxx
+        ];
+
+        // check
+        for (let i = 0; i < values.length; i++) {
+            if (disabledRoutes.indexOf(values[i]) > -1) {
+                status = true;
+            }
+        }
+        return status;
     }
 
 }
