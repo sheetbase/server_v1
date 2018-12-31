@@ -105,7 +105,7 @@ export class ResponseService {
                 error = { message: code };
                 code = null;
             } else {
-                error = (typeof error === 'string') ? { message: error } : error;
+                error = (typeof error === 'string') ? { status: 400, message: error } : error;
             }
 
             // return a response error

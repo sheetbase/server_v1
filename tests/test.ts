@@ -8,7 +8,6 @@ import {
     o2a,
     a2o,
     uniqueId,
-    honorData,
 
     Options,
 } from '../src/public_api';
@@ -703,48 +702,6 @@ describe('UtilsService test', () => {
     it('#uniqueId should create id (12 chars, start with 1)', () => {
         const id = uniqueId(null, '1');
         expect(id.substr(0, 1)).to.equal('1');
-    });
-
-    it('#honorData should work', () => {
-        const result = honorData({
-            a: 1,
-            b: '',
-            c: null,
-            d: undefined,
-            e: 'true',
-            e1: 'TRUE',
-            f: 'false',
-            f1: 'FALSE',
-            g: '2',
-            h: '3.14',
-            i: '{"a":1,"b":2}',
-            i2: '[{"a":1,"b":2}]',
-            j: 'me',
-            j1: true,
-            j2: false,
-            j3: 4,
-            j4: 5.9,
-            j5: {c:3},
-            j6: [{c:3, d:4}],
-        });
-        expect(result).to.eql({
-            a: 1,
-            e: true,
-            e1: true,
-            f: false,
-            f1: false,
-            g: 2,
-            h: 3.14,
-            i: {a:1,b:2},
-            i2: [{a:1,b:2}],
-            j: 'me',
-            j1: true,
-            j2: false,
-            j3: 4,
-            j4: 5.9,
-            j5: {c:3},
-            j6: [{c:3, d:4}],
-        });
     });
 
 });
