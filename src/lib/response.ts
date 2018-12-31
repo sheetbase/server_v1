@@ -109,7 +109,7 @@ export class ResponseService {
             }
 
             // return a response error
-            const { status, message } = error as RoutingError;
+            const { status = 400, message } = error as RoutingError;
             responseError = { code, message, status };
         } else {  // a ResponseError
             responseError = err as ResponseError || {};

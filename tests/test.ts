@@ -443,7 +443,7 @@ describe('ResponseService test', () => {
         Sheetbase.Response.setErrors({
             error1: 'Error 1',
             error2: { message: 'Error 2' },
-            error3: { status: 400, message: 'Error 3' },
+            error3: { status: 500, message: 'Error 3' },
         });
 
         const result1: any = Sheetbase.Response.error(); // default
@@ -464,22 +464,22 @@ describe('ResponseService test', () => {
         expect(parsedResult1).to.have.property('message').equal('Unknown error.');
 
         expect(parsedResult2).to.have.property('error').equal(true);
-        expect(parsedResult2).to.have.property('status').equal(500);
+        expect(parsedResult2).to.have.property('status').equal(400);
         expect(parsedResult2).to.have.property('code').equal('app/internal');
         expect(parsedResult2).to.have.property('message').equal('xxx');
 
         expect(parsedResult3).to.have.property('error').equal(true);
-        expect(parsedResult3).to.have.property('status').equal(500);
+        expect(parsedResult3).to.have.property('status').equal(400);
         expect(parsedResult3).to.have.property('code').equal('error1');
         expect(parsedResult3).to.have.property('message').equal('Error 1');
 
         expect(parsedResult4).to.have.property('error').equal(true);
-        expect(parsedResult4).to.have.property('status').equal(500);
+        expect(parsedResult4).to.have.property('status').equal(400);
         expect(parsedResult4).to.have.property('code').equal('error2');
         expect(parsedResult4).to.have.property('message').equal('Error 2');
 
         expect(parsedResult5).to.have.property('error').equal(true);
-        expect(parsedResult5).to.have.property('status').equal(400);
+        expect(parsedResult5).to.have.property('status').equal(500);
         expect(parsedResult5).to.have.property('code').equal('error3');
         expect(parsedResult5).to.have.property('message').equal('Error 3');
     });
