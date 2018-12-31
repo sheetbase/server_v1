@@ -20,7 +20,7 @@ Sheetbase.Router.post('/', (req, res) => {
 });
 ```
 
-## By Google Apps Script library
+## As Google Apps Script library
 
 See how to use GAS library: <https://developers.google.com/apps-script/guides/libraries>
 

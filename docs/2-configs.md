@@ -28,7 +28,7 @@ List of disabled routes, format: `method:endpoint`. Examples: `[ 'GET:/', 'POST:
 - Type: [RoutingErrors](https://github.com/sheetbase/core-server/blob/d15caa7d464e98057e94ca810d22d88881214310/src/lib/types.ts#L67)
 - Default: `{}`
 
-List of routing errors, by codes, when do `res.error([code])`, the router will show the coresponding error to the client.
+List of routing errors, by codes, when do `res.error(code)`, the router will show the coresponding error to the client.
 
 Examples: `{ foo: 'The Foo error.' }`. Then: `res.error('foo')`, the result will be:
 
