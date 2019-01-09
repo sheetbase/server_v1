@@ -1,10 +1,10 @@
 # @sheetbase/core-server
 
-- [Install](#1-install)
+- [1 install](#1-install)
 
-- [Configs](#2-configs)
+- [2 configs](#2-configs)
 
-- [Routing](#3-routing)
+- [3 routing](#3-routing)
 
 - [API Reference](https://sheetbase.github.io/core-server/api)
 

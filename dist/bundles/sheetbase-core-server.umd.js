@@ -301,10 +301,10 @@
                     code = null;
                 }
                 else {
-                    error = (typeof error === 'string') ? { message: error } : error;
+                    error = (typeof error === 'string') ? { status: 400, message: error } : error;
                 }
                 // return a response error
-                var _a = error, status = _a.status, message = _a.message;
+                var _a = error, _b = _a.status, status = _b === void 0 ? 400 : _b, message = _a.message;
                 responseError = { code: code, message: message, status: status };
             }
             else { // a ResponseError
@@ -548,44 +548,6 @@
         }
         return uid;
     }
-    function honorData(data) {
-        if (data === void 0) { data = {}; }
-        for (var _i = 0, _a = Object.keys(data); _i < _a.length; _i++) {
-            var key = _a[_i];
-            if (data[key] === '' || data[key] === null || data[key] === undefined) {
-                // delete null key
-                delete data[key];
-            }
-            else if ((data[key] + '').toLowerCase() === 'true') {
-                // boolean TRUE
-                data[key] = true;
-            }
-            else if ((data[key] + '').toLowerCase() === 'false') {
-                // boolean FALSE
-                data[key] = false;
-            }
-            else if (!isNaN(data[key])) {
-                // number
-                // tslint:disable:ban radix
-                if (Number(data[key]) % 1 === 0) {
-                    data[key] = parseInt(data[key]);
-                }
-                if (Number(data[key]) % 1 !== 0) {
-                    data[key] = parseFloat(data[key]);
-                }
-            }
-            else {
-                // JSON
-                try {
-                    data[key] = JSON.parse(data[key]);
-                }
-                catch (e) {
-                    // continue
-                }
-            }
-        }
-        return data;
-    }
 
     function sheetbase(options) {
         var Option = new OptionService(options);
@@ -610,7 +572,6 @@
     exports.o2a = o2a;
     exports.a2o = a2o;
     exports.uniqueId = uniqueId;
-    exports.honorData = honorData;
     exports.sheetbase = sheetbase;
 
     Object.defineProperty(exports, '__esModule', { value: true });
