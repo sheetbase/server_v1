@@ -35,10 +35,10 @@
    ],
    "repository": {
       "type": "git",
-      "url": "https://github.com/sheetbase/core-server.git"
+      "url": "https://github.com/sheetbase/server.git"
    },
    "bugs": {
-      "url": "https://github.com/sheetbase/core-server/issues"
+      "url": "https://github.com/sheetbase/server/issues"
    },
    "dependencies": {},
    "devDependencies": {
