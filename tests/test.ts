@@ -4,11 +4,6 @@ import { describe, it } from 'mocha';
 
 import {
     sheetbase,
-
-    o2a,
-    a2o,
-    uniqueId,
-
     Options,
 } from '../src/public_api';
 
@@ -651,57 +646,6 @@ describe('RouterService test', () => {
         const [ route ] = Sheetbase.Router.route('GET', '/');
         const result1 = route(req, res);
         expect(result1).to.equal('errors/404');
-    });
-
-});
-
-describe('UtilsService test', () => {
-
-    it('#o2a should work', () => {
-        const result = o2a({ a: 1, b: 2, c: { c1: 1, c2: 2 } });
-        expect(result).to.eql([
-            { $key: 'a', value: 1 },
-            { $key: 'b', value: 2 },
-            { $key: 'c', c1: 1, c2: 2 },
-        ]);
-    });
-
-    it('#o2a should work (custom key name)', () => {
-        const result = o2a({ a: 1 }, 'xxx');
-        expect(result).to.eql([{ xxx: 'a', value: 1 }]);
-    });
-
-    it('#a2o should work', () => {
-        const result = a2o([
-            {slug: 'a', a: true},
-            {id: 'b', b: true},
-            {key: 'c', c: true},
-            {'#': 'd', d: true},
-            {xxx: 'e', key: 'e1', e: true},
-        ], 'xxx');
-        expect(result).eql({
-            a: {slug: 'a', a: true},
-            b: {id: 'b', b: true},
-            c: {key: 'c', c: true},
-            d: {'#': 'd', d: true},
-            e: {xxx: 'e', key: 'e1', e: true},
-        });
-    });
-
-    it('#uniqueId should works', () => {
-        const id = uniqueId();
-        expect(id.substr(0, 1)).to.equal('-');
-        expect(id.length).to.equal(12);
-    });
-
-    it('#uniqueId should create id (32 chars)', () => {
-        const id = uniqueId(32);
-        expect(id.length).to.equal(32);
-    });
-
-    it('#uniqueId should create id (12 chars, start with 1)', () => {
-        const id = uniqueId(null, '1');
-        expect(id.substr(0, 1)).to.equal('1');
     });
 
 });
