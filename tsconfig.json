@@ -4,6 +4,7 @@
     "outDir": "./dist/esm3",
     "declaration": true,
     "declarationDir": "./dist",
+	"skipLibCheck": true
   },
   "files": [
     "./src/public_api.ts"

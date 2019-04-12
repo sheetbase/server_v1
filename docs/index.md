@@ -1,4 +1,4 @@
-# @sheetbase/core-server
+# @sheetbase/server
 
 - [1 install](#1-install)
 

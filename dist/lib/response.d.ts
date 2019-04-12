@@ -1,3 +1,4 @@
+/// <reference types="google-apps-script" />
 import { ResponseError, RoutingErrors } from './types';
 import { OptionService } from './option';
 export declare class ResponseService {
