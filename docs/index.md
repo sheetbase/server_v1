@@ -6,7 +6,7 @@
 
 - [3 routing](#3-routing)
 
-- [API Reference](https://sheetbase.github.io/core-server/api)
+- [API Reference](https://sheetbase.github.io/server/api)
 
 ## Install
 

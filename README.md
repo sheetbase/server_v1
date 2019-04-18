@@ -37,6 +37,24 @@ const Sheetbase = SheetbaseModule.Sheetbase;
 
 <!-- <block:body> -->
 
+## Getting started
+
+Install: `npm install --save @sheetbase/server`
+
+Usage:
+
+```ts
+import { sheetbase } from "@sheetbase/server";
+
+const Sheetbase = sheetbase({
+  /* configs */
+});
+
+Sheetbase.Router.get("/", (req, res) => {
+  return res.send("Hello!");
+});
+```
+
 ## Configs
 
 Sheetbase app configurations.
