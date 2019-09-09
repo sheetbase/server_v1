@@ -2,6 +2,8 @@ import { RouteHandler, AddonRoutesOptions } from './types';
 
 import { MonitoringService } from './monitoring';
 
+export const ROUTING_ERRORS  = {};
+
 export function registerRoutes(
   Monitoring: MonitoringService,
 ) {
@@ -16,7 +18,7 @@ export function registerRoutes(
 
     // register errors & disabled routes
     router.setDisabled(disabledRoutes);
-    router.setErrors(this.errors);
+    router.setErrors(ROUTING_ERRORS);
 
     // /system
     router.get('/system', ...middlewares, (req, res) => {
@@ -24,7 +26,7 @@ export function registerRoutes(
     });
 
     // logging
-    router.put(loggingEndpoint, ...middlewares, (req, res) => {
+    router.put('/' + loggingEndpoint, ...middlewares, (req, res) => {
       const { level, value } = req.body;
       try {
         Monitoring.logging(value, level);

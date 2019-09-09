@@ -17,19 +17,19 @@ export class MonitoringService {
   }
 
   log<Value>(value: Value) {
-    return console.log(value);
+    return console.log(value as any);
   }
 
   info<Value>(value: Value) {
-    return console.info(value);
+    return console.info(value as any);
   }
 
   warn<Value>(value: Value) {
-    return console.warn(value);
+    return console.warn(value as any);
   }
 
   error<Value>(value: Value) {
-    return console.error(value);
+    return console.error(value as any);
   }
 
 }

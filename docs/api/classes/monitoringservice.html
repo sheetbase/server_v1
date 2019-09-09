@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>HttpService | @sheetbase/server</title>
+	<title>MonitoringService | @sheetbase/server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="httpservice.html">HttpService</a>
+					<a href="monitoringservice.html">MonitoringService</a>
 				</li>
 			</ul>
-			<h1>Class HttpService</h1>
+			<h1>Class MonitoringService</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">HttpService</span>
+						<span class="target">MonitoringService</span>
 					</li>
 				</ul>
 			</section>
@@ -77,25 +77,17 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="httpservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
-							<h3>Properties</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#allowedmethods" class="tsd-kind-icon">allowed<wbr>Methods</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#optionservice" class="tsd-kind-icon">option<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#responseservice" class="tsd-kind-icon">response<wbr>Service</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#routerservice" class="tsd-kind-icon">router<wbr>Service</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="monitoringservice.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#execute" class="tsd-kind-icon">execute</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="httpservice.html#get" class="tsd-kind-icon">get</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="httpservice.html#http" class="tsd-kind-icon">http</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="httpservice.html#post" class="tsd-kind-icon">post</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="monitoringservice.html#error" class="tsd-kind-icon">error</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="monitoringservice.html#info" class="tsd-kind-icon">info</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="monitoringservice.html#log" class="tsd-kind-icon">log</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="monitoringservice.html#logging" class="tsd-kind-icon">logging</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="monitoringservice.html#warn" class="tsd-kind-icon">warn</a></li>
 							</ul>
 						</section>
 					</div>
@@ -107,175 +99,167 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Http<wbr>Service<span class="tsd-signature-symbol">(</span>optionService<span class="tsd-signature-symbol">: </span><a href="optionservice.html" class="tsd-signature-type">OptionService</a>, responseService<span class="tsd-signature-symbol">: </span><a href="responseservice.html" class="tsd-signature-type">ResponseService</a>, routerService<span class="tsd-signature-symbol">: </span><a href="routerservice.html" class="tsd-signature-type">RouterService</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="httpservice.html" class="tsd-signature-type">HttpService</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Monitoring<wbr>Service<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="monitoringservice.html" class="tsd-signature-type">MonitoringService</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L14">lib/http.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L3">lib/monitoring.ts:3</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>optionService: <a href="optionservice.html" class="tsd-signature-type">OptionService</a></h5>
-								</li>
-								<li>
-									<h5>responseService: <a href="responseservice.html" class="tsd-signature-type">ResponseService</a></h5>
-								</li>
-								<li>
-									<h5>routerService: <a href="routerservice.html" class="tsd-signature-type">RouterService</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="httpservice.html" class="tsd-signature-type">HttpService</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="monitoringservice.html" class="tsd-signature-type">MonitoringService</a></h4>
 						</li>
 					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-private tsd-is-private-protected">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="allowedmethods" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> allowed<wbr>Methods</h3>
-					<div class="tsd-signature tsd-kind-icon">allowed<wbr>Methods<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[&#x27;GET&#x27;, &#x27;POST&#x27;, &#x27;PUT&#x27;, &#x27;PATCH&#x27;, &#x27;DELETE&#x27;,]</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L12">lib/http.ts:12</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="optionservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> option<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">option<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="optionservice.html" class="tsd-signature-type">OptionService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L8">lib/http.ts:8</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="responseservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> response<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">response<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="responseservice.html" class="tsd-signature-type">ResponseService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L9">lib/http.ts:9</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a name="routerservice" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> router<wbr>Service</h3>
-					<div class="tsd-signature tsd-kind-icon">router<wbr>Service<span class="tsd-signature-symbol">:</span> <a href="routerservice.html" class="tsd-signature-type">RouterService</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L10">lib/http.ts:10</a></li>
-						</ul>
-					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="execute" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> execute</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">execute<span class="tsd-signature-symbol">(</span>handlers<span class="tsd-signature-symbol">: </span><a href="../interfaces/routehandler.html" class="tsd-signature-type">RouteHandler</a><span class="tsd-signature-symbol">[]</span>, req<span class="tsd-signature-symbol">: </span><a href="../interfaces/routerequest.html" class="tsd-signature-type">RouteRequest</a>, res<span class="tsd-signature-symbol">: </span><a href="../interfaces/routeresponse.html" class="tsd-signature-type">RouteResponse</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="error" class="tsd-anchor"></a>
+					<h3>error</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">error&lt;Value&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L69">lib/http.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L31">lib/monitoring.ts:31</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Value</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>handlers: <a href="../interfaces/routehandler.html" class="tsd-signature-type">RouteHandler</a><span class="tsd-signature-symbol">[]</span></h5>
-								</li>
-								<li>
-									<h5>req: <a href="../interfaces/routerequest.html" class="tsd-signature-type">RouteRequest</a></h5>
-								</li>
-								<li>
-									<h5>res: <a href="../interfaces/routeresponse.html" class="tsd-signature-type">RouteResponse</a></h5>
+									<h5>value: <span class="tsd-signature-type">Value</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="get" class="tsd-anchor"></a>
-					<h3>get</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="info" class="tsd-anchor"></a>
+					<h3>info</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">info&lt;Value&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L26">lib/http.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L23">lib/monitoring.ts:23</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Value</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a></h5>
+									<h5>value: <span class="tsd-signature-type">Value</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a name="http" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> http</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">http<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a>, method<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="log" class="tsd-anchor"></a>
+					<h3>log</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">log&lt;Value&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L34">lib/http.ts:34</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L19">lib/monitoring.ts:19</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Value</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> method: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> =&nbsp;&quot;GET&quot;</span></h5>
+									<h5>value: <span class="tsd-signature-type">Value</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="post" class="tsd-anchor"></a>
-					<h3>post</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">post<span class="tsd-signature-symbol">(</span>e<span class="tsd-signature-symbol">: </span><a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="logging" class="tsd-anchor"></a>
+					<h3>logging</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">logging&lt;Value&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span>, level<span class="tsd-signature-symbol">?: </span><a href="../index.html#logginglevel" class="tsd-signature-type">LoggingLevel</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/http.ts#L30">lib/http.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L7">lib/monitoring.ts:7</a></li>
 								</ul>
 							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Value</h4>
+								</li>
+							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>e: <a href="../interfaces/httpevent.html" class="tsd-signature-type">HttpEvent</a></h5>
+									<h5>value: <span class="tsd-signature-type">Value</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> level: <a href="../index.html#logginglevel" class="tsd-signature-type">LoggingLevel</a><span class="tsd-signature-symbol"> =&nbsp;&quot;DEBUG&quot;</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="warn" class="tsd-anchor"></a>
+					<h3>warn</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">warn&lt;Value&gt;<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Value</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/monitoring.ts#L27">lib/monitoring.ts:27</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>Value</h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>value: <span class="tsd-signature-type">Value</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -291,45 +275,36 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="httpservice.html" class="tsd-kind-icon">Http<wbr>Service</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class">
-						<a href="httpservice.html" class="tsd-kind-icon">Http<wbr>Service</a>
+						<a href="monitoringservice.html" class="tsd-kind-icon">Monitoring<wbr>Service</a>
 						<ul>
 							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="httpservice.html#constructor" class="tsd-kind-icon">constructor</a>
+								<a href="monitoringservice.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#allowedmethods" class="tsd-kind-icon">allowed<wbr>Methods</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="monitoringservice.html#error" class="tsd-kind-icon">error</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#optionservice" class="tsd-kind-icon">option<wbr>Service</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="monitoringservice.html#info" class="tsd-kind-icon">info</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#responseservice" class="tsd-kind-icon">response<wbr>Service</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="monitoringservice.html#log" class="tsd-kind-icon">log</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#routerservice" class="tsd-kind-icon">router<wbr>Service</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="monitoringservice.html#logging" class="tsd-kind-icon">logging</a>
 							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#execute" class="tsd-kind-icon">execute</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="httpservice.html#get" class="tsd-kind-icon">get</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-								<a href="httpservice.html#http" class="tsd-kind-icon">http</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="httpservice.html#post" class="tsd-kind-icon">post</a>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="monitoringservice.html#warn" class="tsd-kind-icon">warn</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class">
-						<a href="monitoringservice.html" class="tsd-kind-icon">Monitoring<wbr>Service</a>
-					</li>
 					<li class=" tsd-kind-class">
 						<a href="optionservice.html" class="tsd-kind-icon">Option<wbr>Service</a>
 					</li>
