@@ -74,3 +74,5 @@ export interface AddonRoutesOptions {
   endpoint?: string;
   middlewares?: RouteHandler[];
 }
+
+export type LoggingLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
