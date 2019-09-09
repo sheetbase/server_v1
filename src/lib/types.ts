@@ -1,16 +1,16 @@
 import { ResponseService } from './response';
 import { RouterService } from './router';
 
-export interface HttpEvent {
-  parameter?: any;
-  postData?: any;
-}
-
 export interface Options {
   allowMethodsWhenDoGet?: boolean;
   views?: string;
   disabledRoutes?: string[];
   routingErrors?: RoutingErrors;
+}
+
+export interface HttpEvent {
+  parameter?: any;
+  postData?: any;
 }
 
 export interface RouteRequest {
@@ -35,8 +35,8 @@ export interface ResponseError {
   message?: string;
   status?: number;
   meta?: {
-    at?: number;
-    [key: string]: any;
+    timestamp?: number;
+    [prop: string]: any;
   };
 }
 
@@ -45,18 +45,18 @@ export interface ResponseSuccess {
   success?: boolean;
   status?: number;
   meta?: {
-    at?: number;
-    [key: string]: any;
+    timestamp?: number;
+    [prop: string]: any;
   };
 }
 
-export interface RouteNext {
-  <Data>(data?: Data): RouteHandler;
-}
+export type RouteNext = (data?: any) => RouteHandler;
 
-export interface RouteHandler {
-  (req: RouteRequest, res: RouteResponse, next?: RouteNext);
-}
+export type RouteHandler = (
+  req: RouteRequest,
+  res: RouteResponse,
+  next?: RouteNext,
+) => any;
 
 export interface RoutingError {
   message: string;
@@ -68,6 +68,8 @@ export interface RoutingErrors {
   [code: string]: string | RoutingError;
 }
 
+export type LoggingLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
+
 export interface AddonRoutesOptions {
   router: RouterService;
   disabledRoutes?: string[];
@@ -75,4 +77,21 @@ export interface AddonRoutesOptions {
   middlewares?: RouteHandler[];
 }
 
-export type LoggingLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
+export interface AuthIntergration {
+  AuthToken?: AuthToken;
+}
+
+export interface AuthToken {
+  decodeIdToken: (token: string) => AuthData;
+}
+
+export interface AuthData {
+  uid: string;
+  sub: string; // email
+  tty: 'ID';
+  iss: 'https://sheetbase.app';
+  aud: 'https://sheetbase.app';
+  iat: number;
+  exp: number;
+  [claim: string]: any;
+}

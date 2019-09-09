@@ -20,7 +20,7 @@ export function registerRoutes(
     router.setDisabled(disabledRoutes);
     router.setErrors(ROUTING_ERRORS);
 
-    // /system
+    // system info
     router.get('/system', ...middlewares, (req, res) => {
       return res.success({ sheetbase: true });
     });

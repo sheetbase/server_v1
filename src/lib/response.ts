@@ -20,8 +20,11 @@ export class ResponseService {
   }
 
   send(content: string | {}) {
-    if (content instanceof Object) return this.json(content);
-    return this.html(content);
+    if (content instanceof Object) {
+      return this.json(content);
+    } else {
+      return this.html(content);
+    }
   }
 
   html(html: string) {
@@ -68,26 +71,25 @@ export class ResponseService {
     return JSONOutput;
   }
 
-  success(data: {}, meta: any = {}) {
-    if (!data) return this.error();
-
+  success(data: any, meta: any = {}) {
+    if (!data) {
+      return this.error();
+    }
     if (!(data instanceof Object)) {
       data = { value: data };
     }
     if (!(meta instanceof Object)) {
       meta = { value: meta };
     }
-
-    const success: ResponseSuccess = {
+    return this.json({
       success: true,
       status: 200,
       data,
       meta: {
-        at: (new Date()).getTime(),
-        ...meta,
+        timestamp: new Date().getTime(),
+        ... meta,
       },
-    };
-    return this.json(success);
+    } as ResponseSuccess);
   }
 
   error(
@@ -122,12 +124,12 @@ export class ResponseService {
       meta = { value: meta };
     }
     return this.json({
-      ...responseError,
+      ... responseError,
       error: true,
       meta: {
-        at: (new Date()).getTime(),
-        ...meta,
+        timestamp: new Date().getTime(),
+        ... meta,
       },
-    });
+    } as ResponseError);
   }
 }

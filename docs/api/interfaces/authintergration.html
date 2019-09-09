@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>RouteHandler | @sheetbase/server</title>
+	<title>AuthIntergration | @sheetbase/server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -52,10 +52,10 @@
 					<a href="../index.html">Globals</a>
 				</li>
 				<li>
-					<a href="routehandler.html">RouteHandler</a>
+					<a href="authintergration.html">AuthIntergration</a>
 				</li>
 			</ul>
-			<h1>Interface RouteHandler</h1>
+			<h1>Interface AuthIntergration</h1>
 		</div>
 	</div>
 </header>
@@ -66,37 +66,35 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">RouteHandler</span>
+						<span class="target">AuthIntergration</span>
 					</li>
 				</ul>
 			</section>
-			<section class="tsd-panel">
-				<h3 class="tsd-before-signature">Callable</h3>
-				<ul class="tsd-signatures tsd-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">__call<span class="tsd-signature-symbol">(</span>req<span class="tsd-signature-symbol">: </span><a href="routerequest.html" class="tsd-signature-type">RouteRequest</a>, res<span class="tsd-signature-symbol">: </span><a href="routeresponse.html" class="tsd-signature-type">RouteResponse</a>, next<span class="tsd-signature-symbol">?: </span><a href="routenext.html" class="tsd-signature-type">RouteNext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/sheetbase/server/blob/3a8b74a/src/lib/types.ts#L57">lib/types.ts:57</a></li>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="authintergration.html#authtoken" class="tsd-kind-icon">Auth<wbr>Token</a></li>
 							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>req: <a href="routerequest.html" class="tsd-signature-type">RouteRequest</a></h5>
-							</li>
-							<li>
-								<h5>res: <a href="routeresponse.html" class="tsd-signature-type">RouteResponse</a></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> next: <a href="routenext.html" class="tsd-signature-type">RouteNext</a></h5>
-							</li>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="authtoken" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Auth<wbr>Token</h3>
+					<div class="tsd-signature tsd-kind-icon">Auth<wbr>Token<span class="tsd-signature-symbol">:</span> <a href="authtoken.html" class="tsd-signature-type">AuthToken</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/sheetbase/server/blob/d6186c1/src/lib/types.ts#L81">lib/types.ts:81</a></li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-					</li>
-				</ul>
+					</aside>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -131,6 +129,24 @@
 						<a href="addonroutesoptions.html" class="tsd-kind-icon">Addon<wbr>Routes<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface">
+						<a href="authdata.html" class="tsd-kind-icon">Auth<wbr>Data</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
+						<a href="authintergration.html" class="tsd-kind-icon">Auth<wbr>Intergration</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="authintergration.html#authtoken" class="tsd-kind-icon">Auth<wbr>Token</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-interface">
+						<a href="authtoken.html" class="tsd-kind-icon">Auth<wbr>Token</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="httpevent.html" class="tsd-kind-icon">Http<wbr>Event</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -141,16 +157,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="responsesuccess.html" class="tsd-kind-icon">Response<wbr>Success</a>
-					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="routehandler.html" class="tsd-kind-icon">Route<wbr>Handler</a>
-					</li>
-				</ul>
-				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
-						<a href="routenext.html" class="tsd-kind-icon">Route<wbr>Next</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="routequery.html" class="tsd-kind-icon">Route<wbr>Query</a>
@@ -169,6 +175,12 @@
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="../index.html#logginglevel" class="tsd-kind-icon">Logging<wbr>Level</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#routehandler" class="tsd-kind-icon">Route<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../index.html#routenext" class="tsd-kind-icon">Route<wbr>Next</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="../index.html#routing_errors" class="tsd-kind-icon">ROUTING_<wbr>ERRORS</a>

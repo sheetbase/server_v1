@@ -84,16 +84,16 @@ describe('#sheetbase', () => {
   const Sheetbase = sheetbase();
 
   it('members', () => {
-    expect(Sheetbase.HTTP instanceof HttpService).to.equal(true, 'HTTP');
-    expect(Sheetbase.Option instanceof OptionService).to.equal(true, 'Option');
-    expect(Sheetbase.Monitoring instanceof MonitoringService).to.equal(true, 'Monitoring');
-    expect(Sheetbase.Request instanceof RequestService).to.equal(true, 'Request');
-    expect(Sheetbase.Response instanceof ResponseService).to.equal(true, 'Response');
-    expect(Sheetbase.Router instanceof RouterService).to.equal(true, 'Router');
+    expect(Sheetbase.HTTP instanceof HttpService).equal(true, 'HTTP');
+    expect(Sheetbase.Option instanceof OptionService).equal(true, 'Option');
+    expect(Sheetbase.Monitoring instanceof MonitoringService).equal(true, 'Monitoring');
+    expect(Sheetbase.Request instanceof RequestService).equal(true, 'Request');
+    expect(Sheetbase.Response instanceof ResponseService).equal(true, 'Response');
+    expect(Sheetbase.Router instanceof RouterService).equal(true, 'Router');
   });
 
   it('properties', () => {
-    expect(Sheetbase.registerRoutes instanceof Function).to.equal(true, 'registerRoutes');
+    expect(Sheetbase.registerRoutes instanceof Function).equal(true, 'registerRoutes');
   });
 
 });
@@ -112,8 +112,8 @@ describe('HTTP test', () => {
     const result2 = Sheetbase.HTTP.get({
       parameter: { e: '/me' },
     });
-    expect(result1).to.equal('GET / response output');
-    expect(result2).to.equal('GET /me response output');
+    expect(result1).equal('GET / response output');
+    expect(result2).equal('GET /me response output');
   });
 
   it('#post should work', () => {
@@ -123,8 +123,8 @@ describe('HTTP test', () => {
     const result2 = Sheetbase.HTTP.post({
       parameter: { e: '/me' },
     });
-    expect(result1).to.equal('POST / response output');
-    expect(result2).to.equal('POST /me response output');
+    expect(result1).equal('POST / response output');
+    expect(result2).equal('POST /me response output');
   });
 
   it('#get should work (NOT allows custom methods)', () => {
@@ -134,8 +134,8 @@ describe('HTTP test', () => {
     const resultPOST = Sheetbase.HTTP.get({
       parameter: { method: 'POST' },
     });
-    expect(resultGET).to.equal('GET / response output');
-    expect(resultPOST).to.equal('GET / response output');
+    expect(resultGET).equal('GET / response output');
+    expect(resultPOST).equal('GET / response output');
   });
 
   it('#get should work (custom methods)', () => {
@@ -159,11 +159,11 @@ describe('HTTP test', () => {
     const resultDELETE = Sheetbase.HTTP.get({
       parameter: { method: 'DELETE' },
     });
-    expect(resultGET).to.equal('GET / response output');
-    expect(resultPOST).to.equal('POST / response output');
-    expect(resultPUT).to.equal('PUT / response output');
-    expect(resultPATCH).to.equal('PATCH / response output');
-    expect(resultDELETE).to.equal('DELETE / response output');
+    expect(resultGET).equal('GET / response output');
+    expect(resultPOST).equal('POST / response output');
+    expect(resultPUT).equal('PUT / response output');
+    expect(resultPATCH).equal('PATCH / response output');
+    expect(resultDELETE).equal('DELETE / response output');
   });
 });
 
@@ -177,10 +177,10 @@ describe('OptionService test', () => {
   it('#get should work (default values)', () => {
     const result: Options = Sheetbase.Option.get();
 
-    expect(result.allowMethodsWhenDoGet).to.equal(false);
-    expect(result.views).to.equal('');
-    expect(result.disabledRoutes).to.eql([]);
-    expect(result.routingErrors).to.eql({});
+    expect(result.allowMethodsWhenDoGet).equal(false);
+    expect(result.views).equal('');
+    expect(result.disabledRoutes).eql([]);
+    expect(result.routingErrors).eql({});
   });
 
   it('#get should work', () => {
@@ -190,33 +190,33 @@ describe('OptionService test', () => {
     });
     const result: Options = Sheetbase.Option.get();
 
-    expect(result.allowMethodsWhenDoGet).to.equal(true);
-    expect(result.views).to.equal('public');
+    expect(result.allowMethodsWhenDoGet).equal(true);
+    expect(result.views).equal('public');
   });
 
   it('#set should work', () => {
     const result1 = Sheetbase.Option.set('views', 'abc');
-    expect(result1.views).to.equal('abc');
-    expect(Sheetbase.Option.get('views')).to.equal('abc');
+    expect(result1.views).equal('abc');
+    expect(Sheetbase.Option.get('views')).equal('abc');
 
     const result2 = Sheetbase.Option.set({ views: 'xxx' });
-    expect(result2.views).to.equal('xxx');
-    expect(Sheetbase.Option.get()).to.have.property('views').equal('xxx');
+    expect(result2.views).equal('xxx');
+    expect(Sheetbase.Option.get()).have.property('views').equal('xxx');
   });
 
   it('#get/set allowMethodsWhenDoGet should work', () => {
     Sheetbase.Option.setAllowMethodsWhenDoGet(true);
-    expect(Sheetbase.Option.getAllowMethodsWhenDoGet()).to.equal(true);
+    expect(Sheetbase.Option.getAllowMethodsWhenDoGet()).equal(true);
   });
 
   it('#get/set views should work', () => {
     Sheetbase.Option.setViews('my_views');
-    expect(Sheetbase.Option.getViews()).to.equal('my_views');
+    expect(Sheetbase.Option.getViews()).equal('my_views');
   });
 
   it('#get/set disabledRoutes should work', () => {
     Sheetbase.Option.setDisabledRoutes(['get:/']);
-    expect(Sheetbase.Option.getDisabledRoutes()).to.eql(['get:/']);
+    expect(Sheetbase.Option.getDisabledRoutes()).eql(['get:/']);
   });
 
   it('#get/set routingErrors should work', () => {
@@ -225,7 +225,7 @@ describe('OptionService test', () => {
       error2: { status: 400, message: 'Error 2' },
     };
     Sheetbase.Option.setRoutingErrors(errors);
-    expect(Sheetbase.Option.getRoutingErrors()).to.eql(errors);
+    expect(Sheetbase.Option.getRoutingErrors()).eql(errors);
   });
 
 });
@@ -240,22 +240,22 @@ describe('RequestService test', () => {
   it('#query should work (blank)', () => {
     const result1 = Sheetbase.Request.query();
     const result2 = Sheetbase.Request.query({});
-    expect(result1).to.eql({});
-    expect(result2).to.eql({});
+    expect(result1).eql({});
+    expect(result2).eql({});
   });
 
   it('#params should work (blank)', () => {
     const result1 = Sheetbase.Request.params();
     const result2 = Sheetbase.Request.params({});
-    expect(result1).to.eql({});
-    expect(result2).to.eql({});
+    expect(result1).eql({});
+    expect(result2).eql({});
   });
 
   it('#body should work (blank)', () => {
     const result1 = Sheetbase.Request.body();
     const result2 = Sheetbase.Request.body({});
-    expect(result1).to.eql({});
-    expect(result2).to.eql({});
+    expect(result1).eql({});
+    expect(result2).eql({});
   });
 
   it('#query should work', () => {
@@ -264,7 +264,7 @@ describe('RequestService test', () => {
         e: '/home',
       },
     });
-    expect(result).to.eql({ e: '/home' });
+    expect(result).eql({ e: '/home' });
   });
 
   it('#params should work', () => {
@@ -273,7 +273,7 @@ describe('RequestService test', () => {
         e: '/home',
       },
     });
-    expect(result).to.eql({ e: '/home' });
+    expect(result).eql({ e: '/home' });
   });
 
   it('#body should work (no contents, malform)', () => {
@@ -290,9 +290,9 @@ describe('RequestService test', () => {
         contents: { a: 1, b: 2 },
       },
     });
-    expect(result1).to.eql({});
-    expect(result2).to.eql({});
-    expect(result3).to.eql({});
+    expect(result1).eql({});
+    expect(result2).eql({});
+    expect(result3).eql({});
   });
 
   it('#body should work', () => {
@@ -301,7 +301,7 @@ describe('RequestService test', () => {
         contents: '{"a":1,"b":2}',
       },
     });
-    expect(result).to.eql({
+    expect(result).eql({
       a: 1, b: 2,
     });
   });
@@ -323,25 +323,25 @@ describe('ResponseService test', () => {
     Sheetbase.Response.setErrors(errors);
 
     const result: Options = Sheetbase.Option.get();
-    expect(result.routingErrors).to.eql(errors);
+    expect(result.routingErrors).eql(errors);
   });
 
   it('#html should work', () => {
     const result = Sheetbase.Response.html('a html');
-    expect(result).to.equal('a html output');
+    expect(result).equal('a html output');
   });
 
   it('#json should work', () => {
     const result: any = Sheetbase.Response.json({ a: 1 });
-    expect(result).to.have.property('value').equal('{"a":1}');
+    expect(result).have.property('value').equal('{"a":1}');
   });
 
   it('#send should work', () => {
     const result1 = Sheetbase.Response.send('a html');
     const result2: any = Sheetbase.Response.send({ a: 1 });
 
-    expect(result1).to.equal('a html output');
-    expect(result2).to.have.property('value').equal('{"a":1}');
+    expect(result1).equal('a html output');
+    expect(result2).have.property('value').equal('{"a":1}');
   });
 
   it('#render should work (from string, different)', () => {
@@ -351,10 +351,10 @@ describe('ResponseService test', () => {
     const result3 = Sheetbase.Response.render(tmpl, {}, 'ejs'); // ejs
     const result4 = Sheetbase.Response.render(tmpl, {}, 'hbs'); // handlebars
 
-    expect(result1).to.equal('a template text output');
-    expect(result2).to.equal('a template text as html rendered by GS output');
-    expect(result3).to.equal('a template text as html rendered by ejs output');
-    expect(result4).to.equal('a template text as html rendered by handlebars output');
+    expect(result1).equal('a template text output');
+    expect(result2).equal('a template text as html rendered by GS output');
+    expect(result3).equal('a template text as html rendered by ejs output');
+    expect(result4).equal('a template text as html rendered by handlebars output');
   });
 
   it('#render should work (from file)', () => {
@@ -364,18 +364,18 @@ describe('ResponseService test', () => {
     const result4 = Sheetbase.Response.render('index.hbs');
     const result5 = Sheetbase.Response.render('index.html', {}, 'hbs'); // override file ext
 
-    expect(result1).to.equal('File \'index\' content output');
-    expect(result2).to.equal('File \'index.gs\' content as html rendered by GS output');
-    expect(result3).to.equal('File \'index.ejs\' content as html rendered by ejs output');
-    expect(result4).to.equal('File \'index.hbs\' content as html rendered by handlebars output');
-    expect(result5).to.equal('File \'index.html\' content as html rendered by handlebars output');
+    expect(result1).equal('File \'index\' content output');
+    expect(result2).equal('File \'index.gs\' content as html rendered by GS output');
+    expect(result3).equal('File \'index.ejs\' content as html rendered by ejs output');
+    expect(result4).equal('File \'index.hbs\' content as html rendered by handlebars output');
+    expect(result5).equal('File \'index.html\' content as html rendered by handlebars output');
   });
 
   it('#success should show error (no data)', () => {
     const result: any = Sheetbase.Response.success(null);
     const parsedResult = JSON.parse(result.value);
 
-    expect(parsedResult).to.have.property('error').equal(true);
+    expect(parsedResult).have.property('error').equal(true);
   });
   it('#success should work', () => {
     const result1: any = Sheetbase.Response.success(1); // a scalar value
@@ -383,15 +383,15 @@ describe('ResponseService test', () => {
     const parsedResult1 = JSON.parse(result1.value);
     const parsedResult2 = JSON.parse(result2.value);
 
-    expect(parsedResult1).to.have.property('success').equal(true);
-    expect(parsedResult1).to.have.property('status').equal(200);
-    expect(parsedResult1).to.have.property('data').eql({ value: 1 });
-    expect(isNaN(parsedResult1.meta.at)).to.equal(false);
+    expect(parsedResult1).have.property('success').equal(true);
+    expect(parsedResult1).have.property('status').equal(200);
+    expect(parsedResult1).have.property('data').eql({ value: 1 });
+    expect(isNaN(parsedResult1.meta.timestamp)).equal(false);
 
-    expect(parsedResult2).to.have.property('success').equal(true);
-    expect(parsedResult2).to.have.property('status').equal(200);
-    expect(parsedResult2).to.have.property('data').eql({ a: 1 });
-    expect(isNaN(parsedResult2.meta.at)).to.equal(false);
+    expect(parsedResult2).have.property('success').equal(true);
+    expect(parsedResult2).have.property('status').equal(200);
+    expect(parsedResult2).have.property('data').eql({ a: 1 });
+    expect(isNaN(parsedResult2.meta.timestamp)).equal(false);
   });
   it('#success should work (custom meta)', () => {
     const result1: any = Sheetbase.Response.success('data', 'a meta');
@@ -399,8 +399,8 @@ describe('ResponseService test', () => {
     const parsedResult1 = JSON.parse(result1.value);
     const parsedResult2 = JSON.parse(result2.value);
 
-    expect(parsedResult1.meta).to.have.property('value').equal('a meta');
-    expect(parsedResult2.meta).to.have.property('a').equal(1);
+    expect(parsedResult1.meta).have.property('value').equal('a meta');
+    expect(parsedResult2.meta).have.property('a').equal(1);
   });
 
   it('#error should work', () => {
@@ -413,17 +413,17 @@ describe('ResponseService test', () => {
     const parsedResult1 = JSON.parse(result1.value);
     const parsedResult2 = JSON.parse(result2.value);
 
-    expect(parsedResult1).to.have.property('error').equal(true);
-    expect(parsedResult1).to.have.property('status').equal(500);
-    expect(parsedResult1).to.have.property('code').equal('app/internal');
-    expect(parsedResult1).to.have.property('message').equal('Unknown error.');
-    expect(isNaN(parsedResult1.meta.at)).to.equal(false);
+    expect(parsedResult1).have.property('error').equal(true);
+    expect(parsedResult1).have.property('status').equal(500);
+    expect(parsedResult1).have.property('code').equal('app/internal');
+    expect(parsedResult1).have.property('message').equal('Unknown error.');
+    expect(isNaN(parsedResult1.meta.timestamp)).equal(false);
 
-    expect(parsedResult2).to.have.property('error').equal(true);
-    expect(parsedResult2).to.have.property('status').equal(400);
-    expect(parsedResult2).to.have.property('code').equal('error/an-error');
-    expect(parsedResult2).to.have.property('message').equal('An error.');
-    expect(isNaN(parsedResult2.meta.at)).to.equal(false);
+    expect(parsedResult2).have.property('error').equal(true);
+    expect(parsedResult2).have.property('status').equal(400);
+    expect(parsedResult2).have.property('code').equal('error/an-error');
+    expect(parsedResult2).have.property('message').equal('An error.');
+    expect(isNaN(parsedResult2.meta.timestamp)).equal(false);
   });
 
   it('#error should work (custom meta)', () => {
@@ -432,8 +432,8 @@ describe('ResponseService test', () => {
     const parsedResult1 = JSON.parse(result1.value);
     const parsedResult2 = JSON.parse(result2.value);
 
-    expect(parsedResult1.meta).to.have.property('value').equal('a meta');
-    expect(parsedResult2.meta).to.have.property('a').equal(1);
+    expect(parsedResult1.meta).have.property('value').equal('a meta');
+    expect(parsedResult2.meta).have.property('a').equal(1);
   });
 
   it('#error should work (passing a string)', () => {
@@ -455,30 +455,30 @@ describe('ResponseService test', () => {
     const parsedResult4 = JSON.parse(result4.value);
     const parsedResult5 = JSON.parse(result5.value);
 
-    expect(parsedResult1).to.have.property('error').equal(true);
-    expect(parsedResult1).to.have.property('status').equal(500);
-    expect(parsedResult1).to.have.property('code').equal('app/internal');
-    expect(parsedResult1).to.have.property('message').equal('Unknown error.');
+    expect(parsedResult1).have.property('error').equal(true);
+    expect(parsedResult1).have.property('status').equal(500);
+    expect(parsedResult1).have.property('code').equal('app/internal');
+    expect(parsedResult1).have.property('message').equal('Unknown error.');
 
-    expect(parsedResult2).to.have.property('error').equal(true);
-    expect(parsedResult2).to.have.property('status').equal(400);
-    expect(parsedResult2).to.have.property('code').equal('app/internal');
-    expect(parsedResult2).to.have.property('message').equal('xxx');
+    expect(parsedResult2).have.property('error').equal(true);
+    expect(parsedResult2).have.property('status').equal(400);
+    expect(parsedResult2).have.property('code').equal('app/internal');
+    expect(parsedResult2).have.property('message').equal('xxx');
 
-    expect(parsedResult3).to.have.property('error').equal(true);
-    expect(parsedResult3).to.have.property('status').equal(400);
-    expect(parsedResult3).to.have.property('code').equal('error1');
-    expect(parsedResult3).to.have.property('message').equal('Error 1');
+    expect(parsedResult3).have.property('error').equal(true);
+    expect(parsedResult3).have.property('status').equal(400);
+    expect(parsedResult3).have.property('code').equal('error1');
+    expect(parsedResult3).have.property('message').equal('Error 1');
 
-    expect(parsedResult4).to.have.property('error').equal(true);
-    expect(parsedResult4).to.have.property('status').equal(400);
-    expect(parsedResult4).to.have.property('code').equal('error2');
-    expect(parsedResult4).to.have.property('message').equal('Error 2');
+    expect(parsedResult4).have.property('error').equal(true);
+    expect(parsedResult4).have.property('status').equal(400);
+    expect(parsedResult4).have.property('code').equal('error2');
+    expect(parsedResult4).have.property('message').equal('Error 2');
 
-    expect(parsedResult5).to.have.property('error').equal(true);
-    expect(parsedResult5).to.have.property('status').equal(500);
-    expect(parsedResult5).to.have.property('code').equal('error3');
-    expect(parsedResult5).to.have.property('message').equal('Error 3');
+    expect(parsedResult5).have.property('error').equal(true);
+    expect(parsedResult5).have.property('status').equal(500);
+    expect(parsedResult5).have.property('code').equal('error3');
+    expect(parsedResult5).have.property('message').equal('Error 3');
   });
 
 });
@@ -498,7 +498,7 @@ describe('RouterService test', () => {
     Sheetbase.Router.setErrors(errors);
 
     const result: Options = Sheetbase.Option.get();
-    expect(result.routingErrors).to.eql(errors);
+    expect(result.routingErrors).eql(errors);
   });
 
   it('#setDisabled should work', () => {
@@ -506,7 +506,7 @@ describe('RouterService test', () => {
     Sheetbase.Router.setDisabled(disabledRoutes);
 
     const result: Options = Sheetbase.Option.get();
-    expect(result.disabledRoutes).to.eql(disabledRoutes);
+    expect(result.disabledRoutes).eql(disabledRoutes);
 
     // reset
     Sheetbase.Router.setDisabled([]);
@@ -514,17 +514,17 @@ describe('RouterService test', () => {
 
   it('404 handler', () => {
     const [route] = Sheetbase.Router.route('GET', '/');
-    expect(route instanceof Function).to.equal(true);
+    expect(route instanceof Function).equal(true);
 
     // use 404 html text (no 404.html or can not be rendered)
     res.render = (): any => { throw null; }; // throw an error
     const result1 = route(req, res);
-    expect(result1).to.contain('<h1>404!</h1>');
+    expect(result1).contain('<h1>404!</h1>');
 
     // render errors/404.html
     res.render = (file): any => file; // restore
     const result2 = route(req, res);
-    expect(result2).to.equal('errors/404');
+    expect(result2).equal('errors/404');
   });
 
   it('#get should work', () => {
@@ -533,8 +533,8 @@ describe('RouterService test', () => {
     const [route] = Sheetbase.Router.route(method, '/'); // get the route
     const result = route(req, res);
 
-    expect(route instanceof Function).to.equal(true);
-    expect(result).to.equal(method + ' / result');
+    expect(route instanceof Function).equal(true);
+    expect(result).equal(method + ' / result');
   });
 
   it('#get should work (with middlewares)', () => {
@@ -549,9 +549,9 @@ describe('RouterService test', () => {
     const middleware2Result = middleware2(req, res, () => 'next >' as any);
     const routeResult = route(req, res);
 
-    expect(middleware1Result).to.equal(true);
-    expect(middleware2Result).to.equal('next >');
-    expect(routeResult).to.equal(method + ' / result');
+    expect(middleware1Result).equal(true);
+    expect(middleware2Result).equal('next >');
+    expect(routeResult).equal(method + ' / result');
   });
 
   it('#post should work', () => {
@@ -560,8 +560,8 @@ describe('RouterService test', () => {
     const [route] = Sheetbase.Router.route(method, '/'); // get the route
     const result = route(req, res);
 
-    expect(route instanceof Function).to.equal(true);
-    expect(result).to.equal(method + ' / result');
+    expect(route instanceof Function).equal(true);
+    expect(result).equal(method + ' / result');
   });
 
   it('#put should work', () => {
@@ -570,8 +570,8 @@ describe('RouterService test', () => {
     const [route] = Sheetbase.Router.route(method, '/'); // get the route
     const result = route(req, res);
 
-    expect(route instanceof Function).to.equal(true);
-    expect(result).to.equal(method + ' / result');
+    expect(route instanceof Function).equal(true);
+    expect(result).equal(method + ' / result');
   });
 
   it('#patch should work', () => {
@@ -580,8 +580,8 @@ describe('RouterService test', () => {
     const [route] = Sheetbase.Router.route(method, '/'); // get the route
     const result = route(req, res);
 
-    expect(route instanceof Function).to.equal(true);
-    expect(result).to.equal(method + ' / result');
+    expect(route instanceof Function).equal(true);
+    expect(result).equal(method + ' / result');
   });
 
   it('#delete should work', () => {
@@ -590,8 +590,8 @@ describe('RouterService test', () => {
     const [route] = Sheetbase.Router.route(method, '/'); // get the route
     const result = route(req, res);
 
-    expect(route instanceof Function).to.equal(true);
-    expect(result).to.equal(method + ' / result');
+    expect(route instanceof Function).equal(true);
+    expect(result).equal(method + ' / result');
   });
 
   it('#all should work', () => {
@@ -602,11 +602,11 @@ describe('RouterService test', () => {
     const [routePATCH] = Sheetbase.Router.route('PATCH', '/');
     const [routeDELETE] = Sheetbase.Router.route('DELETE', '/');
 
-    expect(routeGET instanceof Function).to.equal(true);
-    expect(routePOST instanceof Function).to.equal(true);
-    expect(routePUT instanceof Function).to.equal(true);
-    expect(routePATCH instanceof Function).to.equal(true);
-    expect(routeDELETE instanceof Function).to.equal(true);
+    expect(routeGET instanceof Function).equal(true);
+    expect(routePOST instanceof Function).equal(true);
+    expect(routePUT instanceof Function).equal(true);
+    expect(routePATCH instanceof Function).equal(true);
+    expect(routeDELETE instanceof Function).equal(true);
   });
 
   it('#use should work', () => {
@@ -618,16 +618,16 @@ describe('RouterService test', () => {
     const result1 = Sheetbase.Router.route('GET', '/');
     const middlewareResult1 = result1[0](req, res, next as any); // the first middleware
 
-    expect(result1.length).to.equal(2);
-    expect(middlewareResult1).to.equal('next >');
+    expect(result1.length).equal(2);
+    expect(middlewareResult1).equal('next >');
 
     // use 3 more middlewares
     Sheetbase.Router.use(hdlr, hdlr, hdlr);
     const result2 = Sheetbase.Router.route('GET', '/');
     const middlewareResult2 = result2[3](req, res, next as any); // the last middleware
 
-    expect(result2.length).to.equal(5);
-    expect(middlewareResult2).to.equal('next >');
+    expect(result2.length).equal(5);
+    expect(middlewareResult2).equal('next >');
   });
 
   it('#use should work (for a specific route)', () => {
@@ -637,9 +637,9 @@ describe('RouterService test', () => {
     const middlewareResult1 = result1[0](req, res, next as any);
     const result2 = Sheetbase.Router.route('GET', '/');
 
-    expect(result1.length).to.equal(2);
-    expect(middlewareResult1).to.equal(true);
-    expect(result2.length).to.equal(1); // not for this route
+    expect(result1.length).equal(2);
+    expect(middlewareResult1).equal(true);
+    expect(result2.length).equal(1); // not for this route
   });
 
   it('disabled routes should work', () => {
@@ -647,7 +647,7 @@ describe('RouterService test', () => {
     Sheetbase.Router.get('/', (req, res) => res.send('a result'));
     const [route] = Sheetbase.Router.route('GET', '/');
     const result1 = route(req, res);
-    expect(result1).to.equal('errors/404');
+    expect(result1).equal('errors/404');
   });
 
 });
