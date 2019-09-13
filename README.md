@@ -4,7 +4,7 @@ Sheetbase core module for backend app.
 
 <!-- <block:header> -->
 
-[![Build Status](https://travis-ci.com/sheetbase/server.svg?branch=master)](https://travis-ci.com/sheetbase/server) [![Coverage Status](https://coveralls.io/repos/github/sheetbase/server/badge.svg?branch=master)](https://coveralls.io/github/sheetbase/server?branch=master) [![NPM](https://img.shields.io/npm/v/@sheetbase/server.svg)](https://www.npmjs.com/package/@sheetbase/server) [![License][license_badge]][license_url] [![clasp][clasp_badge]][clasp_url] [![Support me on Patreon][patreon_badge]][patreon_url] [![PayPal][paypal_donate_badge]][paypal_donate_url] [![Ask me anything][ask_me_badge]][ask_me_url]
+[![Build Status](https://travis-ci.com/sheetbase/serverv1.svg?branch=master)](https://travis-ci.com/sheetbase/serverv1) [![Coverage Status](https://coveralls.io/repos/github/sheetbase/serverv1/badge.svg?branch=master)](https://coveralls.io/github/sheetbase/serverv1?branch=master) [![NPM](https://img.shields.io/npm/v/@sheetbase/server.svg)](https://www.npmjs.com/package/@sheetbase/server) [![License][license_badge]][license_url] [![clasp][clasp_badge]][clasp_url] [![Support me on Patreon][patreon_badge]][patreon_url] [![PayPal][paypal_donate_badge]][paypal_donate_url] [![Ask me anything][ask_me_badge]][ask_me_url]
 
 <!-- </block:header> -->
 
@@ -82,7 +82,7 @@ List of disabled routes, format: `method:endpoint`. Examples: `[ 'GET:/', 'POST:
 
 ### routingErrors
 
-- Type: [RoutingErrors](https://github.com/sheetbase/server/blob/d15caa7d464e98057e94ca810d22d88881214310/src/lib/types.ts#L67)
+- Type: [RoutingErrors](https://github.com/sheetbase/serverv1/blob/d15caa7d464e98057e94ca810d22d88881214310/src/lib/types.ts#L67)
 - Default: `{}`
 
 List of routing errors, by codes, when do `res.error(code)`, the router will show the coresponding error to the client.
@@ -140,8 +140,8 @@ router.get("/", (req, res) => {
 - `html`: return html page.
 - `json`: return json data.
 - `render`: render html template, supports native GAS template, [Handlebars](https://handlebarsjs.com/) and [Ejs](https://ejs.co/).
-- `success`: return json data in form of a [ResponseSuccess](https://github.com/sheetbase/server/blob/e6e1235f6b30635860bf3b3945b7fc09f715611b/src/lib/types.ts#L43).
-- `error`: return json data in form of a [ResponseError](https://github.com/sheetbase/server/blob/e6e1235f6b30635860bf3b3945b7fc09f715611b/src/lib/types.ts#L32).
+- `success`: return json data in form of a [ResponseSuccess](https://github.com/sheetbase/serverv1/blob/e6e1235f6b30635860bf3b3945b7fc09f715611b/src/lib/types.ts#L43).
+- `error`: return json data in form of a [ResponseError](https://github.com/sheetbase/serverv1/blob/e6e1235f6b30635860bf3b3945b7fc09f715611b/src/lib/types.ts#L32).
 
 ### Routing errors
 
@@ -202,12 +202,12 @@ Add the vendor js to your app, before main app code. With app-scripts, the build
 
 ## License
 
-**@sheetbase/server** is released under the [MIT](https://github.com/sheetbase/server/blob/master/LICENSE) license.
+**@sheetbase/server** is released under the [MIT](https://github.com/sheetbase/serverv1/blob/master/LICENSE) license.
 
 <!-- <block:footer> -->
 
 [license_badge]: https://img.shields.io/github/license/mashape/apistatus.svg
-[license_url]: https://github.com/sheetbase/server/blob/master/LICENSE
+[license_url]: https://github.com/sheetbase/serverv1/blob/master/LICENSE
 [clasp_badge]: https://img.shields.io/badge/built%20with-clasp-4285f4.svg
 [clasp_url]: https://github.com/google/clasp
 [patreon_badge]: https://lamnhan.github.io/assets/images/badges/patreon.svg

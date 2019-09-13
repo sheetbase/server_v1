@@ -7,6 +7,6 @@
 	"skipLibCheck": true
   },
   "files": [
-    "./src/public_api.ts"
+    "src/public-api.ts"
   ]
 }

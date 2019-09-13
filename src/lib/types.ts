@@ -8,6 +8,13 @@ export interface Options {
   routingErrors?: RoutingErrors;
 }
 
+export interface AddonRoutesOptions {
+  router: RouterService;
+  disabledRoutes?: string[];
+  endpoint?: string;
+  middlewares?: RouteHandler[];
+}
+
 export interface HttpEvent {
   parameter?: any;
   postData?: any;
@@ -69,29 +76,3 @@ export interface RoutingErrors {
 }
 
 export type LoggingLevel = 'DEBUG' | 'INFO' | 'WARNING' | 'ERROR';
-
-export interface AddonRoutesOptions {
-  router: RouterService;
-  disabledRoutes?: string[];
-  endpoint?: string;
-  middlewares?: RouteHandler[];
-}
-
-export interface AuthIntergration {
-  AuthToken?: AuthToken;
-}
-
-export interface AuthToken {
-  decodeIdToken: (token: string) => AuthData;
-}
-
-export interface AuthData {
-  uid: string;
-  sub: string; // email
-  tty: 'ID';
-  iss: 'https://sheetbase.app';
-  aud: 'https://sheetbase.app';
-  iat: number;
-  exp: number;
-  [claim: string]: any;
-}
