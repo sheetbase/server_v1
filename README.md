@@ -1,3 +1,7 @@
+# ⛔️ DEPRECATED
+
+We are updating version 3 of the module: https://github.com/sheetbase/server!
+
 # Sheetbase Module: @sheetbase/server
 
 Sheetbase core module for backend app.
